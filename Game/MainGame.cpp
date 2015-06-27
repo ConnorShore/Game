@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <SDL\SDL.h>
 #include <fstream>
+#include <iostream>
 
 using namespace std;
 
@@ -23,12 +24,26 @@ void MainGame::initSystems()
 	glGenVertexArrays(1, &_vaoID);
 	glBindVertexArray(_vaoID);
 
-	bool res = Loader::loadOBJ("Models/monkey.obj", vertices, normals, uvs);
-	if (res == false) fatalError("FAiled to load model");
+	bool res = Loader::loadOBJ("Models/monkey.obj", vertices);
+	if (res == false) fatalError("Failed to load model");
+
+	std::vector<glm::vec3> verts, norms;
+	std::vector<glm::vec2> uvs;
+	
+	for (int i = 0; i < vertices.size(); i++) {
+		verts.push_back(vertices[i].getVertPos());
+		norms.push_back(vertices[i].getVertNorm());
+		uvs.push_back(vertices[i].getVertUV());
+	}
 
 	glGenBuffers(1, &_vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(glm::vec3), &verts[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &_normalBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
+	glBufferData(GL_ARRAY_BUFFER, norms.size() * sizeof(glm::vec3), &norms[0], GL_STATIC_DRAW);
+
 
 	glGenBuffers(1, &_uvBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, _uvBuffer);
@@ -81,6 +96,7 @@ void MainGame::render()
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 
 	GLuint pLocation = glGetUniformLocation(_programID, "P");
 	//glm::mat4 camMatrix = _camera.getMatrix();
@@ -92,8 +108,11 @@ void MainGame::render()
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
+	glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
 	glBindBuffer(GL_ARRAY_BUFFER, _uvBuffer);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _iboID);
 	//int size;  glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
@@ -103,6 +122,7 @@ void MainGame::render()
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 

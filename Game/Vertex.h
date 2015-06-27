@@ -4,7 +4,8 @@
 
 struct Vertex
 {
-	Vertex();
+	Vertex(glm::vec3 verts, glm::vec3 norms, glm::vec2 uvs) : vertPos(verts), vertNorm(norms), vertUV(uvs) {}
+	Vertex() {}
 
 	glm::vec3 vertPos;
 	glm::vec3 vertNorm;

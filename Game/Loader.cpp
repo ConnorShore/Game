@@ -2,6 +2,7 @@
 #include "Error.h"
 #include "PicoPNG.h"
 
+#include <iostream>
 #include <fstream>
 #include <sstream>
 
@@ -128,7 +129,7 @@ GLTexture Loader::loadPNG(std::string filePath)
 }
 
 //TODO: Make loadObJ return an asset or something
-bool Loader::loadOBJ(const char* filePath, std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& uvs)
+bool Loader::loadOBJ(const char* filePath, std::vector<Vertex>& vertices)
 {
 	printf("Loading OBJ file %s...\n", filePath);
 
@@ -145,7 +146,7 @@ bool Loader::loadOBJ(const char* filePath, std::vector<glm::vec3>& vertices, std
 		return false;
 	}
 
-	while (1){
+	while (true){
 
 		char lineHeader[128];
 		// read the first word of the line
@@ -197,8 +198,8 @@ bool Loader::loadOBJ(const char* filePath, std::vector<glm::vec3>& vertices, std
 
 	}
 	
-	//std::vector<glm::vec3> verts, norms;
-	//std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> verts, norms;
+	std::vector<glm::vec2> uvs;
 
 	// For each vertex of each triangle
 	for (unsigned int i = 0; i<vertexIndices.size(); i++){
@@ -214,17 +215,18 @@ bool Loader::loadOBJ(const char* filePath, std::vector<glm::vec3>& vertices, std
 		glm::vec3 normal = temp_normals[normalIndex - 1];
 
 		// Put the attributes in buffers
-		vertices.push_back(vertex);
+		verts.push_back(vertex);
 		uvs.push_back(uv);
-		normals.push_back(normal);
-
+		norms.push_back(normal);
 	}
 
-	//for (int i = 0; i < verts.size(); i++) {
-	//	vertices[i].setVertPos(verts[i]);
-	//	vertices[i].setVertNorm(norms[i]);
-	//	vertices[i].setVertUV(uvs[i]);
-	//}
+	for (int i = 0; i < verts.size(); i++) {
+
+		vertices.emplace_back(verts[i], norms[i], uvs[i]);
+		//vertices[i].setVertPos(verts[i]);
+		//vertices[i].setVertNorm(norms[i]);
+		//vertices[i].setVertUV(uvs[i]);
+	}
 
 	return true;
 }

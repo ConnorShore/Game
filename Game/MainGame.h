@@ -25,12 +25,12 @@ private:
 	GLuint _vaoID, _vertexBuffer, _normalBuffer, _uvBuffer, _iboID;
 	Camera _camera;
 
-	//std::vector<Vertex> vertices;
+	std::vector<Vertex> vertices;
 
 	glm::mat4 camMatrix;
 
-	std::vector<glm::vec3> vertices, normals;
-	std::vector<glm::vec2> uvs;
+	//std::vector<glm::vec3> vertices, normals;
+	//std::vector<glm::vec2> uvs;
 
 	GLuint _programID;
 	GLTexture _texture;
