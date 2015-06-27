@@ -6,6 +6,7 @@
 #include "Vertex.h"
 #include "GLTexture.h"
 #include "Loader.h"
+#include "Asset.h"
 
 #include <glm/glm.hpp>
 
@@ -31,9 +32,9 @@ private:
 
 	//std::vector<glm::vec3> vertices, normals;
 	//std::vector<glm::vec2> uvs;
+	Asset _player;
 
 	GLuint _programID;
-	GLTexture _texture;
 	int _screenWidth, _screenHeight;
 
 	void initSystems();
@@ -41,6 +42,7 @@ private:
 	void input();
 	void update();
 	void render();
+	void bindUniforms();
 	void gameLoop();
 	void cleanUp();
 };

@@ -10,13 +10,12 @@
 class Asset
 {
 public:
-	Asset(Model model, glm::vec3 position, float scale);
+	Asset();
 	~Asset();
 
-	void createVAO();
-
-	void init();
+	void init(const std::string& modelFile, const std::string& textureFile, glm::vec3 position, float scale);
 	void render();
+	void bind();
 	void unbind();
 
 	//virtual void init(glm::vec3 position, glm::vec3 scale) = 0;
@@ -24,12 +23,15 @@ public:
 	//virtual void render() = 0;
 	//virtual void cleanUp() = 0;
 
+	Model getModel() { return model_; }
+	GLTexture getTexture() const { return model_.getTexture(); }
+
 protected:
 	float scale_;
 	glm::vec3 position_;
 	Model model_;
 
 private:
-	GLuint _vaoID;
+	GLuint _vaoID, _vertexBuffer, _normalBuffer, _uvBuffer;
 };
 

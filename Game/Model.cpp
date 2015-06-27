@@ -2,15 +2,24 @@
 #include "Error.h"
 
 
-Model::Model(const std::string& modelName, const std::string& modelFile) : name(modelName)
+Model::Model()
 {
-	//int errorCode = Loader::loadOBJ(modelFile.c_str(), vertices);
 
-	//if (errorCode  == false) {
-	//	fatalError("Failed to load model: " + name);
-	//}
 }
 
+bool Model::load(const std::string& modelFile, const std::string& textureFile)
+{
+	int errorCode = Loader::loadOBJ(modelFile.c_str(), _vertices);
+
+	if (errorCode  == false) {
+		fatalError("Failed to load model: " + modelFile);
+		return false;
+	}
+
+	_texture = Loader::loadPNG(textureFile);
+
+	return true;
+}
 
 Model::~Model()
 {

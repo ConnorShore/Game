@@ -21,33 +21,7 @@ void MainGame::initSystems()
 
 	_window.createWindow("Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
-	glGenVertexArrays(1, &_vaoID);
-	glBindVertexArray(_vaoID);
-
-	bool res = Loader::loadOBJ("Models/monkey.obj", vertices);
-	if (res == false) fatalError("Failed to load model");
-
-	std::vector<glm::vec3> verts, norms;
-	std::vector<glm::vec2> uvs;
-	
-	for (int i = 0; i < vertices.size(); i++) {
-		verts.push_back(vertices[i].getVertPos());
-		norms.push_back(vertices[i].getVertNorm());
-		uvs.push_back(vertices[i].getVertUV());
-	}
-
-	glGenBuffers(1, &_vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(glm::vec3), &verts[0], GL_STATIC_DRAW);
-
-	glGenBuffers(1, &_normalBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
-	glBufferData(GL_ARRAY_BUFFER, norms.size() * sizeof(glm::vec3), &norms[0], GL_STATIC_DRAW);
-
-
-	glGenBuffers(1, &_uvBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, _uvBuffer);
-	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+	_player.init("Models/monkey.obj", "Textures/default.png", glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
 
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, -4.0));
@@ -80,6 +54,16 @@ void MainGame::input()
 	}
 }
 
+void MainGame::bindUniforms()
+{
+	GLuint pLocation = glGetUniformLocation(_programID, "P");
+	//glm::mat4 camMatrix = _camera.getMatrix();
+	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(camMatrix[0][0]));
+
+	GLuint texLoc = glGetUniformLocation(_programID, "testTex");
+	glUniform1i(texLoc, 0);
+}
+
 void MainGame::update()
 {
 	//_camera.update();
@@ -92,37 +76,15 @@ void MainGame::render()
 	glUseProgram(_programID);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, _texture.id);
+	glBindTexture(GL_TEXTURE_2D, _player.getTexture().id);
 
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
+	_player.bind();
 
-	GLuint pLocation = glGetUniformLocation(_programID, "P");
-	//glm::mat4 camMatrix = _camera.getMatrix();
-	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(camMatrix[0][0]));
+	bindUniforms();
 
-	GLuint texLoc = glGetUniformLocation(_programID, "testTex");
-	glUniform1i(texLoc, 0);
+	_player.render();
 
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, _uvBuffer);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _iboID);
-	//int size;  glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-	//glDrawElements(GL_TRIANGLES, sizeof(GLuint), GL_UNSIGNED_SHORT, 0);
-
-	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
-
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
+	_player.unbind();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -146,7 +108,6 @@ void MainGame::cleanUp()
 	glDeleteBuffers(1, &_vertexBuffer);
 	glDeleteBuffers(1, &_uvBuffer);
 	glDeleteProgram(_programID);
-	glDeleteTextures(1, &_texture.id);
 	glDeleteVertexArrays(1, &_vaoID);
 
 	SDL_Quit();
@@ -157,7 +118,6 @@ void MainGame::run()
 {
 	initSystems();
 	initShaders();
-	_texture = Loader::loadPNG("Textures/default.png");
 	gameLoop();
 }
 

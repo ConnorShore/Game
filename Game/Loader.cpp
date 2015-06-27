@@ -214,18 +214,7 @@ bool Loader::loadOBJ(const char* filePath, std::vector<Vertex>& vertices)
 		glm::vec2 uv = temp_uvs[uvIndex - 1];
 		glm::vec3 normal = temp_normals[normalIndex - 1];
 
-		// Put the attributes in buffers
-		verts.push_back(vertex);
-		uvs.push_back(uv);
-		norms.push_back(normal);
-	}
-
-	for (int i = 0; i < verts.size(); i++) {
-
-		vertices.emplace_back(verts[i], norms[i], uvs[i]);
-		//vertices[i].setVertPos(verts[i]);
-		//vertices[i].setVertNorm(norms[i]);
-		//vertices[i].setVertUV(uvs[i]);
+		vertices.emplace_back(vertex, normal, uv);
 	}
 
 	return true;
