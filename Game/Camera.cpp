@@ -2,35 +2,24 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-
-Camera::Camera(glm::vec3 position) : _position(position), _scale(1.0f), 
-	_cameraMatrix(1.0f), _needsUpdate(true)
+Camera::Camera() : _needsUpdate(true)
 {
 }
 
-Camera::Camera() : _position(glm::vec3(0.0f,0.0f,0.0f)), _scale(1.0f), 
-	_cameraMatrix(1.0f), _needsUpdate(true)
+void Camera::init(glm::vec3 position, int screenWidth, int screenHeight, float fieldOfView, float cameraSpeed)
 {
-}
-
-void Camera::init(int screenWidth, int screenHeight)
-{
+	_position = position;
 	_screenWidth = screenWidth;
 	_screenHeight = screenHeight;
 }
 
 glm::mat4 Camera::getMatrix()
 {
-	glm::vec3 translate = glm::vec3(-_position.x + _screenWidth / 2, -_position.y + _screenHeight / 2, _position.z);
-	glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), translate);
+	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, -4.0));
+	glm::mat4 view = glm::lookAt(_position, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+	glm::mat4 projection = glm::perspective(70.0f, 1.0f*_screenWidth / _screenHeight, 0.1f, 100.0f);
 
-	glm::vec3 scale = glm::vec3(_scale, _scale, _scale);
-	modelMatrix = modelMatrix * glm::scale(glm::mat4(1.0f), scale);
-
-	glm::mat4 viewMatrix = glm::lookAt(_position, glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 projMatrix = glm::perspective(70.0f, (float)_screenWidth / (float) _screenHeight, 0.1f, 100.0f);
-
-	_cameraMatrix = projMatrix * modelMatrix * viewMatrix;
+	_cameraMatrix = projection * view * model;
 
 	return _cameraMatrix;
 }

@@ -7,6 +7,7 @@
 #include "GLTexture.h"
 #include "Loader.h"
 #include "Asset.h"
+#include "InputManager.h"
 
 #include <glm/glm.hpp>
 
@@ -25,10 +26,9 @@ private:
 	GameState _currentState;
 	GLuint _vaoID, _vertexBuffer, _normalBuffer, _uvBuffer, _iboID;
 	Camera _camera;
+	InputManager _inputManager;
 
 	std::vector<Vertex> vertices;
-
-	glm::mat4 camMatrix;
 
 	//std::vector<glm::vec3> vertices, normals;
 	//std::vector<glm::vec2> uvs;
@@ -46,4 +46,3 @@ private:
 	void gameLoop();
 	void cleanUp();
 };
-

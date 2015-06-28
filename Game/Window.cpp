@@ -24,6 +24,8 @@ void Window::createWindow(std::string title, int width, int height, float x, flo
 		fatalError("Failed to create GL Context");
 	}
 
+	glewExperimental = GL_TRUE;
+
 	GLenum error;
 	error = glewInit();
 	if (error != GLEW_OK) {

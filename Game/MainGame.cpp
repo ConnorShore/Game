@@ -11,7 +11,7 @@ using namespace std;
 
 MainGame::MainGame() : _screenWidth(1280), _screenHeight(720), _vaoID(0)
 {
-	//_camera.init(_screenWidth, _screenHeight);
+
 }
 
 void MainGame::initSystems()
@@ -20,15 +20,16 @@ void MainGame::initSystems()
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	_window.createWindow("Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-
-	_player.init("Models/monkey.obj", "Textures/default.png", glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
+	_camera.init(glm::vec3(0.0f, 2.0f, 4.0f), _screenWidth, _screenHeight, 70.0f, 0.005f);
+	_player.initAsset("Models/monkey.obj", "Textures/default.png", glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
 
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, -4.0));
-	glm::mat4 view = glm::lookAt(glm::vec3(0.0, 2.0, 4.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-	glm::mat4 projection = glm::perspective(70.0f, 1.0f*_screenWidth / _screenHeight, 0.1f, 10.0f);
+	//glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, -4.0));
+	//glm::mat4 view = glm::lookAt(glm::vec3(0.0, 2.0, 4.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+	//glm::mat4 projection = glm::perspective(70.0f, 1.0f*_screenWidth / _screenHeight, 0.1f, 10.0f);
 	// Our ModelViewProjection : multiplication of our 3 matrices
-	camMatrix = projection * view * model; // Remember, matrix multiplication is the other way around
+	//camMatrix = projection * view * model; // Remember, matrix multiplication is the other way around
+	_camera.getMatrix();
 }
 
 void MainGame::initShaders()
@@ -41,15 +42,19 @@ void MainGame::input()
 	SDL_Event evnt;
 	while (SDL_PollEvent(&evnt)) {
 		switch (evnt.type) {
-			case SDL_QUIT:
-				_currentState = GameState::EXIT;
-				break;
+		case SDL_QUIT:
+			_currentState = GameState::EXIT;
+			break;
 
-			case SDL_KEYDOWN:
-				switch (evnt.key.keysym.sym) {
+		case SDL_KEYDOWN:
+			switch (evnt.key.keysym.sym) {
 
-				}
-				break;
+			}
+			break;
+
+		case SDL_MOUSEMOTION:
+			_inputManager.setMousePos(glm::vec2(evnt.motion.x, evnt.motion.y));
+			break;
 		}
 	}
 }
@@ -57,7 +62,7 @@ void MainGame::input()
 void MainGame::bindUniforms()
 {
 	GLuint pLocation = glGetUniformLocation(_programID, "P");
-	//glm::mat4 camMatrix = _camera.getMatrix();
+	glm::mat4 camMatrix = _camera.getMatrix();
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(camMatrix[0][0]));
 
 	GLuint texLoc = glGetUniformLocation(_programID, "testTex");
@@ -66,7 +71,7 @@ void MainGame::bindUniforms()
 
 void MainGame::update()
 {
-	//_camera.update();
+	_camera.update();
 }
 
 void MainGame::render()
@@ -98,7 +103,7 @@ void MainGame::gameLoop()
 		update();
 		render();
 	}
-	
+
 	cleanUp();
 }
 
