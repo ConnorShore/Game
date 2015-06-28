@@ -27,7 +27,7 @@ bool InputManager::isKeyDown(unsigned int keyID)
 	}
 }
 
-void InputManager::setMousePos(glm::vec2 coords)
+void InputManager::setMousePos(glm::vec2& coords)
 {
 	_mousePos = coords;
 }

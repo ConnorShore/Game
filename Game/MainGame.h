@@ -8,6 +8,7 @@
 #include "Loader.h"
 #include "Asset.h"
 #include "InputManager.h"
+#include "Timing.h"
 
 #include <glm/glm.hpp>
 
@@ -27,6 +28,7 @@ private:
 	GLuint _vaoID, _vertexBuffer, _normalBuffer, _uvBuffer, _iboID;
 	Camera _camera;
 	InputManager _inputManager;
+	Timing _timer;
 
 	std::vector<Vertex> vertices;
 

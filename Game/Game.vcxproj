@@ -90,6 +90,7 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Timing.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +103,7 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Asset.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Timing.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

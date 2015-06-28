@@ -17,6 +17,7 @@ public:
 	//getters
 	int getWidth() { return _width; }
 	int getHeight() { return _height; }
+	SDL_Window* getWindow() { return _window; }
 
 	float getWindowX() { return _x; }
 	float getWindowY() { return _y; }

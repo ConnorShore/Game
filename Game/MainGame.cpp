@@ -20,16 +20,8 @@ void MainGame::initSystems()
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	_window.createWindow("Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-	_camera.init(glm::vec3(0.0f, 2.0f, 4.0f), _screenWidth, _screenHeight, 70.0f, 0.005f);
-	_player.initAsset("Models/monkey.obj", "Textures/default.png", glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
-
-	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	//glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, -4.0));
-	//glm::mat4 view = glm::lookAt(glm::vec3(0.0, 2.0, 4.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-	//glm::mat4 projection = glm::perspective(70.0f, 1.0f*_screenWidth / _screenHeight, 0.1f, 10.0f);
-	// Our ModelViewProjection : multiplication of our 3 matrices
-	//camMatrix = projection * view * model; // Remember, matrix multiplication is the other way around
-	_camera.getMatrix();
+	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 70.0f, 0.005f);
+	_player.initAsset("Models/monkey.obj", "Textures/default.png", _camera.getPosition(), 1.0f);
 }
 
 void MainGame::initShaders()
@@ -47,16 +39,31 @@ void MainGame::input()
 			break;
 
 		case SDL_KEYDOWN:
-			switch (evnt.key.keysym.sym) {
-
-			}
+			_inputManager.keyPressed(evnt.key.keysym.sym);
+			break;
+		case SDL_KEYUP:
+			_inputManager.keyReleased(evnt.key.keysym.sym);
 			break;
 
 		case SDL_MOUSEMOTION:
 			_inputManager.setMousePos(glm::vec2(evnt.motion.x, evnt.motion.y));
+			_camera.setMousePos(glm::vec2(evnt.motion.x, evnt.motion.y));
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			_inputManager.keyPressed(evnt.button.button);
+			break;
+		case SDL_MOUSEBUTTONUP:
+			_inputManager.keyReleased(evnt.button.button);
 			break;
 		}
 	}
+
+	if (_inputManager.isKeyDown(SDLK_w)) { _camera.setPosition(_camera.getPosition() + _camera.getDirection() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
+	if (_inputManager.isKeyDown(SDLK_s)) { _camera.setPosition(_camera.getPosition() - _camera.getDirection() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
+	if (_inputManager.isKeyDown(SDLK_a)) { _camera.setPosition(_camera.getPosition() - _camera.getRight() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
+	if (_inputManager.isKeyDown(SDLK_d)) { _camera.setPosition(_camera.getPosition() + _camera.getRight() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
+
+	if (_inputManager.isKeyDown(SDLK_ESCAPE)) { SDL_SetRelativeMouseMode(SDL_FALSE); }
 }
 
 void MainGame::bindUniforms()
@@ -72,6 +79,7 @@ void MainGame::bindUniforms()
 void MainGame::update()
 {
 	_camera.update();
+	_player.setPosition(_camera.getPosition());
 }
 
 void MainGame::render()
@@ -99,9 +107,15 @@ void MainGame::render()
 void MainGame::gameLoop()
 {
 	while (_currentState != GameState::EXIT) {
+		_timer.FpsLimitInit();
+		_timer.calcDeltaTime();
+
 		input();
 		update();
 		render();
+
+		_timer.CalculateFPS(true);
+		_timer.LimitFPS(60);
 	}
 
 	cleanUp();

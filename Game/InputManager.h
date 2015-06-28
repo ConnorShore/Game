@@ -14,10 +14,12 @@ public:
 	void keyReleased(unsigned int keyID);
 	bool isKeyDown(unsigned int keyID);
 
-	void setMousePos(glm::vec2 coords);
+	void setMousePos(glm::vec2& coords);
 
 	//getters
 	glm::vec2 getMousePos() const { return _mousePos; }
+	float getMouseX() const  { return _mousePos.x; }
+	float getMouseY() const  { return _mousePos.y; }
 
 private:
 	GLuint _keyID;
