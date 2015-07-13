@@ -11,6 +11,7 @@
 #include "Timing.h"
 
 #include <glm/glm.hpp>
+#include <list>
 
 enum class GameState { PLAY, EXIT };
 
@@ -29,14 +30,14 @@ private:
 	Camera _camera;
 	InputManager _inputManager;
 	Timing _timer;
-
-	std::vector<Vertex> vertices;
-
-	//std::vector<glm::vec3> vertices, normals;
-	//std::vector<glm::vec2> uvs;
 	Asset _player;
+	Asset _test;
 
-	GLuint _programID;
+	std::vector<Vertex> _vertices;
+	std::vector<Asset> _assets;
+
+	GLuint _staticProgram;
+
 	int _screenWidth, _screenHeight;
 
 	void initSystems();

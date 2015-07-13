@@ -33,11 +33,10 @@ void Camera::look()
 
 glm::mat4 Camera::getMatrix()
 {
-	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, -4.0));
 	glm::mat4 view = glm::lookAt(_position, _position+_direction, _up);
 	glm::mat4 projection = glm::perspective(70.0f, 1.0f*_screenWidth / _screenHeight, 0.1f, 100.0f);
 
-	_cameraMatrix = projection * view * model;
+	_cameraMatrix = projection * view;
 
 	return _cameraMatrix;
 }

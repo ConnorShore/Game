@@ -2,11 +2,10 @@
 #include "Error.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <SDL\SDL.h>
 #include <fstream>
 #include <iostream>
-
-using namespace std;
 
 
 MainGame::MainGame() : _screenWidth(1280), _screenHeight(720), _vaoID(0)
@@ -21,12 +20,17 @@ void MainGame::initSystems()
 
 	_window.createWindow("Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 70.0f, 0.005f);
-	_player.initAsset("Models/monkey.obj", "Textures/default.png", _camera.getPosition(), 1.0f);
+	_player.initAsset("Models/monkey.obj", "Textures/default.png", glm::vec3(-2.0f, 0.0f, -4.0f), 1.0f);
+	_assets.push_back(_player);
+	_test.initAsset("Models/monkey.obj", "Textures/default.png", glm::vec3(2.0f,0.0f,-4.0f), 1.0f);
+	_assets.push_back(_test);
 }
 
 void MainGame::initShaders()
 {
-	_programID = Loader::loadShaders("Shaders/colorShader.vert", "Shaders/colorShader.frag");
+	_staticProgram = Loader::loadShaders("Shaders/colorShader.vert", "Shaders/colorShader.frag");
+
+	glBindAttribLocation(_staticProgram, 0, "vertexPosition");
 }
 
 void MainGame::input()
@@ -68,36 +72,45 @@ void MainGame::input()
 
 void MainGame::bindUniforms()
 {
-	GLuint pLocation = glGetUniformLocation(_programID, "P");
+	GLuint pLocation = glGetUniformLocation(_staticProgram, "P");
 	glm::mat4 camMatrix = _camera.getMatrix();
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(camMatrix[0][0]));
 
-	GLuint texLoc = glGetUniformLocation(_programID, "testTex");
+	GLuint modelLocation = glGetUniformLocation(_staticProgram, "model");
+	for (int i = 0; i < _assets.size(); i++) {
+		glm::mat4 model;
+		model = glm::translate(model, _assets[i].getPosition());
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+		_assets[i].render();
+	}
+
+	GLuint texLoc = glGetUniformLocation(_staticProgram, "testTex");
 	glUniform1i(texLoc, 0);
 }
 
 void MainGame::update()
 {
 	_camera.update();
-	_player.setPosition(_camera.getPosition());
 }
 
 void MainGame::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glUseProgram(_programID);
+	glUseProgram(_staticProgram);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _player.getTexture().id);
 
-	_player.bind();
+	for (int i = 0; i < _assets.size(); i++) {
+		_assets[i].bind();
+	}
 
 	bindUniforms();
 
-	_player.render();
-
-	_player.unbind();
+	for (int i = 0; i < _assets.size(); i++) {
+		_assets[i].unbind();
+	}
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -126,7 +139,7 @@ void MainGame::cleanUp()
 	// Cleanup VBO and shader
 	glDeleteBuffers(1, &_vertexBuffer);
 	glDeleteBuffers(1, &_uvBuffer);
-	glDeleteProgram(_programID);
+	glDeleteProgram(_staticProgram);
 	glDeleteVertexArrays(1, &_vaoID);
 
 	SDL_Quit();

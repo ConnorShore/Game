@@ -90,6 +90,7 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Timing.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -99,10 +100,12 @@
     <ClInclude Include="Error.h" />
     <ClInclude Include="GLTexture.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Asset.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Timing.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />

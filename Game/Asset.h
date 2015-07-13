@@ -21,12 +21,17 @@ public:
 	Model getModel() { return model_; }
 	GLTexture getTexture() const { return model_.getTexture(); }
 	glm::vec3 getPosition() const { return position_; }
+	glm::mat4 getModelMatrix() const { return _modelMatrix; }
 
-	void setPosition(glm::vec3& newPos) { position_ = newPos; }
+	void setPosition(glm::vec3& newPos) { position_ = newPos;}
+
+protected:
 
 private:
 	GLuint _vaoID, _vertexBuffer, _normalBuffer, _uvBuffer;
 	float scale_;
 	glm::vec3 position_;
 	Model model_;
+
+	glm::mat4 _modelMatrix;
 };

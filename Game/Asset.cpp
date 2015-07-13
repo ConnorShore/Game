@@ -1,6 +1,8 @@
 #include "Asset.h"
 #include "Error.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 
 Asset::Asset() : _vaoID(0)
 {
@@ -32,15 +34,6 @@ void Asset::initAsset(const std::string& modelFile, const std::string& textureFi
 
 void Asset::render()
 {
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, _uvBuffer);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
 	glDrawArrays(GL_TRIANGLES, 0, model_.getVertArray().size());
 }
 
@@ -49,6 +42,15 @@ void Asset::bind()
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+
+	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, _uvBuffer);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 }
 
 void Asset::unbind()
