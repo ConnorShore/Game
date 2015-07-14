@@ -15,4 +15,3 @@ public:
 private:
 	float _speed = 0.25f;
 };
-

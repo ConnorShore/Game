@@ -20,9 +20,11 @@ void MainGame::initSystems()
 
 	_window.createWindow("Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 70.0f, 0.005f);
-	_player.initAsset("Models/monkey.obj", "Textures/default.png", glm::vec3(-2.0f, 0.0f, -4.0f), 1.0f);
+
+	_player.init("Models/monkey.obj", "Textures/default.png", glm::vec3(-2.0f, 0.0f, -4.0f), 1.0f);
 	_assets.push_back(_player);
-	_test.initAsset("Models/monkey.obj", "Textures/default.png", glm::vec3(2.0f,0.0f,-4.0f), 1.0f);
+
+	_test.init("Models/monkey.obj", "Textures/default.png", glm::vec3(2.0f, 0.0f, -4.0f), 1.0f);
 	_assets.push_back(_test);
 }
 
@@ -62,6 +64,7 @@ void MainGame::input()
 		}
 	}
 
+	if (_inputManager.isKeyDown(SDLK_w)) { _player.setPosition(_player.getPosition() + _camera.getDirection() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
 	if (_inputManager.isKeyDown(SDLK_w)) { _camera.setPosition(_camera.getPosition() + _camera.getDirection() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
 	if (_inputManager.isKeyDown(SDLK_s)) { _camera.setPosition(_camera.getPosition() - _camera.getDirection() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
 	if (_inputManager.isKeyDown(SDLK_a)) { _camera.setPosition(_camera.getPosition() - _camera.getRight() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
@@ -79,10 +82,16 @@ void MainGame::bindUniforms()
 	GLuint modelLocation = glGetUniformLocation(_staticProgram, "model");
 	for (int i = 0; i < _assets.size(); i++) {
 		glm::mat4 model;
-		model = glm::translate(model, _assets[i].getPosition());
+		model = glm::translate(_assets[i].getModelMatrix(), _player.getPosition());
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+
+		std::cout << _player.getPosition().z << std::endl;
+
 		_assets[i].render();
 	}
+
+	//glm::mat4 playerModel = glm::translate(_player.getModelMatrix(), _player.getPosition());
+	//glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(playerModel));
 
 	GLuint texLoc = glGetUniformLocation(_staticProgram, "testTex");
 	glUniform1i(texLoc, 0);
@@ -104,6 +113,10 @@ void MainGame::render()
 
 	for (int i = 0; i < _assets.size(); i++) {
 		_assets[i].bind();
+	}
+
+	for (int i = 0; i < _assets.size(); i++) {
+		_assets[i].render();
 	}
 
 	bindUniforms();

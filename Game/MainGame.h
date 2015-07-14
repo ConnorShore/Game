@@ -9,6 +9,7 @@
 #include "Asset.h"
 #include "InputManager.h"
 #include "Timing.h"
+#include "Player.h"
 
 #include <glm/glm.hpp>
 #include <list>
@@ -30,7 +31,7 @@ private:
 	Camera _camera;
 	InputManager _inputManager;
 	Timing _timer;
-	Asset _player;
+	Player _player;
 	Asset _test;
 
 	std::vector<Vertex> _vertices;

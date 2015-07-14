@@ -8,7 +8,7 @@ Player::Player()
 
 void Player::input(InputManager& inputManager)
 {
-	
+
 }
 
 void Player::update()

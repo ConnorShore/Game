@@ -13,7 +13,7 @@ public:
 	Asset();
 	~Asset();
 
-	void initAsset(const std::string& modelFile, const std::string& textureFile, glm::vec3 position, float scale);
+	void init(const std::string& modelFile, const std::string& textureFile, glm::vec3 position, float scale);
 	void render();
 	void bind();
 	void unbind();
@@ -23,7 +23,7 @@ public:
 	glm::vec3 getPosition() const { return position_; }
 	glm::mat4 getModelMatrix() const { return _modelMatrix; }
 
-	void setPosition(glm::vec3& newPos) { position_ = newPos;}
+	void setPosition(glm::vec3& newPos) { position_ = newPos; }
 
 protected:
 

@@ -8,7 +8,7 @@ Asset::Asset() : _vaoID(0)
 {
 }
 
-void Asset::initAsset(const std::string& modelFile, const std::string& textureFile, glm::vec3 position, float scale)
+void Asset::init(const std::string& modelFile, const std::string& textureFile, glm::vec3 position, float scale)
 {
 	if (_vaoID = 0) glGenVertexArrays(1, &_vaoID);
 	glBindVertexArray(_vaoID);
