@@ -9,7 +9,7 @@
 #include "Asset.h"
 #include "InputManager.h"
 #include "Timing.h"
-#include "Player.h"
+#include "Player.h"	
 
 #include <glm/glm.hpp>
 #include <list>
@@ -40,6 +40,8 @@ private:
 	GLuint _staticProgram;
 
 	int _screenWidth, _screenHeight;
+
+	float _playerSpeed = 0.25f;
 
 	void initSystems();
 	void initShaders();

@@ -21,7 +21,7 @@ void MainGame::initSystems()
 	_window.createWindow("Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 70.0f, 0.005f);
 
-	_player.init("Models/monkey.obj", "Textures/default.png", glm::vec3(-2.0f, 0.0f, -4.0f), 1.0f);
+	_player.init("Models/monkey.obj", "Textures/default.png", glm::vec3(-2.0f, 0.0f, -6.0f), 1.0f);
 	_assets.push_back(_player);
 
 	_test.init("Models/monkey.obj", "Textures/default.png", glm::vec3(2.0f, 0.0f, -4.0f), 1.0f);
@@ -64,7 +64,10 @@ void MainGame::input()
 		}
 	}
 
+	//Set player position to camera position when moving forward
 	if (_inputManager.isKeyDown(SDLK_w)) { _player.setPosition(_player.getPosition() + _camera.getDirection() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
+
+	//Move camera
 	if (_inputManager.isKeyDown(SDLK_w)) { _camera.setPosition(_camera.getPosition() + _camera.getDirection() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
 	if (_inputManager.isKeyDown(SDLK_s)) { _camera.setPosition(_camera.getPosition() - _camera.getDirection() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
 	if (_inputManager.isKeyDown(SDLK_a)) { _camera.setPosition(_camera.getPosition() - _camera.getRight() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
@@ -75,21 +78,25 @@ void MainGame::input()
 
 void MainGame::bindUniforms()
 {
+	//Binding transformation matrix
 	GLuint pLocation = glGetUniformLocation(_staticProgram, "P");
 	glm::mat4 camMatrix = _camera.getMatrix();
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(camMatrix[0][0]));
 
+	//binding model matrix for each asset (Not working for moving player)
 	GLuint modelLocation = glGetUniformLocation(_staticProgram, "model");
 	for (int i = 0; i < _assets.size(); i++) {
 		glm::mat4 model;
-		model = glm::translate(_assets[i].getModelMatrix(), _player.getPosition());
+		model = glm::translate(_assets[i].getModelMatrix(), _assets[i].getPosition());
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
 
-		std::cout << _player.getPosition().z << std::endl;
+		std::cout << _assets[0].getPosition().z << std::endl;
+		//std::cout << _player.getPosition().z << std::endl;
 
 		_assets[i].render();
 	}
 
+	//binding model matrix through player object directly (Working for moving player)
 	//glm::mat4 playerModel = glm::translate(_player.getModelMatrix(), _player.getPosition());
 	//glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(playerModel));
 
