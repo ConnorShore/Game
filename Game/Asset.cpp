@@ -4,16 +4,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-Asset::Asset() : _vaoID(0)
+Asset::Asset(glm::vec3& position) : _vaoID(0), position_(position)
 {
 }
 
-void Asset::init(const std::string& modelFile, const std::string& textureFile, glm::vec3 position, float scale)
+void Asset::init(const std::string& modelFile, const std::string& textureFile, float scale)
 {
 	if (_vaoID = 0) glGenVertexArrays(1, &_vaoID);
 	glBindVertexArray(_vaoID);
 
-	position_ = position;
 	scale_ = scale;
 
 	bool res = model_.load(modelFile, textureFile);

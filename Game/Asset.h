@@ -10,10 +10,10 @@
 class Asset
 {
 public:
-	Asset();
+	Asset(glm::vec3& position);
 	~Asset();
 
-	void init(const std::string& modelFile, const std::string& textureFile, glm::vec3 position, float scale);
+	void init(const std::string& modelFile, const std::string& textureFile, float scale);
 	void render();
 	void bind();
 	void unbind();

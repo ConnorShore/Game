@@ -31,15 +31,16 @@ private:
 	Camera _camera;
 	InputManager _inputManager;
 	Timing _timer;
-	Player _player;
-	Asset _test;
+	Player* _player = new Player(glm::vec3(-2.0f, 0.0f, -6.0f));
+	Asset* _test = new Asset(glm::vec3(2.0f, 0.0f, -4.0f));
 
 	std::vector<Vertex> _vertices;
-	std::vector<Asset> _assets;
+	std::vector<Asset*> _assets;
 
 	GLuint _staticProgram;
 
 	int _screenWidth, _screenHeight;
+	int showCursor = 0;
 
 	float _playerSpeed = 0.25f;
 

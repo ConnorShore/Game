@@ -6,7 +6,7 @@
 class Player : public Asset
 {
 public:
-	Player();
+	Player(glm::vec3& position);
 	~Player();
 
 	void input(InputManager& inputManager);

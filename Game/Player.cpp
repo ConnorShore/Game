@@ -2,7 +2,7 @@
 #include <SDL/SDL.h>
 
 
-Player::Player()
+Player::Player(glm::vec3& position) : Asset(position)
 {
 
 }
