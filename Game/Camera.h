@@ -1,10 +1,9 @@
 #pragma once
 
 #include "InputManager.h"
-#include "Asset.h"
+#include "Window.h"
 
 #include <glm/glm.hpp>
-#include "Window.h"
 
 class Camera
 {
@@ -48,14 +47,14 @@ private:
 	
 	glm::vec3 _modelPos;
 
-	std::vector<Asset> _assets;
-
 	int _screenWidth, _screenHeight;
 	bool _needsUpdate;
-	float _horizontalAngle, _verticalAngle, _fov = 60.0f, _camSpeed = 3.0f, _sensitivity = 0.005f;
+	float _horizontalAngle, _verticalAngle, _fov = 60.0f, _camSpeed = 3.0f, _sensitivity = 0.01f;
 	bool _mouseLook = true;
 
 	float mouseSpeed = 0.0005f;
+	
+	const float MAX_ANGLE = 1.49f;
 	
 	glm::ivec2 _mousePos;
 	glm::vec3 _position, _direction, _right, _up;

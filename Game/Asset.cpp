@@ -3,7 +3,6 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-
 Asset::Asset(glm::vec3& position) : _vaoID(0), position_(position)
 {
 }
@@ -57,6 +56,13 @@ void Asset::unbind()
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
+}
+
+glm::mat4 Asset::createModelMatrix()
+{
+	glm::mat4 model;
+	model = glm::translate(model, getPosition());
+	return model;
 }
 
 Asset::~Asset()

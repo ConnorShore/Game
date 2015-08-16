@@ -10,6 +10,8 @@
 #include "InputManager.h"
 #include "Timing.h"
 #include "Player.h"	
+#include "StaticShader.h"
+#include "ShaderProgram.h"
 
 #include <glm/glm.hpp>
 #include <list>
@@ -26,18 +28,18 @@ public:
 
 private:
 	Window _window;
+	StaticShader _staticShader;
 	GameState _currentState;
 	GLuint _vaoID, _vertexBuffer, _normalBuffer, _uvBuffer, _iboID;
 	Camera _camera;
 	InputManager _inputManager;
 	Timing _timer;
-	Player* _player = new Player(glm::vec3(-2.0f, 0.0f, -6.0f));
 	Asset* _test = new Asset(glm::vec3(2.0f, 0.0f, -4.0f));
 
 	std::vector<Vertex> _vertices;
+	//std::vector<ShaderProgram> _programs;
 	std::vector<Asset*> _assets;
 
-	GLuint _staticProgram;
 
 	int _screenWidth, _screenHeight;
 	int showCursor = 0;

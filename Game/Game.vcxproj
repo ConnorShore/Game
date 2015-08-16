@@ -91,6 +91,8 @@
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="StaticShader.cpp" />
     <ClCompile Include="Timing.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -106,6 +108,8 @@
     <ClInclude Include="Asset.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="StaticShader.h" />
     <ClInclude Include="Timing.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
