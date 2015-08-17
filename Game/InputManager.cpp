@@ -3,6 +3,7 @@
 
 InputManager::InputManager() : _mousePos(0.0f)
 {
+
 }
 
 void InputManager::keyPressed(unsigned int keyID)
