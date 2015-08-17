@@ -7,13 +7,14 @@ Camera::Camera() : _needsUpdate(true), _horizontalAngle(3.1415f), _verticalAngle
 {
 }
 
-void Camera::init(glm::vec3 position, int screenWidth, int screenHeight, float fieldOfView, float cameraSpeed)
+void Camera::init(glm::vec3 position, int screenWidth, int screenHeight, float fieldOfView, float cameraSpeed, float sensitivity)
 {
 	SDL_ShowCursor(0);
 
 	_position = position;
 	_screenWidth = screenWidth;
 	_screenHeight = screenHeight;
+	_sensitivity = sensitivity;
 }
 
 void Camera::look()
@@ -42,8 +43,8 @@ void Camera::mouseLook()
 	SDL_GetMouseState(&_mousePos.x, &_mousePos.y);
 	SDL_WarpMouseInWindow(_window.getSDLWindow(), _midWidth, _midHeight);
 
-	_horizontalAngle += mouseSpeed * float(_midWidth - _mousePos.x);
-	_verticalAngle += mouseSpeed  * float(_midHeight - _mousePos.y);
+	_horizontalAngle += _sensitivity * float(_midWidth - _mousePos.x);
+	_verticalAngle += _sensitivity  * float(_midHeight - _mousePos.y);
 
 	if (_verticalAngle >= MAX_ANGLE)
 		_verticalAngle = MAX_ANGLE;

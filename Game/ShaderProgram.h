@@ -2,8 +2,7 @@
 
 #include <GL/glew.h>
 #include <string>
-
-#include "Light.h"
+#include <glm/glm.hpp>
 
 class ShaderProgram
 {
@@ -19,8 +18,8 @@ protected:
 	GLuint getUniformLocation(std::string name);
 	void bindAttribute(int attrib, std::string name);
 	void loadInt(int location, int value);
-	//void loadFloat(int location, float value);
-	//void loadVector3f(int location, glm::vec3 vector);
+	void loadFloat(int location, float value);
+	void loadVector3f(int location, glm::vec3 vector);
 	void loadMatrix4f(int location, glm::mat4 matrix);
 
 	virtual void bindAttributes() = 0;

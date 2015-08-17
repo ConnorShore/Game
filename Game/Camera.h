@@ -11,7 +11,7 @@ public:
 	Camera();
 	~Camera();
 
-	void init(glm::vec3 position, int screenWidth, int screenHeight, float fieldOfView, float cameraSpeed);
+	void init(glm::vec3 position, int screenWidth, int screenHeight, float fieldOfView, float cameraSpeed, float sensitivity);
 	void update();
 	glm::mat4 getMatrix();
 
@@ -49,10 +49,8 @@ private:
 
 	int _screenWidth, _screenHeight;
 	bool _needsUpdate;
-	float _horizontalAngle, _verticalAngle, _fov = 60.0f, _camSpeed = 3.0f, _sensitivity = 0.01f;
+	float _horizontalAngle, _verticalAngle, _sensitivity, _fov = 60.0f, _camSpeed = 3.0f;
 	bool _mouseLook = true;
-
-	float mouseSpeed = 0.0005f;
 	
 	const float MAX_ANGLE = 1.49f;
 	

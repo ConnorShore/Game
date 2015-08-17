@@ -1,16 +1,11 @@
 #include "MainGame.h"
-#include "Error.h"
 
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <SDL\SDL.h>
-#include <fstream>
 #include <iostream>
 
 
 MainGame::MainGame() : _screenWidth(1280), _screenHeight(720), _vaoID(0)
 {
-
 }
 
 void MainGame::initSystems()
@@ -19,7 +14,8 @@ void MainGame::initSystems()
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	_window.createWindow("Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 70.0f, 0.005f);
+	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 70.0f, 0.005f, 0.0005f);
+
 
 	//_test->init("Models/monkey.obj", "Textures/default.png", 1.0f);
 	//_assets.push_back(_test);
@@ -165,9 +161,6 @@ void MainGame::gameLoop()
 
 void MainGame::cleanUp()
 {
-	// Cleanup VBO and shader
-	glDeleteBuffers(1, &_vertexBuffer);
-	glDeleteBuffers(1, &_uvBuffer);
 	glDeleteVertexArrays(1, &_vaoID);
 
 	_staticShader.cleanUp();

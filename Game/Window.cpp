@@ -4,6 +4,7 @@
 
 Window::Window() : _window(nullptr), _showGL(false)
 {
+
 }
 
 void Window::createWindow(std::string title, int width, int height, float x, float y)
