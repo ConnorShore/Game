@@ -3,7 +3,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-StaticShader::StaticShader() : ShaderProgram(VERTEX_FILE, FRAGMENT_FILE)
+StaticShader::StaticShader()
 {
 }
 

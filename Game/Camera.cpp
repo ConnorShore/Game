@@ -44,7 +44,7 @@ void Camera::mouseLook()
 	SDL_WarpMouseInWindow(_window.getSDLWindow(), _midWidth, _midHeight);
 
 	_horizontalAngle += _sensitivity * float(_midWidth - _mousePos.x);
-	_verticalAngle += _sensitivity  * float(_midHeight - _mousePos.y);
+	_verticalAngle += _sensitivity * float(_midHeight - _mousePos.y);
 
 	if (_verticalAngle >= MAX_ANGLE)
 		_verticalAngle = MAX_ANGLE;

@@ -7,9 +7,10 @@
 class ShaderProgram
 {
 public:
-	ShaderProgram(const std::string& vertexFile, const std::string& fragmentFile);
+	ShaderProgram();
 	~ShaderProgram();
 
+	void init(const std::string& vertexFile, const std::string& fragmentFile);
 	void start();
 	void stop();
 	void cleanUp();

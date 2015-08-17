@@ -17,12 +17,13 @@ void MainGame::initSystems()
 	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 70.0f, 0.005f, 0.0005f);
 
 
-	//_test->init("Models/monkey.obj", "Textures/default.png", 1.0f);
-	//_assets.push_back(_test);
+	_test->init("Models/monkey.obj", "Textures/default.png", 1.0f);
+	_assets.push_back(_test);
 }
 
 void MainGame::initShaders()
 {
+	_staticShader.init("Shaders/staticShader.vert", "Shaders/staticShader.frag");
 	_staticShader.bindAttributes();
 }
 
@@ -119,13 +120,14 @@ void MainGame::render()
 	for (int i = 0; i < _assets.size(); i++)
 		_assets[i]->bind();
 
-	_staticShader.loadCameraMatrix(_camera);
 	_staticShader.loadTexture();
 
 	for (int i = 0; i < _assets.size(); i++) {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, _assets[0]->getTexture().id);
 	}
+
+	_staticShader.loadCameraMatrix(_camera);
 
 	for (int i = 0; i < _assets.size(); i++) {
 		static glm::mat4 modelMat;

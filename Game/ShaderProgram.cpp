@@ -4,25 +4,8 @@
 #include <fstream>
 
 
-ShaderProgram::ShaderProgram(const std::string& vertexFile, const std::string& fragmentFile)
+ShaderProgram::ShaderProgram()
 {
-	_vertexShaderID = loadShader(vertexFile, GL_VERTEX_SHADER);
-	_fragmentShaderID = loadShader(fragmentFile, GL_FRAGMENT_SHADER);
-	_programID = glCreateProgram();
-
-	glAttachShader(_programID, _vertexShaderID);
-	glAttachShader(_programID, _fragmentShaderID);
-	glLinkProgram(_programID);
-	glValidateProgram(_programID);
-
-	//Check program
-	GLint Result = GL_FALSE;
-	int InfoLogLength;
-	glGetProgramiv(_programID, GL_LINK_STATUS, &Result);
-	glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	std::vector<char> ProgramErrorMessage(InfoLogLength, int(1));
-	glGetProgramInfoLog(_programID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-	fprintf(stdout, "%s\n", &ProgramErrorMessage[0]);
 }
 
 //GLuint ShaderProgram::loadShaders(const std::string & vertexFile, const std::string & fragmentFile)
@@ -30,7 +13,6 @@ GLuint ShaderProgram::loadShader(const std::string& file, GLuint type)
 {
 	//GLuint _vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	//GLuint _fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-
 
 	//read shader from file
 	std::string input;
@@ -122,6 +104,27 @@ GLuint ShaderProgram::loadShader(const std::string& file, GLuint type)
 	//glDeleteShader(_fragmentShaderID);
 
 	//return _programID;
+}
+
+void ShaderProgram::init(const std::string& vertexFile, const std::string& fragmentFile)
+{
+	_vertexShaderID = loadShader(vertexFile, GL_VERTEX_SHADER);
+	_fragmentShaderID = loadShader(fragmentFile, GL_FRAGMENT_SHADER);
+	_programID = glCreateProgram();
+
+	glAttachShader(_programID, _vertexShaderID);
+	glAttachShader(_programID, _fragmentShaderID);
+	glLinkProgram(_programID);
+	glValidateProgram(_programID);
+
+	//Check program
+	GLint Result = GL_FALSE;
+	int InfoLogLength;
+	glGetProgramiv(_programID, GL_LINK_STATUS, &Result);
+	glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+	std::vector<char> ProgramErrorMessage(InfoLogLength, int(1));
+	glGetProgramInfoLog(_programID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
+	fprintf(stdout, "%s\n", &ProgramErrorMessage[0]);
 }
 
 void ShaderProgram::start()
