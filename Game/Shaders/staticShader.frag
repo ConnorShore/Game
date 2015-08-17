@@ -18,7 +18,7 @@ void main(void)
 	
 	float ambientLevel = 0.1;
 	
-	float lightDot = dot(unitNormal, unitVector);
+	float lightDot = clamp(dot(unitNormal, unitVector), 0, 1);
 	float brightness = max(lightDot, ambientLevel);
 	
 	vec3 diffuse = brightness * lightColor;

@@ -29,7 +29,7 @@ void MainGame::initShaders()
 
 void MainGame::initLights()
 {
-	_light.init(glm::vec3(2.0f,0.0f,5.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	_light.init(_camera.getPosition(), glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
 void MainGame::input()
@@ -94,7 +94,7 @@ void MainGame::update()
 {
 	_camera.update();
 	//_test->setRotation(_test->getRotation() + 1.0f, _test->getRotationAxis());
-	//_light.setPosition(_light.getPosition() + glm::vec3(0.0f,0.0f,-0.1f));
+	_light.setPosition(_camera.getPosition());
 }
 
 void MainGame::render()
