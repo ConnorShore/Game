@@ -14,10 +14,10 @@ void MainGame::initSystems()
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	_window.createWindow("Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 70.0f, 0.005f, 0.0005f);
+	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 60.0f, 5.0f, 0.0005f);
 
 
-	_test->init("Models/monkey.obj", "Textures/default.png", 1.0f);
+	_test->init("Models/box.obj", "Textures/default.png");
 	_assets.push_back(_test);
 }
 
@@ -25,6 +25,11 @@ void MainGame::initShaders()
 {
 	_staticShader.init("Shaders/staticShader.vert", "Shaders/staticShader.frag");
 	_staticShader.bindAttributes();
+}
+
+void MainGame::initLights()
+{
+	_light.init(glm::vec3(2.0f,0.0f,5.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
 void MainGame::input()
@@ -82,31 +87,14 @@ void MainGame::input()
 
 void MainGame::bindUniforms()
 {
-	////Binding transformation matrix
-	//GLuint pLocation = glGetUniformLocation(_staticShader.getProgram(), "transformMatrix");
-	//glm::mat4 camMatrix = _camera.getMatrix();
-	//glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(camMatrix[0][0]));
-
 	_staticShader.getUniformLocations();
-
-	////binding model matrix for each asset (Not working for moving player)
-	//GLuint modelLocation = glGetUniformLocation(_staticShader.getProgram(), "model");
-	//for (unsigned int i = 0; i < _assets.size(); i++) {
-	//	glm::mat4 model;
-	//	model = glm::translate(_assets[i]->getModelMatrix(), _assets[i]->getPosition());
-	//	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
-
-	//	_assets[i]->render();
-	//}
-
-	//GLuint texLoc = glGetUniformLocation(_staticProgram, "myTexture");
-	//glUniform1i(texLoc, 0);
-
 }
 
 void MainGame::update()
 {
 	_camera.update();
+	//_test->setRotation(_test->getRotation() + 1.0f, _test->getRotationAxis());
+	//_light.setPosition(_light.getPosition() + glm::vec3(0.0f,0.0f,-0.1f));
 }
 
 void MainGame::render()
@@ -117,6 +105,13 @@ void MainGame::render()
 
 	bindUniforms();
 
+	_staticShader.loadLight(_light);
+
+	_camera.createViewMatrix();
+	_staticShader.loadViewMatrix(_camera);
+	_projectionMatrix = _camera.createProjectionMatrix();
+	_staticShader.loadProjectionMatrix(_projectionMatrix);
+
 	for (int i = 0; i < _assets.size(); i++)
 		_assets[i]->bind();
 
@@ -126,8 +121,6 @@ void MainGame::render()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, _assets[0]->getTexture().id);
 	}
-
-	_staticShader.loadCameraMatrix(_camera);
 
 	for (int i = 0; i < _assets.size(); i++) {
 		static glm::mat4 modelMat;
@@ -154,7 +147,7 @@ void MainGame::gameLoop()
 		update();
 		render();
 
-		_timer.CalculateFPS(true);
+		_timer.CalculateFPS(false);
 		_timer.LimitFPS(60);
 	}
 
@@ -175,6 +168,7 @@ void MainGame::run()
 {
 	initSystems();
 	initShaders();
+	initLights();
 	gameLoop();
 }
 

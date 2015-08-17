@@ -6,6 +6,7 @@
 #include "Asset.h"
 #include "InputManager.h"
 #include "Timing.h"
+#include "Light.h"
 
 enum class GameState { PLAY, EXIT };
 
@@ -24,12 +25,15 @@ private:
 	InputManager _inputManager;
 	Timing _timer;
 	StaticShader _staticShader;
+	Light _light;
 	Asset* _test = new Asset(glm::vec3(2.0f, 0.0f, -4.0f));
 
 	std::vector<Vertex> _vertices;
 	std::vector<Asset*> _assets;
 
 	GLuint _vaoID;
+
+	glm::mat4 _projectionMatrix;
 
 	int _screenWidth, _screenHeight;
 	int showCursor = 0;
@@ -38,6 +42,7 @@ private:
 
 	void initSystems();
 	void initShaders();
+	void initLights();
 	void input();
 	void update();
 	void render();

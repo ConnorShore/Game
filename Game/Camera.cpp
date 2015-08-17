@@ -14,6 +14,8 @@ void Camera::init(glm::vec3 position, int screenWidth, int screenHeight, float f
 	_position = position;
 	_screenWidth = screenWidth;
 	_screenHeight = screenHeight;
+	_fov = fieldOfView;
+	_camSpeed = cameraSpeed;
 	_sensitivity = sensitivity;
 }
 
@@ -53,23 +55,25 @@ void Camera::mouseLook()
 		_verticalAngle = -MAX_ANGLE;
 }
 
-glm::mat4 Camera::getMatrix()
+glm::mat4 Camera::createViewMatrix()
 {
-	if(_mouseLook)
-		mouseLook();
 
-	glm::mat4 view = glm::lookAt(_position, _position+_direction, _up);
-	glm::mat4 projection = glm::perspective(70.0f, 1.0f*_screenWidth / _screenHeight, 0.1f, 100.0f);
+	glm::mat4 view = glm::lookAt(_position, _position + _direction, _up);
+	_viewMatrix = view;
+	return _viewMatrix;
+}
 
-	_cameraMatrix = projection * view;
-
-	return _cameraMatrix;
+glm::mat4 Camera::createProjectionMatrix()
+{
+	glm::mat4 projection = glm::perspective(_fov, 1.0f * _screenWidth / _screenHeight, 0.1f, 100.0f);
+	return projection;
 }
 
 void Camera::update()
 {
 	look();
-	getMatrix();
+	if (_mouseLook)
+		mouseLook();
 }
 
 Camera::~Camera()

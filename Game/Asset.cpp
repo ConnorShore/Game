@@ -3,16 +3,15 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-Asset::Asset(glm::vec3& position) : _vaoID(0), position_(position)
+Asset::Asset(glm::vec3& position, float rotation /*0.0f*/, glm::vec3& rotationAxis /*glm::vec3(0.0f,1.0f,0.0f)*/, float scale /*1.0f*/)
+	: _vaoID(0), position_(position), rotation_(rotation), rotationAxis_(rotationAxis), scale_(scale)
 {
 }
 
-void Asset::init(const std::string& modelFile, const std::string& textureFile, float scale)
+void Asset::init(const std::string& modelFile, const std::string& textureFile)
 {
 	if (_vaoID = 0) glGenVertexArrays(1, &_vaoID);
 	glBindVertexArray(_vaoID);
-
-	scale_ = scale;
 
 	bool res = model_.load(modelFile, textureFile);
 	if (res == false) fatalError("Failed to load model: " + modelFile);
@@ -62,6 +61,9 @@ glm::mat4 Asset::createModelMatrix()
 {
 	glm::mat4 model;
 	model = glm::translate(model, getPosition());
+	model = glm::rotate(model, getRotation(), getRotationAxis());
+	model = glm::scale(model, glm::vec3(getScale(), getScale(), getScale()));
+
 	return model;
 }
 

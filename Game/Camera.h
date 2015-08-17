@@ -13,15 +13,17 @@ public:
 
 	void init(glm::vec3 position, int screenWidth, int screenHeight, float fieldOfView, float cameraSpeed, float sensitivity);
 	void update();
-	glm::mat4 getMatrix();
+
+	glm::mat4 createViewMatrix();
+	glm::mat4 createProjectionMatrix();
 
 	//Getters
 	glm::ivec2 getMousePos() const { return _mousePos; }
 	glm::vec3 getPosition() const { return _position; }
-	glm::vec3 getDirection() const  { return _direction; }
-	glm::vec3 getRight() const  { return _right; }
-	glm::vec3 getUp() const  { return _up; }
-	glm::mat4 getCameraMatrix() const  { return _cameraMatrix; }
+	glm::vec3 getDirection() const { return _direction; }
+	glm::vec3 getRight() const { return _right; }
+	glm::vec3 getUp() const { return _up; }
+	glm::mat4 getViewMatrix() const { return _viewMatrix; }
 
 	float getVertAngle() const { return _verticalAngle; }
 	float getHorzAngle() const { return _horizontalAngle; }
@@ -44,21 +46,20 @@ public:
 private:
 	InputManager _inputManager;
 	Window _window;
-	
+
 	glm::vec3 _modelPos;
 
 	int _screenWidth, _screenHeight;
 	bool _needsUpdate;
-	float _horizontalAngle, _verticalAngle, _sensitivity, _fov = 60.0f, _camSpeed = 3.0f;
+	float _horizontalAngle, _verticalAngle, _sensitivity, _fov, _camSpeed;
 	bool _mouseLook = true;
-	
+
 	const float MAX_ANGLE = 1.49f;
-	
+
 	glm::ivec2 _mousePos;
 	glm::vec3 _position, _direction, _right, _up;
-	glm::mat4 _cameraMatrix;
+	glm::mat4 _viewMatrix;
 
 	void look();
 	void mouseLook();
 };
-
