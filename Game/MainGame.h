@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "StaticShader.h"
 #include "Camera.h"
+#include "GLTexture.h"
 #include "Asset.h"
 #include "InputManager.h"
 #include "Timing.h"
@@ -27,6 +28,7 @@ private:
 	StaticShader _staticShader;
 	Light _light;
 	Asset* _test = new Asset(glm::vec3(2.0f, 0.0f, -4.0f));
+	GLTexture _standard;
 
 	std::vector<Vertex> _vertices;
 	std::vector<Asset*> _assets;

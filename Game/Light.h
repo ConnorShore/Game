@@ -18,4 +18,3 @@ struct Light
 	void setPosition(glm::vec3& newPos) { _position = newPos; }
 	void setColor(glm::vec3& newCol) { _color = newCol; }
 };
-

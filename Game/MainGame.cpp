@@ -16,9 +16,12 @@ void MainGame::initSystems()
 	_window.createWindow("Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 60.0f, 5.0f, 0.0005f);
 
-
 	_test->init("Models/box.obj", "Textures/default.png");
 	_assets.push_back(_test);
+
+	_standard = _test->getTexture();
+	_standard.setShineDamp(10.0f);
+	_standard.setShineLevel(2.0f);
 }
 
 void MainGame::initShaders()
@@ -29,7 +32,7 @@ void MainGame::initShaders()
 
 void MainGame::initLights()
 {
-	_light.init(_camera.getPosition(), glm::vec3(1.0f, 1.0f, 1.0f));
+	_light.init(glm::vec3(2.0f,2.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
 void MainGame::input()
@@ -94,7 +97,6 @@ void MainGame::update()
 {
 	_camera.update();
 	//_test->setRotation(_test->getRotation() + 1.0f, _test->getRotationAxis());
-	_light.setPosition(_camera.getPosition());
 }
 
 void MainGame::render()
@@ -118,8 +120,9 @@ void MainGame::render()
 	_staticShader.loadTexture();
 
 	for (int i = 0; i < _assets.size(); i++) {
+		_staticShader.loadShine(_standard.getShineLevel(), _standard.getShineDamp());
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, _assets[0]->getTexture().id);
+		glBindTexture(GL_TEXTURE_2D, _assets[i]->getTexture().id);
 	}
 
 	for (int i = 0; i < _assets.size(); i++) {

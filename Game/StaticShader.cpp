@@ -22,6 +22,8 @@ void StaticShader::getUniformLocations()
 	_textureLoc = getUniformLocation("myTexture");
 	_lightPosLoc = getUniformLocation("lightPosition");
 	_lightColLoc = getUniformLocation("lightColor");
+	_shineLevLoc = getUniformLocation("shineLevel");
+	_shineDampLoc = getUniformLocation("shineDamp");
 }
 
 void StaticShader::loadViewMatrix(Camera camera)
@@ -49,6 +51,12 @@ void StaticShader::loadLight(Light light)
 {
 	loadVector3f(_lightPosLoc, light.getPosition());
 	loadVector3f(_lightColLoc, light.getColor());
+}
+
+void StaticShader::loadShine(float level, float damp)
+{
+	loadFloat(_shineLevLoc, level);
+	loadFloat(_shineDampLoc, damp);
 }
 
 StaticShader::~StaticShader()

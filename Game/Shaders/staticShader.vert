@@ -7,6 +7,7 @@ layout(location = 2) in vec3 vertexNormal;
 out vec3 fragmentPosition;
 out vec2 fragmentUV;
 out vec3 fragmentNormal;
+out vec3 toCameraVec;
 
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
@@ -18,6 +19,8 @@ void main(void)
 	mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
 	
 	gl_Position = (MVP * vec4(vertexPosition, 1.0));
+	
+	toCameraVec = (inverse(viewMatrix) * vec4(0.0,0.0,0.0,1.0)).xyz;
 	
 	fragmentPosition = worldPos.xyz;
 	fragmentUV = vertexUV;
