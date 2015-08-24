@@ -28,10 +28,14 @@ private:
 	StaticShader _staticShader;
 	Light _light;
 	Asset* _test = new Asset(glm::vec3(2.0f, 0.0f, -4.0f));
+	Asset* _test1 = new Asset(glm::vec3(-2.0f, 0.0f, -2.0f));
+	Asset* _floor = new Asset(glm::vec3(-5.0f, -2.0f, 5.0f));
 	GLTexture _standard;
+	GLTexture _standard1;
 
 	std::vector<Vertex> _vertices;
 	std::vector<Asset*> _assets;
+	std::vector<Light> _lights;
 
 	GLuint _vaoID;
 

@@ -19,9 +19,15 @@ void MainGame::initSystems()
 	_test->init("Models/box.obj", "Textures/default.png");
 	_assets.push_back(_test);
 
+	_test1->init("Models/monkey.obj", "Textures/default.png");
+	_assets.push_back(_test1);
+
+	_floor->init("Models/terrain_tile.obj", "Textures/picture.png");
+	_assets.push_back(_floor);
+
 	_standard = _test->getTexture();
-	_standard.setShineDamp(10.0f);
-	_standard.setShineLevel(2.0f);
+
+	_standard1 = _test1->getTexture();
 }
 
 void MainGame::initShaders()
@@ -32,7 +38,8 @@ void MainGame::initShaders()
 
 void MainGame::initLights()
 {
-	_light.init(glm::vec3(2.0f,2.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	_light.init(glm::vec3(2.0f, 2.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	_lights.push_back(_light);
 }
 
 void MainGame::input()
@@ -96,7 +103,6 @@ void MainGame::bindUniforms()
 void MainGame::update()
 {
 	_camera.update();
-	//_test->setRotation(_test->getRotation() + 1.0f, _test->getRotationAxis());
 }
 
 void MainGame::render()
@@ -107,35 +113,22 @@ void MainGame::render()
 
 	bindUniforms();
 
-	_staticShader.loadLight(_light);
+	for (int i = 0; i < _lights.size(); i++)
+		_staticShader.loadLight(_lights[i]);
 
 	_camera.createViewMatrix();
 	_staticShader.loadViewMatrix(_camera);
 	_projectionMatrix = _camera.createProjectionMatrix();
 	_staticShader.loadProjectionMatrix(_projectionMatrix);
 
-	for (int i = 0; i < _assets.size(); i++)
-		_assets[i]->bind();
-
 	_staticShader.loadTexture();
-
-	for (int i = 0; i < _assets.size(); i++) {
-		_staticShader.loadShine(_standard.getShineLevel(), _standard.getShineDamp());
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, _assets[i]->getTexture().id);
-	}
 
 	for (int i = 0; i < _assets.size(); i++) {
 		static glm::mat4 modelMat;
 		modelMat = _assets[i]->createModelMatrix();
 		_staticShader.loadModelMatrix(modelMat);
-		_assets[i]->render();
+		_assets[i]->render(_staticShader);
 	}
-
-	for (int i = 0; i < _assets.size(); i++)
-		_assets[i]->unbind();
-
-	glBindTexture(GL_TEXTURE_2D, 0);
 
 	_window.swapWindow();
 }

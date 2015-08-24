@@ -13,7 +13,7 @@ void Window::createWindow(std::string title, int width, int height, float x, flo
 	_height = height;
 	_x = x;
 	_y = y;
-	
+
 	_window = SDL_CreateWindow(title.c_str(), _x, _y, _width, _height, SDL_WINDOW_OPENGL);
 	if (_window == nullptr) {
 		fatalError("Failed to create SDL Window");

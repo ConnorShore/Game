@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Model.h"]
+#include "Model.h"
+#include "StaticShader.h"
 
 #include <vector>
 #include <string>
@@ -14,11 +15,10 @@ public:
 	~Asset();
 
 	void init(const std::string& modelFile, const std::string& textureFile);
-	void render();
-	void bind();
-	void unbind();
+	void render(StaticShader shader);
 	glm::mat4 createModelMatrix();
 
+	//Getters
 	Model getModel() { return model_; }
 	GLTexture getTexture() const { return model_.getTexture(); }
 
@@ -28,6 +28,7 @@ public:
 	float getScale() const { return scale_; }
 	float getRotation() const { return rotation_; }
 
+	//Setters
 	void setPosition(glm::vec3& newPos) { position_ = newPos;}
 	void setRotation(float angle, glm::vec3 axis) { rotation_ = angle; rotationAxis_ = axis; }
 	void setScale(float newScale) { scale_ = newScale; }

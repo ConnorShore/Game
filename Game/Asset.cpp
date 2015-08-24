@@ -29,16 +29,14 @@ void Asset::init(const std::string& modelFile, const std::string& textureFile)
 	glBufferData(GL_ARRAY_BUFFER, model_.getNormals().size() * sizeof(glm::vec3), &model_.getNormals()[0], GL_STATIC_DRAW);
 }
 
-void Asset::render()
-{
-	glDrawArrays(GL_TRIANGLES, 0, model_.getVertArray().size());
-}
-
-void Asset::bind()
+void Asset::render(StaticShader shader)
 {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, getTexture().id);
 
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
@@ -48,13 +46,14 @@ void Asset::bind()
 
 	glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
-}
 
-void Asset::unbind()
-{
+	glDrawArrays(GL_TRIANGLES, 0, model_.getVertArray().size());
+
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 glm::mat4 Asset::createModelMatrix()
