@@ -13,7 +13,7 @@ void MainGame::initSystems()
 	_currentState = GameState::PLAY;
 	SDL_Init(SDL_INIT_EVERYTHING);
 
-	_window.createWindow("Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	_window.createWindow(VERSION, _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 60.0f, 5.0f, 0.0005f);
 
 	_test->init("Models/box.obj", "Textures/default.png");
