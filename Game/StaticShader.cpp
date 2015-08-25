@@ -1,5 +1,6 @@
 #include "StaticShader.h"
 
+#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 StaticShader::StaticShader()
@@ -19,8 +20,11 @@ void StaticShader::getUniformLocations()
 	_projectionMatrixLoc = getUniformLocation("projectionMatrix");
 	_modelMatrixLoc = getUniformLocation("modelMatrix");
 	_textureLoc = getUniformLocation("myTexture");
-	_lightPosLoc = getUniformLocation("lightPosition");
-	_lightColLoc = getUniformLocation("lightColor");
+
+	for (int i = 0; i < MAX_LIGHTS; i++) {
+		_lightPosLoc[i] = getUniformLocation("lightPosition[" + std::to_string(i) + "]");
+		_lightColLoc[i] = getUniformLocation("lightColor[" + std::to_string(i) + "]");
+	}
 }
 
 void StaticShader::loadViewMatrix(Camera camera)
@@ -44,10 +48,18 @@ void StaticShader::loadTexture()
 	glUniform1i(_textureLoc, 0);
 }
 
-void StaticShader::loadLight(Light light)
+void StaticShader::loadLights(std::vector<Light> lights)
 {
-	loadVector3f(_lightPosLoc, light.getPosition());
-	loadVector3f(_lightColLoc, light.getColor());
+	for (int i = 0; i < MAX_LIGHTS; i++) {
+		if (i < lights.size()) {
+			loadVector3f(_lightPosLoc[i], lights[i].getPosition());
+			loadVector3f(_lightColLoc[i], lights[i].getColor());
+		}
+		else {
+			loadVector3f(_lightPosLoc[i], glm::vec3(0.0f, 0.0f, 0.0f));
+			loadVector3f(_lightColLoc[i], glm::vec3(0.0f, 0.0f, 0.0f));
+		}
+	}
 }
 
 StaticShader::~StaticShader()

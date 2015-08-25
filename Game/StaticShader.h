@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "ShaderProgram.h"
 #include "Camera.h"
 #include "Light.h"
@@ -17,11 +19,16 @@ public:
 	void loadProjectionMatrix(glm::mat4 matrix);
 	void loadModelMatrix(glm::mat4 matrix);
 	void loadTexture();
-	void loadLight(Light light);
+	void loadLights(std::vector<Light> lights);
 
 private:
 	const std::string VERTEX_FILE = "Shaders/staticShader.vert";
 	const std::string FRAGMENT_FILE = "Shaders/staticShader.frag";
 
-	int _viewMatrixLoc, _projectionMatrixLoc, _modelMatrixLoc, _textureLoc, _lightPosLoc, _lightColLoc;
+	const static int MAX_LIGHTS = 4;
+
+	int _viewMatrixLoc, _projectionMatrixLoc, _modelMatrixLoc, _textureLoc;
+
+	int _lightPosLoc[MAX_LIGHTS];
+	int _lightColLoc[MAX_LIGHTS];
 };

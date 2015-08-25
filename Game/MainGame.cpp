@@ -38,8 +38,9 @@ void MainGame::initShaders()
 
 void MainGame::initLights()
 {
-	_light.init(glm::vec3(2.0f, 2.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	_lights.push_back(_light);
+	_light.init(glm::vec3(7.0f, 2.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	_light2.init(glm::vec3(-7.0f, 2.0f, -7.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
 }
 
 void MainGame::input()
@@ -103,6 +104,9 @@ void MainGame::bindUniforms()
 void MainGame::update()
 {
 	_camera.update();
+
+	_lights.push_back(_light);
+	_lights.push_back(_light2);
 }
 
 void MainGame::render()
@@ -113,8 +117,7 @@ void MainGame::render()
 
 	bindUniforms();
 
-	for (int i = 0; i < _lights.size(); i++)
-		_staticShader.loadLight(_lights[i]);
+	_staticShader.loadLights(_lights);
 
 	_camera.createViewMatrix();
 	_staticShader.loadViewMatrix(_camera);
@@ -128,6 +131,8 @@ void MainGame::render()
 		modelMat = _assets[i]->createModelMatrix();
 		_staticShader.loadModelMatrix(modelMat);
 		_assets[i]->render(_staticShader);
+
+		_lights.clear();
 	}
 
 	_window.swapWindow();

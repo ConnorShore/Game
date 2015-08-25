@@ -3,29 +3,32 @@
 in vec3 fragmentPosition;
 in vec2 fragmentUV;
 in vec3 fragmentNormal;
+in vec3 toLightVector[4];
 
 out vec4 color;
 
 uniform sampler2D myTexture;
 
-uniform vec3 lightPosition;
-uniform vec3 lightColor;
-
-uniform float shineLevel;
-uniform float shineDamp;
+uniform vec3 lightColor[4];
 
 void main(void)
 {
-	vec3 unitNormal = normalize(fragmentNormal);
-	vec3 unitLightVector = normalize(lightPosition - fragmentPosition);
+	float ambientLevel = 0.2;
 	
-	float ambientLevel = 0.1;
+	vec3 totalDiffuse = vec3(0.0);
 	
-	float lightDot = clamp(dot(unitNormal, unitLightVector), 0, 1);
-	float brightness = max(lightDot, ambientLevel);
+	for(int i = 0; i < 4; i++) {
+		vec3 unitNormal = normalize(fragmentNormal);
+		vec3 unitLightVector = normalize(toLightVector[i]);
+		
+		float lightDot = clamp(dot(unitNormal, unitLightVector), 0, 1);
+		float brightness = max(lightDot, 0.0);
+		
+		totalDiffuse = totalDiffuse + brightness * lightColor[i];
+	}
 	
-	vec3 diffuse = brightness * lightColor;
-
+	totalDiffuse = max(totalDiffuse, ambientLevel);
+	
 	vec4 colorTex = texture(myTexture, fragmentUV);
-	color = (vec4(diffuse, 1.0)) * colorTex;
+	color = (vec4(totalDiffuse, 1.0)) * colorTex;
 }
