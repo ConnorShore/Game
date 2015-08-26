@@ -60,5 +60,5 @@ private:
 	void gameLoop();
 	void cleanUp();
 
-	const std::string VERSION = "v0.0.1.0";
+	const std::string VERSION = "v0.1.1";
 };

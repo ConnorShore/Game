@@ -31,4 +31,5 @@ private:
 
 	int _lightPosLoc[MAX_LIGHTS];
 	int _lightColLoc[MAX_LIGHTS];
+	int _lightAttenLoc[MAX_LIGHTS];
 };

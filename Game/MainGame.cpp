@@ -38,9 +38,8 @@ void MainGame::initShaders()
 
 void MainGame::initLights()
 {
-	_light.init(glm::vec3(7.0f, 2.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-	_light2.init(glm::vec3(-7.0f, 2.0f, -7.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
+	_light.init(glm::vec3(2.0f, 0.0f, -4.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 0.09f, 0.0032f));
+	_light2.init(glm::vec3(-4.0f, 10.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.09f, 0.0032f));
 }
 
 void MainGame::input()
@@ -94,6 +93,12 @@ void MainGame::input()
 			SDL_ShowCursor(showCursor);
 		}
 	}
+
+	if (_inputManager.isKeyDown(SDLK_F1))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	if (_inputManager.isKeyDown(SDLK_F2))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void MainGame::bindUniforms()

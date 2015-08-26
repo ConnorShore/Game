@@ -10,21 +10,30 @@ out vec4 color;
 uniform sampler2D myTexture;
 
 uniform vec3 lightColor[4];
+uniform vec3 attenuation[4];
 
 void main(void)
 {
-	float ambientLevel = 0.2;
+	float ambientLevel = 0.1;
 	
 	vec3 totalDiffuse = vec3(0.0);
 	
+	vec3 unitNormal = normalize(fragmentNormal);
+	
 	for(int i = 0; i < 4; i++) {
-		vec3 unitNormal = normalize(fragmentNormal);
 		vec3 unitLightVector = normalize(toLightVector[i]);
+		
+		float distance = length(toLightVector[i]);
+		float attFactor = 1.0 / (attenuation[i].x
+							+ attenuation[i].y * distance
+							+ attenuation[i].z * (distance * distance));
 		
 		float lightDot = clamp(dot(unitNormal, unitLightVector), 0, 1);
 		float brightness = max(lightDot, 0.0);
 		
-		totalDiffuse = totalDiffuse + brightness * lightColor[i];
+		totalDiffuse = totalDiffuse + (brightness * lightColor[i]);
+		
+		totalDiffuse *= attFactor;
 	}
 	
 	totalDiffuse = max(totalDiffuse, ambientLevel);

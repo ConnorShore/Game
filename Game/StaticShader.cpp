@@ -24,6 +24,7 @@ void StaticShader::getUniformLocations()
 	for (int i = 0; i < MAX_LIGHTS; i++) {
 		_lightPosLoc[i] = getUniformLocation("lightPosition[" + std::to_string(i) + "]");
 		_lightColLoc[i] = getUniformLocation("lightColor[" + std::to_string(i) + "]");
+		_lightAttenLoc[i] = getUniformLocation("attenuation[" + std::to_string(i) + "]");
 	}
 }
 
@@ -54,10 +55,12 @@ void StaticShader::loadLights(std::vector<Light> lights)
 		if (i < lights.size()) {
 			loadVector3f(_lightPosLoc[i], lights[i].getPosition());
 			loadVector3f(_lightColLoc[i], lights[i].getColor());
+			loadVector3f(_lightAttenLoc[i], lights[i].getAttenuation());
 		}
 		else {
 			loadVector3f(_lightPosLoc[i], glm::vec3(0.0f, 0.0f, 0.0f));
 			loadVector3f(_lightColLoc[i], glm::vec3(0.0f, 0.0f, 0.0f));
+			loadVector3f(_lightAttenLoc[i], glm::vec3(1.0f, 0.0f, 0.0f));
 		}
 	}
 }
