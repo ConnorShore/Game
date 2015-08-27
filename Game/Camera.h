@@ -25,12 +25,18 @@ public:
 	glm::vec3 getUp() const { return _up; }
 	glm::mat4 getViewMatrix() const { return _viewMatrix; }
 
+	glm::vec3 getWalkPosition() const { return glm::vec3(_position.x, HEIGHT, _position.z); }
+	glm::vec3 getWalkDirection() const { return glm::vec3(_direction.x, HEIGHT, _direction.z); }
+	glm::vec3 getWalkRight() const { return glm::vec3(_right.x, HEIGHT, _right.z); }
+
 	float getVertAngle() const { return _verticalAngle; }
 	float getHorzAngle() const { return _horizontalAngle; }
 	float getSensitivity() const { return _sensitivity; }
 	float getCamSpeed() const { return _camSpeed; }
+	float getHeight() const { return HEIGHT; }
 
 	bool isMouseLook() const { return _mouseLook; }
+	bool isFreeCam() const { return _freeCam; }
 
 	//Setters
 	void setPosition(glm::vec3& newPos) { _position = newPos; }
@@ -42,6 +48,7 @@ public:
 	void setHorzAngle(float newAngle) { _horizontalAngle = newAngle; }
 	void setSensitivity(float newSpeed) { _sensitivity = newSpeed; }
 	void setMouseLook(bool look) { _mouseLook = look; }
+	void setFreeCam(bool free) { _freeCam = free; }
 
 private:
 	InputManager _inputManager;
@@ -51,10 +58,12 @@ private:
 
 	int _screenWidth, _screenHeight;
 	bool _needsUpdate;
+	bool _freeCam = false;
 	float _horizontalAngle, _verticalAngle, _sensitivity, _fov, _camSpeed;
 	bool _mouseLook = true;
 
 	const float MAX_ANGLE = 1.49f;
+	const float HEIGHT = 0.0f;
 
 	glm::ivec2 _mousePos;
 	glm::vec3 _position, _direction, _right, _up;

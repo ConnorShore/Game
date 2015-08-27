@@ -8,6 +8,8 @@
 #include "InputManager.h"
 #include "Timing.h"
 #include "Light.h"
+#include "Player.h"
+#include "Item.h"
 
 enum class GameState { PLAY, EXIT };
 
@@ -28,9 +30,11 @@ private:
 	StaticShader _staticShader;
 
 	Light _light;
-	Light _light2;
+	Light _sun;
 
-	Asset* _test = new Asset(glm::vec3(2.0f, 0.0f, -4.0f));
+	Player _player;
+
+	Item* _test = new Item("Test", glm::vec3(2.0f, 0.0f, -4.0f), false);
 	Asset* _test1 = new Asset(glm::vec3(-2.0f, 0.0f, -2.0f));
 	Asset* _floor = new Asset(glm::vec3(-5.0f, -2.0f, 5.0f));
 
@@ -53,6 +57,7 @@ private:
 	void initSystems();
 	void initShaders();
 	void initLights();
+	void updateLights();
 	void input();
 	void update();
 	void render();
