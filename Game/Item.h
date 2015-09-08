@@ -18,4 +18,3 @@ private:
 	std::string _name;
 	bool _holdable;
 };
-

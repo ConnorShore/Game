@@ -32,7 +32,7 @@ private:
 	Light _light;
 	Light _sun;
 
-	Player _player;
+	Player* _player = new Player(glm::vec3(0.0f, 0.0f, 0.0f));
 
 	Item* _test = new Item("Test", glm::vec3(2.0f, 0.0f, -4.0f), false);
 	Asset* _test1 = new Asset(glm::vec3(-2.0f, 0.0f, -2.0f));

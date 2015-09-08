@@ -11,7 +11,7 @@
 class Asset
 {
 public:
-	Asset(glm::vec3& position, float rotation = 0.0f, glm::vec3& rotationAxis = glm::vec3(0.0f,1.0f,0.0f), float scale = 1.0f);
+	Asset(glm::vec3& position, float rotation = 0.0f, glm::vec3& rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f), float scale = 1.0f);
 	~Asset();
 
 	void init(const std::string& modelFile, const std::string& textureFile);
@@ -29,8 +29,9 @@ public:
 	float getRotation() const { return rotation_; }
 
 	//Setters
-	void setPosition(glm::vec3& newPos) { position_ = newPos;}
+	void setPosition(glm::vec3& newPos) { position_ = newPos; }
 	void setRotation(float angle, glm::vec3 axis) { rotation_ = angle; rotationAxis_ = axis; }
+	void setRotation(float angle) { rotation_ = angle; rotationAxis_ = glm::vec3(0, 1, 0); }
 	void setScale(float newScale) { scale_ = newScale; }
 
 protected:

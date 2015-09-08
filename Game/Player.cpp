@@ -2,18 +2,20 @@
 
 
 
-Player::Player()
+Player::Player(glm::vec3& position, float rotation /*0.0f*/, glm::vec3& rotationAxis /*glm::vec3(0.0f,1.0f,0.0f)*/, float scale /*1.0f*/) : Asset(position, rotation, rotationAxis, scale)
 {
 }
 
-void Player::init(Camera camera)
+
+
+void Player::initPlayer()
 {
-	_position = camera.getPosition();
+
 }
 
-void Player::update(Camera camera)
+void Player::update()
 {
-	_position = camera.getPosition();
+
 }
 
 Player::~Player()

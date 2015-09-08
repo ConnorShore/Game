@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <SDL/SDL.h>
 
-Camera::Camera() : _needsUpdate(true), _horizontalAngle(3.1415f), _verticalAngle(0.0f)
+Camera::Camera() : _needsUpdate(true), _yaw(3.1415f), _pitch(0.0f)
 {
 }
 
@@ -22,14 +22,14 @@ void Camera::init(glm::vec3 position, int screenWidth, int screenHeight, float f
 void Camera::look()
 {
 	_direction = glm::vec3(
-		cos(_verticalAngle) * sin(_horizontalAngle),
-		sin(_verticalAngle),
-		cos(_verticalAngle) * cos(_horizontalAngle));
+		cos(_pitch) * sin(_yaw),
+		sin(_pitch),
+		cos(_pitch) * cos(_yaw));
 
 	_right = glm::vec3(
-		sin(_horizontalAngle - 3.14f / 2.0f),
+		sin(_yaw - 3.14f / 2.0f),
 		0,
-		cos(_horizontalAngle - 3.14f / 2.0f));
+		cos(_yaw - 3.14f / 2.0f));
 
 	_up = glm::cross(_right, _direction);
 }
@@ -45,14 +45,14 @@ void Camera::mouseLook()
 	SDL_GetMouseState(&_mousePos.x, &_mousePos.y);
 	SDL_WarpMouseInWindow(_window.getSDLWindow(), _midWidth, _midHeight);
 
-	_horizontalAngle += _sensitivity * float(_midWidth - _mousePos.x);
-	_verticalAngle += _sensitivity * float(_midHeight - _mousePos.y);
+	_yaw += _sensitivity * float(_midWidth - _mousePos.x);
+	_pitch += _sensitivity * float(_midHeight - _mousePos.y);
 
-	if (_verticalAngle >= MAX_ANGLE)
-		_verticalAngle = MAX_ANGLE;
+	if (_pitch >= MAX_ANGLE)
+		_pitch = MAX_ANGLE;
 
-	if (_verticalAngle <= -MAX_ANGLE)
-		_verticalAngle = -MAX_ANGLE;
+	if (_pitch <= -MAX_ANGLE)
+		_pitch = -MAX_ANGLE;
 }
 
 glm::mat4 Camera::createViewMatrix()
