@@ -14,22 +14,17 @@ void MainGame::initSystems()
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	_window.createWindow(VERSION, _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-	_camera.init(glm::vec3(0.0f, 0.0f, 4.0f), _screenWidth, _screenHeight, 60.0f, 5.0f, 0.0005f);
+	_camera.init(glm::vec3(0.0f, 1.15f, 10.0f), _screenWidth, _screenHeight, 60.0f, 5.0f, 0.0005f);
+	_camera.setMouseLook(false);
 
 	_player->init("Models/box.obj", "Textures/default.png");
 	_assets.push_back(_player);
 
-	//_test->init("Models/box.obj", "Textures/default.png");
-	//_assets.push_back(_test);
+	_house->init("Models/house.obj", "Textures/picture.png");
+	_assets.push_back(_house);
 
 	_test1->init("Models/monkey.obj", "Textures/default.png");
 	_assets.push_back(_test1);
-
-	_floor->init("Models/terrain_tile.obj", "Textures/picture.png");
-	_assets.push_back(_floor);
-
-	_standard = _test->getTexture();
-	_standard1 = _test1->getTexture();
 }
 
 void MainGame::initShaders()
@@ -79,53 +74,12 @@ void MainGame::input()
 		}
 	}
 
-	//if (_inputManager.isKeyDown(SDLK_w)) { _player->setPosition(_player->getPosition() + _player->getDirection() * _timer.getDeltaTime() * _player->getWalkSpeed()); }
-	//if (_inputManager.isKeyDown(SDLK_s)) { _player->setPosition(_player->getPosition() - _player->getDirection() * _timer.getDeltaTime() * _player->getWalkSpeed()); }
-	//if (_inputManager.isKeyDown(SDLK_d)) { _player->setRotation(_player->getRotation() - 1.0f, glm::vec3(0,1,0)); }
-	//if (_inputManager.isKeyDown(SDLK_a)) { _player->setRotation(_player->getRotation() + 1.0f, glm::vec3(0, 1, 0)); }
-
-	//Move camera
-	/*if (!_camera.isFreeCam()) {
-		if (_inputManager.isKeyDown(SDLK_w)) { _camera.setPosition(_camera.getPosition() + _camera.getWalkDirection() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
-		if (_inputManager.isKeyDown(SDLK_s)) { _camera.setPosition(_camera.getPosition() - _camera.getWalkDirection() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
-		if (_inputManager.isKeyDown(SDLK_a)) { _camera.setPosition(_camera.getPosition() - _camera.getWalkRight() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
-		if (_inputManager.isKeyDown(SDLK_d)) { _camera.setPosition(_camera.getPosition() + _camera.getWalkRight() * _timer.getDeltaTime() * _camera.getCamSpeed()); }
-	}
-	else {*/
-
-	if (_inputManager.isKeyDown(SDLK_w)) { 
-		_player->setPosition(_player->getPosition() + _camera.getWalkDirection() * _timer.getDeltaTime() * _player->getWalkSpeed()); 
-	}
-
-	if (_inputManager.isKeyDown(SDLK_s)) { 
-		_player->setPosition(_player->getPosition() - _camera.getWalkDirection() * _timer.getDeltaTime() * _player->getWalkSpeed());
-	}
-
 	if (_inputManager.isKeyDown(SDLK_a)) { 
 		_player->setPosition(_player->getPosition() - _camera.getWalkRight() * _timer.getDeltaTime() * _player->getWalkSpeed()); 
 	}
 
 	if (_inputManager.isKeyDown(SDLK_d)) { 
 		_player->setPosition(_player->getPosition() + _camera.getWalkRight() * _timer.getDeltaTime() * _player->getWalkSpeed());
-	}
-
-	//}
-
-	if (_inputManager.isKeyDown(SDLK_ESCAPE)) {
-		if (showCursor != 1) {
-			_camera.setMouseLook(false);
-			showCursor = 1;
-			SDL_ShowCursor(showCursor);
-		}
-	}
-
-	if (_inputManager.isKeyDown(SDL_BUTTON_LEFT)) {
-		if (showCursor != 0) {
-			_camera.setMousePos(glm::ivec2(_screenWidth / 2, _screenHeight / 2));
-			_camera.setMouseLook(true);
-			showCursor = 0;
-			SDL_ShowCursor(showCursor);
-		}
 	}
 
 	if (_inputManager.isKeyDown(SDLK_F1))
@@ -152,7 +106,7 @@ void MainGame::bindUniforms()
 void MainGame::update()
 {
 	_camera.update();
-	_camera.setPosition(_player->getPosition() + glm::vec3(0.0f, 2.0f, 6.0f));
+	_camera.setPosition(_player->getPosition() + glm::vec3(0.0f, 1.15f, 10.0f));
 
 	_player->update();
 

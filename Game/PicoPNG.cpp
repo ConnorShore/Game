@@ -153,7 +153,7 @@ int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width,
 				while (i < HLIT + HDIST)
 				{
 					unsigned long code = huffmanDecodeSymbol(in, bp, codelengthcodetree, inlength); if (error) return;
-					if (code <= 15)  { if (i < HLIT) bitlen[i++] = code; else bitlenD[i++ - HLIT] = code; } //a length code
+					if (code <= 15) { if (i < HLIT) bitlen[i++] = code; else bitlenD[i++ - HLIT] = code; } //a length code
 					else if (code == 16) //repeat previous
 					{
 						if (bp >> 3 >= inlength) { error = 50; return; } //error, bit pointer jumps past memory
@@ -276,7 +276,7 @@ int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width,
 					idat.insert(idat.end(), &in[pos + 4], &in[pos + 4 + chunkLength]);
 					pos += (4 + chunkLength);
 				}
-				else if (in[pos + 0] == 'I' && in[pos + 1] == 'E' && in[pos + 2] == 'N' && in[pos + 3] == 'D')  { pos += 4; IEND = true; }
+				else if (in[pos + 0] == 'I' && in[pos + 1] == 'E' && in[pos + 2] == 'N' && in[pos + 3] == 'D') { pos += 4; IEND = true; }
 				else if (in[pos + 0] == 'P' && in[pos + 1] == 'L' && in[pos + 2] == 'T' && in[pos + 3] == 'E') //palette chunk (PLTE)
 				{
 					pos += 4; //go after the 4 letters

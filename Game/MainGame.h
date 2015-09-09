@@ -36,7 +36,7 @@ private:
 
 	Item* _test = new Item("Test", glm::vec3(2.0f, 0.0f, -4.0f), false);
 	Asset* _test1 = new Asset(glm::vec3(-2.0f, 0.0f, -2.0f));
-	Asset* _floor = new Asset(glm::vec3(-5.0f, -2.0f, 5.0f));
+	Asset* _house = new Asset(glm::vec3(0.0f,0.0f,0.0f));
 
 	GLTexture _standard;
 	GLTexture _standard1;
