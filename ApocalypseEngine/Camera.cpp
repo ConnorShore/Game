@@ -36,8 +36,8 @@ void Camera::look()
 
 void Camera::mouseLook()
 {
-	static float _midWidth = _screenWidth / 2.0f;
-	static float _midHeight = _screenHeight / 2.0f;
+	static int _midWidth = _screenWidth / 2;
+	static int _midHeight = _screenHeight / 2;
 
 	_mousePos.x = _midWidth;
 	_mousePos.y = _midHeight;

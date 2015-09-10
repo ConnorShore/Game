@@ -1,14 +1,14 @@
 #pragma once
 
-#include "AE/Window.h"
-#include "AE/StaticShader.h"
-#include "AE/Camera.h"
-#include "AE/GLTexture.h"
-#include "AE/Asset.h"
-#include "AE/InputManager.h"
-#include "AE/Timing.h"
-#include "AE/Light.h"
-#include "AE/Item.h"
+#include "ApocalypseEngine/Window.h"
+#include "ApocalypseEngine/StaticShader.h"
+#include "ApocalypseEngine/Camera.h"
+#include "ApocalypseEngine/GLTexture.h"
+#include "ApocalypseEngine/Asset.h"
+#include "ApocalypseEngine/InputManager.h"
+#include "ApocalypseEngine/Timing.h"
+#include "ApocalypseEngine/Light.h"
+#include "ApocalypseEngine/Item.h"
 
 #include "Player.h"
 

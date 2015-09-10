@@ -1,8 +1,8 @@
 #pragma once
 
+#include <string>
 #include <SDL/SDL.h>
 #include <GL/glew.h>
-#include <string>
 #include <glm/glm.hpp>
 
 class Window
