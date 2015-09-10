@@ -14,14 +14,15 @@ void MainGame::initSystems()
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	_window.createWindow(VERSION, _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-	_camera.init(glm::vec3(0.0f, 1.15f, 10.0f), _screenWidth, _screenHeight, 60.0f, 5.0f, 0.0005f);
+	_camera.init(glm::vec3(0.0f, 1.15f, _camera.getFollowDist()), _screenWidth, _screenHeight, 60.0f, 5.0f, 0.0005f);
 	_camera.setMouseLook(false);
+	_camera.setFollowdist(25.0f);
 
 	_player->init("Models/box.obj", "Textures/default.png");
 	_assets.push_back(_player);
 
-	_house->init("Models/house.obj", "Textures/picture.png");
-	_assets.push_back(_house);
+	_ground->init("Models/test_ground.obj", "Textures/picture.png");
+	_assets.push_back(_ground);
 
 	_test1->init("Models/monkey.obj", "Textures/default.png");
 	_assets.push_back(_test1);
@@ -106,7 +107,7 @@ void MainGame::bindUniforms()
 void MainGame::update()
 {
 	_camera.update();
-	_camera.setPosition(_player->getPosition() + glm::vec3(0.0f, 1.15f, 10.0f));
+	_camera.setPosition(_player->getPosition() + glm::vec3(0.0f, 1.15f, _camera.getFollowDist()));
 
 	_player->update();
 

@@ -34,6 +34,7 @@ public:
 	float getSensitivity() const { return _sensitivity; }
 	float getCamSpeed() const { return _camSpeed; }
 	float getHeight() const { return HEIGHT; }
+	float getFollowDist() const { return _followDist; }
 
 	bool isMouseLook() const { return _mouseLook; }
 	bool isFreeCam() const { return _freeCam; }
@@ -49,6 +50,7 @@ public:
 	void setSensitivity(float newSpeed) { _sensitivity = newSpeed; }
 	void setMouseLook(bool look) { _mouseLook = look; }
 	void setFreeCam(bool free) { _freeCam = free; }
+	void setFollowdist(float dist) { _followDist = dist; }
 
 private:
 	InputManager _inputManager;
@@ -64,6 +66,8 @@ private:
 
 	const float MAX_ANGLE = 1.49f;
 	const float HEIGHT = 0.0f;
+
+	float _followDist = 15.0f;
 
 	glm::ivec2 _mousePos;
 	glm::vec3 _position, _direction, _right, _up;

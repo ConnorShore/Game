@@ -53,13 +53,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\ApocalypseEngine;C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\deps\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;glew32.lib;glew32s.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\Debug\;C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\deps\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;glew32.lib;glew32s.lib;OpenGL32.lib;ApocalypseEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,41 +81,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Error.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="Light.cpp" />
-    <ClCompile Include="Loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
-    <ClCompile Include="Asset.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="picoPNG.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="StaticShader.cpp" />
-    <ClCompile Include="Timing.cpp" />
-    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Error.h" />
-    <ClInclude Include="GLTexture.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="Loader.h" />
     <ClInclude Include="MainGame.h" />
-    <ClInclude Include="Asset.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="picoPNG.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="StaticShader.h" />
-    <ClInclude Include="Timing.h" />
-    <ClInclude Include="Vertex.h" />
-    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

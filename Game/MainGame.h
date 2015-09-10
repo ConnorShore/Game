@@ -1,15 +1,16 @@
 #pragma once
 
-#include "Window.h"
-#include "StaticShader.h"
-#include "Camera.h"
-#include "GLTexture.h"
-#include "Asset.h"
-#include "InputManager.h"
-#include "Timing.h"
-#include "Light.h"
+#include "AE/Window.h"
+#include "AE/StaticShader.h"
+#include "AE/Camera.h"
+#include "AE/GLTexture.h"
+#include "AE/Asset.h"
+#include "AE/InputManager.h"
+#include "AE/Timing.h"
+#include "AE/Light.h"
+#include "AE/Item.h"
+
 #include "Player.h"
-#include "Item.h"
 
 enum class GameState { PLAY, EXIT };
 
@@ -32,11 +33,11 @@ private:
 	Light _light;
 	Light _sun;
 
-	Player* _player = new Player(glm::vec3(0.0f, 0.0f, 0.0f));
+	Player* _player = new Player(glm::vec3(0.0f, 1.0f, 0.0f));
 
-	Item* _test = new Item("Test", glm::vec3(2.0f, 0.0f, -4.0f), false);
-	Asset* _test1 = new Asset(glm::vec3(-2.0f, 0.0f, -2.0f));
-	Asset* _house = new Asset(glm::vec3(0.0f,0.0f,0.0f));
+	Item* _test = new Item("Test", glm::vec3(2.0f, 1.0f, -4.0f), false);
+	Asset* _test1 = new Asset(glm::vec3(-2.0f, 1.0f, -2.0f));
+	Asset* _ground = new Asset(glm::vec3(0.0f,0.0f,0.0f));
 
 	GLTexture _standard;
 	GLTexture _standard1;
