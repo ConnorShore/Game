@@ -72,6 +72,7 @@ glm::mat4 Camera::createProjectionMatrix()
 void Camera::update()
 {
 	look();
+
 	if (_mouseLook)
 		mouseLook();
 }

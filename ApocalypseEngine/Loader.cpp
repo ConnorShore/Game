@@ -107,15 +107,16 @@ bool Loader::loadOBJ(const char* filePath, std::vector<Vertex>& vertices)
 			vertexIndices.push_back(vertexIndex[0]);
 			vertexIndices.push_back(vertexIndex[1]);
 			vertexIndices.push_back(vertexIndex[2]);
+
 			uvIndices.push_back(uvIndex[0]);
 			uvIndices.push_back(uvIndex[1]);
 			uvIndices.push_back(uvIndex[2]);
+
 			normalIndices.push_back(normalIndex[0]);
 			normalIndices.push_back(normalIndex[1]);
 			normalIndices.push_back(normalIndex[2]);
 		}
 		else{
-			// Probably a comment, eat up the rest of the line
 			char stupidBuffer[1000];
 			fgets(stupidBuffer, 1000, file);
 		}
@@ -126,7 +127,7 @@ bool Loader::loadOBJ(const char* filePath, std::vector<Vertex>& vertices)
 	std::vector<glm::vec2> uvs;
 
 	// For each vertex of each triangle
-	for (unsigned int i = 0; i<vertexIndices.size(); i++){
+	for (unsigned int i = 0; i < vertexIndices.size(); i++){
 
 		// Get the indices of its attributes
 		unsigned int vertexIndex = vertexIndices[i];

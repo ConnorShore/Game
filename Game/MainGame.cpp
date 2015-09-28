@@ -14,6 +14,7 @@ void MainGame::initSystems()
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	_window.createWindow(VERSION, _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+
 	_camera.init(glm::vec3(0.0f, 1.15f, _camera.getFollowDist()), _screenWidth, _screenHeight, 60.0f, 5.0f, 0.0005f);
 	_camera.setMouseLook(false);
 	_camera.setFollowdist(25.0f);
@@ -21,7 +22,7 @@ void MainGame::initSystems()
 	_player->init("Models/box.obj", "Textures/default.png");
 	_assets.push_back(_player);
 
-	_ground->init("Models/test_ground.obj", "Textures/picture.png");
+	_ground->init("Models/test_ground.obj", "Textures/ground_texture.png");
 	_assets.push_back(_ground);
 
 	_test1->init("Models/monkey.obj", "Textures/default.png");
@@ -37,7 +38,7 @@ void MainGame::initShaders()
 void MainGame::initLights()
 {
 	_light.init(glm::vec3(2.0f, 0.0f, -4.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 0.09f, 0.0032f));
-	_sun.init(glm::vec3(0.0f, 75.0f, 15.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 0.00002f, 0.000008f));
+	_sun.init(glm::vec3(5.0f, 75.0f, 25.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 0.00002f, 0.000008f));
 }
 
 void MainGame::updateLights()
@@ -88,15 +89,6 @@ void MainGame::input()
 
 	if (_inputManager.isKeyDown(SDLK_F2))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-	if (_inputManager.isKeyDown(SDLK_RETURN)) {
-		if (_camera.isFreeCam())
-			_camera.setFreeCam(false);
-		else {
-			_camera.setPosition(_camera.getWalkPosition());
-			_camera.setFreeCam(true);
-		}
-	}
 }
 
 void MainGame::bindUniforms()
@@ -139,7 +131,7 @@ void MainGame::render()
 
 		//Clear and reload light vector and memory
 		_lights.clear();
-		std::vector<Light>(_lights).swap(_lights);
+		std::vector<BaseLight>(_lights).swap(_lights);
 	}
 
 	_window.swapWindow();

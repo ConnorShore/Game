@@ -4,7 +4,7 @@
 
 #include "ShaderProgram.h"
 #include "Camera.h"
-#include "Light.h"
+#include "BaseLight.h"
 
 class StaticShader : public ShaderProgram
 {
@@ -19,7 +19,7 @@ public:
 	void loadProjectionMatrix(glm::mat4 matrix);
 	void loadModelMatrix(glm::mat4 matrix);
 	void loadTexture();
-	void loadLights(std::vector<Light> lights);
+	void loadLights(std::vector<BaseLight> lights);
 
 private:
 	const std::string VERTEX_FILE = "Shaders/staticShader.vert";

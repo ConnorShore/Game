@@ -1,5 +1,7 @@
 #pragma once
 
+enum ViewType { VIEW_2D, VIEW_3D };
+
 #include <string>
 #include <SDL/SDL.h>
 #include <GL/glew.h>
@@ -21,8 +23,13 @@ public:
 
 	float getWindowX() { return _x; }
 	float getWindowY() { return _y; }
+	ViewType getViewType() { return _viewType; }
+
+	void setViewType(ViewType type) { _viewType = type; }
+	void setBackgroundColor(float r, float g, float b, float a) { glClearColor(r, g, b, a); }
 
 private:
+	ViewType _viewType;
 	SDL_Window* _window;
 
 	int _width, _height;

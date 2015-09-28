@@ -10,6 +10,7 @@ Asset::Asset(glm::vec3& position, float rotation /*0.0f*/, glm::vec3& rotationAx
 
 void Asset::init(const std::string& modelFile, const std::string& textureFile)
 {
+
 	if (_vaoID = 0) glGenVertexArrays(1, &_vaoID);
 	glBindVertexArray(_vaoID);
 

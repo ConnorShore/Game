@@ -13,28 +13,19 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{b0b136bc-08ec-4c82-a124-398a38f175d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\2D">
+      <UniqueIdentifier>{78de94e4-c8a1-45ec-b295-6b98af6ab236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\3D">
+      <UniqueIdentifier>{3b2a269a-1e13-4d65-aa8b-9d7835e69aa0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Light.cpp">
-      <Filter>Render</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Render</Filter>
     </ClCompile>
     <ClCompile Include="StaticShader.cpp">
       <Filter>Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Asset.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Entity</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Core</Filter>
@@ -57,12 +48,18 @@
     <ClCompile Include="Window.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="BaseLight.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Asset.cpp">
+      <Filter>Entity\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Entity\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLTexture.h">
-      <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
@@ -70,18 +67,6 @@
     </ClInclude>
     <ClInclude Include="StaticShader.h">
       <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Asset.h">
-      <Filter>Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Entity</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Core</Filter>
@@ -104,5 +89,20 @@
     <ClInclude Include="Window.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="BaseLight.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Asset.h">
+      <Filter>Entity\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Entity\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Entity\3D</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
 </Project>

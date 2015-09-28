@@ -49,7 +49,7 @@ void StaticShader::loadTexture()
 	glUniform1i(_textureLoc, 0);
 }
 
-void StaticShader::loadLights(std::vector<Light> lights)
+void StaticShader::loadLights(std::vector<BaseLight> lights)
 {
 	for (int i = 0; i < MAX_LIGHTS; i++) {
 		if (i < lights.size()) {

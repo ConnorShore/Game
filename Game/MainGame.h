@@ -7,7 +7,7 @@
 #include "ApocalypseEngine/Asset.h"
 #include "ApocalypseEngine/InputManager.h"
 #include "ApocalypseEngine/Timing.h"
-#include "ApocalypseEngine/Light.h"
+#include "ApocalypseEngine/BaseLight.h"
 #include "ApocalypseEngine/Item.h"
 
 #include "Player.h"
@@ -30,8 +30,8 @@ private:
 	Timing _timer;
 	StaticShader _staticShader;
 
-	Light _light;
-	Light _sun;
+	BaseLight _light;
+	BaseLight _sun;
 
 	Player* _player = new Player(glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -44,7 +44,7 @@ private:
 
 	std::vector<Vertex> _vertices;
 	std::vector<Asset*> _assets;
-	std::vector<Light> _lights;
+	std::vector<BaseLight> _lights;
 
 	GLuint _vaoID;
 

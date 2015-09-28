@@ -35,7 +35,7 @@ void Window::createWindow(std::string title, int width, int height, float x, flo
 
 	glViewport(0, 0, _width, _height);
 
-	glClearColor(0.05f, 0.0f, 0.25f, 1.0f);
+	setBackgroundColor(0.05f, 0.0f, 0.25f, 1.0f);
 
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);

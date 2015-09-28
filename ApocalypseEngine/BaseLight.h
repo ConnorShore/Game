@@ -2,12 +2,12 @@
 
 #include <glm/glm.hpp>
 
-class Light
+class BaseLight
 {
 
 public:
-	Light();
-	~Light();
+	BaseLight();
+	~BaseLight();
 
 	void init(glm::vec3& position, glm::vec3& color);
 	void init(glm::vec3& position, glm::vec3& color, glm::vec3& attenuation);
