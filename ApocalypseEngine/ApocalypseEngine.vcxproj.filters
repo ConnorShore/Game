@@ -24,9 +24,6 @@
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Render</Filter>
     </ClCompile>
-    <ClCompile Include="StaticShader.cpp">
-      <Filter>Render</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -63,9 +60,6 @@
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
-      <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticShader.h">
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
