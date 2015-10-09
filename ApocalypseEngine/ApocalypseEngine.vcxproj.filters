@@ -13,12 +13,6 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{b0b136bc-08ec-4c82-a124-398a38f175d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entity\2D">
-      <UniqueIdentifier>{78de94e4-c8a1-45ec-b295-6b98af6ab236}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entity\3D">
-      <UniqueIdentifier>{3b2a269a-1e13-4d65-aa8b-9d7835e69aa0}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShaderProgram.cpp">
@@ -48,11 +42,23 @@
     <ClCompile Include="BaseLight.cpp">
       <Filter>Render</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
     <ClCompile Include="Asset.cpp">
-      <Filter>Entity\3D</Filter>
+      <Filter>Entity</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>Entity\3D</Filter>
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsCore.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,14 +92,26 @@
     <ClInclude Include="BaseLight.h">
       <Filter>Render</Filter>
     </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
     <ClInclude Include="Asset.h">
-      <Filter>Entity\3D</Filter>
+      <Filter>Entity</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>Entity\3D</Filter>
+      <Filter>Entity</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
-      <Filter>Entity\3D</Filter>
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsCore.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@ public:
 
 	void FpsLimitInit();
 	void TimeInit();
-	void CalculateFPS(bool printFPS = false);
+	void CalculateFPS(bool printFPS);
 	void LimitFPS(const float MAX_FPS = 1000);
 	void calcDeltaTime();
 

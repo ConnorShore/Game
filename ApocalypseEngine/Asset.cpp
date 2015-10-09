@@ -30,7 +30,12 @@ void Asset::init(const std::string& modelFile, const std::string& textureFile)
 	glBufferData(GL_ARRAY_BUFFER, model_.getNormals().size() * sizeof(glm::vec3), &model_.getNormals()[0], GL_STATIC_DRAW);
 }
 
-void Asset::render(StaticShader shader)
+void Asset::update()
+{
+
+}
+
+void Asset::render()
 {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

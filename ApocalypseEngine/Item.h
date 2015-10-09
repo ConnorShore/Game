@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ApocalypseEngine\Asset.h>
+#include "Asset.h"
 
 #include <string>
 

@@ -40,8 +40,8 @@ GLuint ShaderProgram::loadShader(const std::string& file, GLuint type)
 	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &Result);
 	glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	std::vector<char> ShaderErrorMessage(InfoLogLength);
-	glGetShaderInfoLog(shaderID, InfoLogLength, NULL, &ShaderErrorMessage[0]);
-	fprintf(stdout, "%s\n", &ShaderErrorMessage[0]);
+	glGetShaderInfoLog(shaderID, InfoLogLength, NULL, ShaderErrorMessage.data());
+	fprintf(stdout, "%s\n", ShaderErrorMessage.data());
 
 	return shaderID;
 }
@@ -63,8 +63,8 @@ void ShaderProgram::init(const std::string& vertexFile, const std::string& fragm
 	glGetProgramiv(_programID, GL_LINK_STATUS, &Result);
 	glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	std::vector<char> ProgramErrorMessage(InfoLogLength, int(1));
-	glGetProgramInfoLog(_programID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-	fprintf(stdout, "%s\n", &ProgramErrorMessage[0]);
+	glGetProgramInfoLog(_programID, InfoLogLength, NULL, ProgramErrorMessage.data());
+	fprintf(stdout, "%s\n", ProgramErrorMessage.data());
 }
 
 void ShaderProgram::start()

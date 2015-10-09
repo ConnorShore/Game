@@ -25,15 +25,10 @@ public:
 	glm::vec3 getUp() const { return _up; }
 	glm::mat4 getViewMatrix() const { return _viewMatrix; }
 
-	glm::vec3 getWalkPosition() const { return glm::vec3(_position.x, HEIGHT, _position.z); }
-	glm::vec3 getWalkDirection() const { return glm::vec3(_direction.x, HEIGHT, _direction.z); }
-	glm::vec3 getWalkRight() const { return glm::vec3(_right.x, HEIGHT, _right.z); }
-
 	float getPitch() const { return _pitch; }
 	float getYaw() const { return _yaw; }
 	float getSensitivity() const { return _sensitivity; }
 	float getCamSpeed() const { return _camSpeed; }
-	float getHeight() const { return HEIGHT; }
 	float getFollowDist() const { return _followDist; }
 
 	bool isMouseLook() const { return _mouseLook; }
@@ -65,7 +60,6 @@ private:
 	bool _mouseLook = true;
 
 	const float MAX_ANGLE = 1.49f;
-	const float HEIGHT = 0.0f;
 
 	float _followDist = 15.0f;
 
