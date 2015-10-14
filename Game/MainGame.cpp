@@ -23,10 +23,12 @@ void MainGame::initSystems()
 
 	_player->init("Models/box.obj", "Textures/default.png");
 	_assets.push_back(_player);
+	_actors.push_back(_player);
 	_player->initPlayer();
 
 	_monkey->init("Models/monkey.obj", "Textures/default.png");
 	_assets.push_back(_monkey);
+	_actors.push_back(_monkey);
 	_monkey->setBounds(_monkey->createRectangleBoundsToModel());
 	_monkey->addBounds(_monkey->getBounds(), false);
 }
@@ -41,13 +43,6 @@ void MainGame::initLights()
 {
 	_light.init(glm::vec3(2.0f, 8.0f, 6.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 0.09f, 0.0032f));
 	_sun.init(glm::vec3(5.0f, 75.0f, 25.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 0.00002f, 0.000008f));
-}
-
-void MainGame::updateRectangles()
-{
-	_rects.push_back(_player->getBounds());
-	_rects.push_back(_monkey->getBounds());
-
 }
 
 void MainGame::updateLights()
@@ -115,14 +110,12 @@ void MainGame::bindUniforms()
 
 void MainGame::update()
 {
-	updateRectangles();
-
 	_camera.update();
 	_camera.setPosition(_player->getPosition() + glm::vec3(0.0f, 1.15f, _camera.getFollowDist()));
 
 	for (int i = 0; i < _assets.size(); i++) _assets[i]->update();
 
-	_physics.updateCollision(_rects);
+	_physics.updateCollision(_actors);
 
 	updateLights();
 }
@@ -153,10 +146,6 @@ void MainGame::render()
 		//Clear and reload light vector and memory
 		_lights.clear();
 		std::vector<BaseLight>(_lights).swap(_lights);
-
-		//Clear and reload collisions
-		_rects.clear();
-		std::vector<Rectangle>(_rects).swap(_rects);
 	}
 
 	_window.swapWindow();
