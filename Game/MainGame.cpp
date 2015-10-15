@@ -4,7 +4,6 @@
 #include <SDL\SDL.h>
 #include <iostream>
 
-//TODO: Make it so all collision detection takes place in PhysicsCore so that std::vector<Rectangle> is in that class
 
 MainGame::MainGame() : _screenWidth(1280), _screenHeight(720), _vaoID(0)
 {
@@ -26,11 +25,17 @@ void MainGame::initSystems()
 	_actors.push_back(_player);
 	_player->initPlayer();
 
-	_monkey->init("Models/monkey.obj", "Textures/default.png");
+	_monkey->init("Models/box.obj", "Textures/default.png");
 	_assets.push_back(_monkey);
 	_actors.push_back(_monkey);
 	_monkey->setBounds(_monkey->createRectangleBoundsToModel());
 	_monkey->addBounds(_monkey->getBounds(), false);
+
+	_monkey2->init("Models/box.obj", "Textures/default.png");
+	_assets.push_back(_monkey2);
+	_actors.push_back(_monkey2);
+	_monkey2->setBounds(_monkey2->createRectangleBoundsToModel());
+	_monkey2->addBounds(_monkey2->getBounds(), false);
 }
 
 void MainGame::initShaders()
@@ -115,7 +120,12 @@ void MainGame::update()
 
 	for (int i = 0; i < _assets.size(); i++) _assets[i]->update();
 
-	_physics.updateCollision(_actors);
+	for (int i = 0; i < _actors.size(); i++) {
+		if(_player != _actors[i])
+			Collision::actAABBCollision(_player, _actors[i]);
+	}
+
+	//_physics.updateCollision(_actors);
 
 	updateLights();
 }

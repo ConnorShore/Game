@@ -37,6 +37,7 @@ private:
 
 	Player* _player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), CollisionType::RECTANGLE);
 	Actor* _monkey = new Actor(glm::vec3(2.0f, 4.0f, 0.0), CollisionType::RECTANGLE);
+	Actor* _monkey2 = new Actor(glm::vec3(12.0f, 8.0f, 0.0), CollisionType::RECTANGLE);
 
 	GLTexture _standard;
 	GLTexture _standard1;
@@ -66,5 +67,5 @@ private:
 	void gameLoop();
 	void cleanUp();
 
-	const std::string VERSION = "v0.1.1";
+	const std::string VERSION = "v0.1.2";
 };
