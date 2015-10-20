@@ -37,7 +37,7 @@ private:
 
 	Player* _player = new Player(glm::vec3(0.0f, 0.0f, 0.0f), CollisionType::RECTANGLE);
 	Actor* _monkey = new Actor(glm::vec3(2.0f, 4.0f, 0.0), CollisionType::RECTANGLE);
-	Actor* _monkey2 = new Actor(glm::vec3(12.0f, 8.0f, 0.0), CollisionType::RECTANGLE);
+	Actor* _monkey2 = new Actor(glm::vec3(12.0f, 8.0f, 0.0), CollisionType::RECTANGLE, 0.0f, glm::vec3(0.0f,1.0f,0.0f), 3.0f);
 
 	GLTexture _standard;
 	GLTexture _standard1;
@@ -63,7 +63,6 @@ private:
 	void input();
 	void update();
 	void render();
-	void bindUniforms();
 	void gameLoop();
 	void cleanUp();
 

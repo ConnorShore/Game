@@ -16,11 +16,11 @@ void MainGame::initSystems()
 
 	_window.createWindow(VERSION, _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
-	_camera.init(glm::vec3(_player->getPosition().x, _player->getPosition().y, _camera.getFollowDist()), _screenWidth, _screenHeight, 60.0f, 5.0f, 0.0005f);
+	_camera.init(glm::vec3(_player->getPosition().x, _player->getPosition().y - 2.0f, _camera.getFollowDist()), _screenWidth, _screenHeight, 80.0f, 5.0f, 0.0005f);
 	_camera.setMouseLook(false);
 	_camera.setFollowdist(25.0f);
 
-	_player->init("Models/box.obj", "Textures/default.png");
+	_player->init("Models/human_model.obj", "Textures/default.png");
 	_assets.push_back(_player);
 	_actors.push_back(_player);
 	_player->initPlayer();
@@ -108,15 +108,10 @@ void MainGame::input()
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-void MainGame::bindUniforms()
-{
-	_staticShader.getUniformLocations();
-}
-
 void MainGame::update()
 {
 	_camera.update();
-	_camera.setPosition(_player->getPosition() + glm::vec3(0.0f, 1.15f, _camera.getFollowDist()));
+	_camera.setPosition(_player->getPosition() + glm::vec3(0.0f, -2.25f, _camera.getFollowDist()));
 
 	for (int i = 0; i < _assets.size(); i++) _assets[i]->update();
 
@@ -136,7 +131,7 @@ void MainGame::render()
 
 	_staticShader.start();
 
-	bindUniforms();
+	_staticShader.getUniformLocations();
 
 	_staticShader.loadLights(_lights);
 

@@ -61,7 +61,7 @@ private:
 
 	const float MAX_ANGLE = 1.49f;
 
-	float _followDist = 15.0f;
+	float _followDist = 20.0f;
 
 	glm::ivec2 _mousePos;
 	glm::vec3 _position, _direction, _right, _up;

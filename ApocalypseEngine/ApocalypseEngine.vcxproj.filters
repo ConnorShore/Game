@@ -13,6 +13,9 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{b0b136bc-08ec-4c82-a124-398a38f175d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics\BoundingTypes">
+      <UniqueIdentifier>{76904bdf-57a0-439f-a30a-e57a575d10ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShaderProgram.cpp">
@@ -51,15 +54,19 @@
     <ClCompile Include="Model.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsCore.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Physics\BoundingTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Physics\BoundingTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLTexture.h">
@@ -104,15 +111,19 @@
     <ClInclude Include="Vertex.h">
       <Filter>Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsCore.h">
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Physics\BoundingTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>Physics\BoundingTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
