@@ -12,11 +12,12 @@ class Asset
 {
 public:
 	Asset(glm::vec3& position, float rotation = 0.0f, glm::vec3& rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f), float scale = 1.0f);
-	~Asset();
+	virtual ~Asset();
 
 	void init(const std::string& modelFile, const std::string& textureFile);
-	virtual void update();
 	void render();
+
+	virtual void update();
 
 	glm::mat4 createModelMatrix();
 

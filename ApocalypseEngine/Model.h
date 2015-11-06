@@ -48,6 +48,6 @@ public:
 
 private:
 	std::vector<Vertex> _vertices;
-	GLTexture _texture;
+	GLTexture _texture; 
 };
 

@@ -13,7 +13,7 @@ public:
 	Window();
 	~Window();
 
-	void createWindow(std::string title, int width, int height, float x, float y);
+	void createWindow(std::string title, int width, int height, float x, float y, int initGLStatus);
 	void swapWindow();
 
 	//getters

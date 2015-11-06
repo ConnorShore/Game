@@ -45,7 +45,7 @@ public:
 	void setSensitivity(float newSpeed) { _sensitivity = newSpeed; }
 	void setMouseLook(bool look) { _mouseLook = look; }
 	void setFreeCam(bool free) { _freeCam = free; }
-	void setFollowdist(float dist) { _followDist = dist; }
+	void setFollowDist(float dist) { _followDist = dist; }
 
 private:
 	InputManager _inputManager;

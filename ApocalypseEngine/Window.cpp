@@ -7,12 +7,14 @@ Window::Window() : _window(nullptr), _showGL(false)
 
 }
 
-void Window::createWindow(std::string title, int width, int height, float x, float y)
+void Window::createWindow(std::string title, int width, int height, float x, float y, int initGLStatus)
 {
 	_width = width;
 	_height = height;
 	_x = x;
 	_y = y;
+
+	SDL_Init(initGLStatus);
 
 	_window = SDL_CreateWindow(title.c_str(), _x, _y, _width, _height, SDL_WINDOW_OPENGL);
 	if (_window == nullptr) {
@@ -37,11 +39,9 @@ void Window::createWindow(std::string title, int width, int height, float x, flo
 
 	setBackgroundColor(0.05f, 0.0f, 0.25f, 1.0f);
 
-	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void Window::swapWindow()

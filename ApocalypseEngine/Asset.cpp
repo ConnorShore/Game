@@ -10,7 +10,6 @@ Asset::Asset(glm::vec3& position, float rotation /*0.0f*/, glm::vec3& rotationAx
 
 void Asset::init(const std::string& modelFile, const std::string& textureFile)
 {
-
 	if (_vaoID = 0) glGenVertexArrays(1, &_vaoID);
 	glBindVertexArray(_vaoID);
 
@@ -28,11 +27,6 @@ void Asset::init(const std::string& modelFile, const std::string& textureFile)
 	glGenBuffers(1, &_normalBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
 	glBufferData(GL_ARRAY_BUFFER, model_.getNormals().size() * sizeof(glm::vec3), &model_.getNormals()[0], GL_STATIC_DRAW);
-}
-
-void Asset::update()
-{
-
 }
 
 void Asset::render()
@@ -60,6 +54,11 @@ void Asset::render()
 	glDisableVertexAttribArray(0);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Asset::update()
+{
+	//virtual
 }
 
 glm::mat4 Asset::createModelMatrix()

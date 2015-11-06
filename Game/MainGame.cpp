@@ -12,15 +12,14 @@ MainGame::MainGame() : _screenWidth(1280), _screenHeight(720), _vaoID(0)
 void MainGame::initSystems()
 {
 	_currentState = GameState::PLAY;
-	SDL_Init(SDL_INIT_EVERYTHING);
 
-	_window.createWindow(VERSION, _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	_window.createWindow(VERSION, _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SDL_INIT_EVERYTHING);
 
 	_camera.init(glm::vec3(_player->getPosition().x, _player->getPosition().y - 2.0f, _camera.getFollowDist()), _screenWidth, _screenHeight, 80.0f, 5.0f, 0.0005f);
 	_camera.setMouseLook(false);
-	_camera.setFollowdist(25.0f);
+	_camera.setFollowDist(25.0f);
 
-	_player->init("Models/human_model.obj", "Textures/default.png");
+	_player->init("Models/Player/player_1.obj", "Textures/default.png");
 	_assets.push_back(_player);
 	_actors.push_back(_player);
 	_player->initPlayer();
@@ -138,6 +137,7 @@ void MainGame::render()
 	_camera.createViewMatrix();
 	_staticShader.loadViewMatrix(_camera);
 	_projectionMatrix = _camera.createProjectionMatrix();
+
 	_staticShader.loadProjectionMatrix(_projectionMatrix);
 
 	_staticShader.loadTexture();
@@ -146,12 +146,15 @@ void MainGame::render()
 		static glm::mat4 modelMat;
 		modelMat = _assets[i]->createModelMatrix();
 		_staticShader.loadModelMatrix(modelMat);
+
 		_assets[i]->render();
 
 		//Clear and reload light vector and memory
 		_lights.clear();
 		std::vector<BaseLight>(_lights).swap(_lights);
 	}
+
+	_staticShader.stop();
 
 	_window.swapWindow();
 }
@@ -169,8 +172,6 @@ void MainGame::gameLoop()
 		_timer.CalculateFPS(false);
 		_timer.LimitFPS(60);
 	}
-
-	cleanUp();
 }
 
 void MainGame::cleanUp()
@@ -189,6 +190,7 @@ void MainGame::run()
 	initShaders();
 	initLights();
 	gameLoop();
+	cleanUp();
 }
 
 MainGame::~MainGame()

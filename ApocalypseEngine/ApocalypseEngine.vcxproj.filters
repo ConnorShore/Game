@@ -16,15 +16,15 @@
     <Filter Include="Physics\BoundingTypes">
       <UniqueIdentifier>{76904bdf-57a0-439f-a30a-e57a575d10ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Debug">
+      <UniqueIdentifier>{a12c9a2b-4597-4c74-950b-3b0c0590edec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Render</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Error.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
@@ -66,7 +66,21 @@
     <ClCompile Include="Circle.cpp">
       <Filter>Physics\BoundingTypes</Filter>
     </ClCompile>
-    <ClCompile Include="DebugRenderer.cpp" />
+    <ClCompile Include="DebugRenderer.cpp">
+      <Filter>Core\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Error.cpp">
+      <Filter>Core\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureCache.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLTexture.h">
@@ -76,9 +90,6 @@
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Error.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
@@ -123,7 +134,24 @@
     <ClInclude Include="Circle.h">
       <Filter>Physics\BoundingTypes</Filter>
     </ClInclude>
-    <ClInclude Include="DebugRenderer.h" />
+    <ClInclude Include="DebugRenderer.h">
+      <Filter>Core\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Error.h">
+      <Filter>Core\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex2D.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureCache.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

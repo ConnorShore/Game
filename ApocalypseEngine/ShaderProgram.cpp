@@ -79,8 +79,6 @@ void ShaderProgram::stop()
 
 void ShaderProgram::cleanUp()
 {
-	stop();
-
 	glDetachShader(_programID, _vertexShaderID);
 	glDetachShader(_programID, _fragmentShaderID);
 	glDeleteShader(_vertexShaderID);
