@@ -81,6 +81,12 @@
     <ClCompile Include="TextureCache.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="Camera2D.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteBatch.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLTexture.h">
@@ -151,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="TextureCache.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteBatch.h">
+      <Filter>Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

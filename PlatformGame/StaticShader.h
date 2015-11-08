@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <glm/glm.hpp>
 
 #include <ApocalypseEngine\ShaderProgram.h>
 #include <ApocalypseEngine\Camera.h>
@@ -16,10 +17,11 @@ public:
 	void getUniformLocations() override;
 
 	void loadTexture();
+	void loadPMatrix(glm::mat4 matrix);
 
 private:
 	const std::string VERTEX_FILE = "Shaders/staticShader.vert";
 	const std::string FRAGMENT_FILE = "Shaders/staticShader.frag";
 
-	int _textureLoc;
+	int _textureLoc, _pMatrixLoc;
 };

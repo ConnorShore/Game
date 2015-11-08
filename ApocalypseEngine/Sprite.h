@@ -13,7 +13,7 @@ public:
 	~Sprite();
 
 	void init(float x, float y, float width, float height, const std::string& texturePath);
-	void draw();
+	void render();
 
 private:
 	float _x, _y, _width, _height;

@@ -3,6 +3,8 @@
 #include <ApocalypseEngine\Window.h>
 #include <ApocalypseEngine\InputManager.h>
 #include <ApocalypseEngine\Sprite.h>
+#include <ApocalypseEngine\Camera2D.h>
+#include <ApocalypseEngine\SpriteBatch.h>
 
 #include "StaticShader.h"
 
@@ -19,12 +21,14 @@ public:
 	void run();
 
 private:
+	int _screenWidth, _screenHeight;
+
 	GameState _currentState;
 	Window _window;
 	InputManager _inputManager;
 	StaticShader _shader;
-
-	std::vector<Sprite*> _sprites;
+	Camera2D _camera;
+	SpriteBatch _spriteBatch;
 
 	void init();
 	void input();
