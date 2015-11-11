@@ -3,9 +3,24 @@
 #include <ApocalypseEngine\ResourceManager.h>
 #include <iostream>
 
-
-MainGame::MainGame() : _currentState(GameState::PLAY), _screenWidth(1280), _screenHeight(720)
+MainGame::MainGame() : _currentState(GameState::PLAY), _screenWidth(1280), _screenHeight(720), _player(nullptr)
 {
+}
+
+void MainGame::initShaders()
+{
+	_shader.init("Shaders/colorShader.vert", "Shaders/colorShader.frag");
+	_shader.bindAttributes();
+}
+
+void MainGame::initLevels()
+{
+	_levels.push_back(new Level("Levels/level1.txt"));
+	_currentLevel = 0;
+
+	_player = new Player;
+	_player->init(_levels[_currentLevel]->getStartPlayerPos());
+	_friendlies.push_back(_player);
 }
 
 void MainGame::init()
@@ -13,10 +28,10 @@ void MainGame::init()
 	_window.createWindow("Platform Game", _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SDL_INIT_EVERYTHING);
 	_camera.init(_screenWidth, _screenHeight);
 
-	_shader.init("Shaders/colorShader.vert", "Shaders/colorShader.frag");
-	_shader.bindAttributes();
+	_friendlySpriteBatch.init();
 
-	_spriteBatch.init();
+	initShaders();
+	initLevels();
 }
 
 void MainGame::input()
@@ -48,23 +63,17 @@ void MainGame::input()
 	}
 
 	//Keybindings
-	const int CAM_SPEED = 5.0f;
 
-	if (_inputManager.isKeyDown(SDLK_w)) _camera.setPosition(_camera.getPosition() + glm::vec2(0.0f, CAM_SPEED));
-	if (_inputManager.isKeyDown(SDLK_s)) _camera.setPosition(_camera.getPosition() - glm::vec2(0.0f, CAM_SPEED));
-	if (_inputManager.isKeyDown(SDLK_d)) _camera.setPosition(_camera.getPosition() + glm::vec2(CAM_SPEED, 0.0f));
-	if (_inputManager.isKeyDown(SDLK_a)) _camera.setPosition(_camera.getPosition() - glm::vec2(CAM_SPEED, 0.0f));
-
-	if (_inputManager.isKeyDown(SDL_BUTTON_LEFT)) {
-		glm::vec2 mouseCoords = _inputManager.getMousePos();
-		mouseCoords = _camera.convertToWorldCoords(mouseCoords);
-		std::cout << mouseCoords.x << ", " << mouseCoords.y << std::endl;
-	}
+	_player->input(_inputManager);
 }
 
 void MainGame::update()
 {
+	_camera.setPosition(_player->getPosition());
 	_camera.update();
+
+	for (int i = 0; i < _agents.size(); i++)
+		_agents[i]->update();
 }
 
 void MainGame::render()
@@ -80,17 +89,16 @@ void MainGame::render()
 
 	_shader.loadTexture();
 
-	_spriteBatch.begin();
-	
-	Color color;
-	color.r = 255;
-	color.g = 255;
-	color.b = 255;
-	color.a = 255;
-	_spriteBatch.addToBatch(glm::vec4(0.0f, 0.0f, 100.0f, 220.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), 0.0f, ResourceManager::getTexture("Textures/Player/idle_right.png").id, color);
+	_friendlySpriteBatch.begin();
 
-	_spriteBatch.end();
-	_spriteBatch.renderBatch();
+	_levels[_currentLevel]->render();
+
+	//Draw Friendies
+	for (int i = 0; i < _friendlies.size(); i++)
+		_friendlies[i]->render(_friendlySpriteBatch);
+	
+	_friendlySpriteBatch.end();
+	_friendlySpriteBatch.renderBatch();
 
 	_shader.stop();
 	_window.swapWindow();
@@ -98,10 +106,18 @@ void MainGame::render()
 
 void MainGame::gameLoop()
 {
+	_timer.TimeInit();
+
 	while (_currentState != GameState::EXIT) {
+		_timer.FpsLimitInit();
+		_timer.calcDeltaTime();
+
 		input();
 		update();
 		render();
+
+		_timer.CalculateFPS(false);
+		_timer.LimitFPS(60.0f);
 	}
 }
 
@@ -121,4 +137,18 @@ void MainGame::cleanUp()
 
 MainGame::~MainGame()
 {
+	for (int i = 0; i < _agents.size(); i++)
+		delete _agents[i];
+
+	for (int i = 0; i < _friendlies.size(); i++)
+		delete _friendlies[i];
+
+	for (int i = 0; i < _enemies.size(); i++)
+		delete _enemies[i];
+
+	for (int i = 0; i < _bullets.size(); i++)
+		delete _bullets[i];
+
+	for (int i = 0; i < _levels.size(); i++)
+		delete _levels[i];
 }
