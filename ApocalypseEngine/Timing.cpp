@@ -2,6 +2,7 @@
 
 #include <SDL/SDL.h>
 #include <cstdio>
+#include <iostream>
 
 Timing::Timing()
 {
@@ -27,7 +28,9 @@ void Timing::CalculateFPS(bool printFPS)
 		_fpsLastTime = SDL_GetTicks();
 		_fpsCurrent = _fpsFrames;
 
-		if (printFPS) printf("%u\n", _fpsCurrent);
+		if (printFPS)
+			printf("%u\n", _fpsCurrent);
+
 		_deltaTime = float(_fpsCurrent - _fpsLastTime);
 
 		_fpsFrames = 0;
