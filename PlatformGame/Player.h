@@ -11,7 +11,7 @@ public:
 
 	void init(glm::vec2& position);
 	void input(InputManager& input);
-	void update() override;
+	void update(const std::vector<std::string>& levelData, std::vector<Friendly*>& friends, std::vector<Enemy*>& enemies) override;
 
 private:
 

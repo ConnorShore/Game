@@ -4,5 +4,6 @@ class DebugRenderer
 public:
 	DebugRenderer();
 	~DebugRenderer();
+
 };
 

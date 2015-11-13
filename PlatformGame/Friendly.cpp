@@ -6,7 +6,7 @@ Friendly::Friendly()
 {
 }
 
-void Friendly::update()
+void Friendly::update(const std::vector<std::string>& levelData, std::vector<Friendly*>& friends, std::vector<Enemy*>& enemies)
 {
 
 }
