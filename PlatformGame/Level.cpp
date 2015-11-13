@@ -25,7 +25,6 @@ Level::Level(const std::string& levelFile)
 	_spriteBatch.init();
 	_spriteBatch.begin();
 
-	const float TILE_SIZE = 20.0f;
 	glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
 
 	Color white;

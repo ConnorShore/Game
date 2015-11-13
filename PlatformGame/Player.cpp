@@ -9,7 +9,7 @@ Player::Player()
 void Player::init(glm::vec2& position)
 {
 	position_ = position;
-	speed_ = 5.0f;
+	speed_ = 2.5f;
 	texture_ = ResourceManager::getTexture("Textures/Player/idle_right.png");
 	depth_ = 0.0f;
 	setColor(255, 255, 255, 255);
@@ -32,9 +32,9 @@ void Player::input(InputManager & input)
 	}
 }
 
-void Player::update()
+void Player::update(const std::vector<std::string>& levelData, std::vector<Friendly*>& friends, std::vector<Enemy*>& enemies)
 {
-
+	collideWithLevel(levelData);
 }
 
 Player::~Player()
