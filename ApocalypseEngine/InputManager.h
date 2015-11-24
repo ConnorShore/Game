@@ -10,9 +10,12 @@ public:
 	InputManager();
 	~InputManager();
 
+	void update();
+
 	void keyPressed(unsigned int keyID);
 	void keyReleased(unsigned int keyID);
 	bool isKeyDown(unsigned int keyID);
+	bool isKeyPressed(unsigned int keyID);
 
 	void setMousePos(glm::vec2& coords);
 
@@ -24,7 +27,10 @@ public:
 private:
 	GLuint _keyID;
 	std::unordered_map<unsigned int, bool> _keyMap;
+	std::unordered_map<unsigned int, bool> _previousKeyMap;
 
 	glm::vec2 _mousePos;
+
+	bool wasKeyDown(unsigned int keyID);
 };
 

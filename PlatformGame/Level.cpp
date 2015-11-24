@@ -51,6 +51,9 @@ Level::Level(const std::string& levelFile)
 			case '.':
 				//Do nothing
 				break;
+			case ' ':
+				break;
+
 			default:
 				printf("The tile %s does not exhist at (%d, %d)\n", tile, x, y);
 				break;

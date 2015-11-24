@@ -87,6 +87,12 @@
     <ClCompile Include="SpriteBatch.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
+    <ClCompile Include="IMainGame.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenList.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLTexture.h">
@@ -163,6 +169,15 @@
     </ClInclude>
     <ClInclude Include="SpriteBatch.h">
       <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameScreen.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="IMainGame.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenList.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

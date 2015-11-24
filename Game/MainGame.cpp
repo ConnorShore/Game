@@ -19,18 +19,18 @@ void MainGame::initSystems()
 	_camera.setMouseLook(false);
 	_camera.setFollowDist(25.0f);
 
-	_player->init("Models/Player/player_1.obj", "Textures/default.png");
+	_player->init("Models/human_model.obj", "Textures/default.png");
 	_assets.push_back(_player);
 	_actors.push_back(_player);
 	_player->initPlayer();
 
-	_monkey->init("Models/box.obj", "Textures/default.png");
+	_monkey->init("Models/human_model.obj", "Textures/default.png");
 	_assets.push_back(_monkey);
 	_actors.push_back(_monkey);
 	_monkey->setBounds(_monkey->createRectangleBoundsToModel());
 	_monkey->addBounds(_monkey->getBounds(), false);
 
-	_monkey2->init("Models/box.obj", "Textures/default.png");
+	_monkey2->init("Models/human_model.obj", "Textures/default.png");
 	_assets.push_back(_monkey2);
 	_actors.push_back(_monkey2);
 	_monkey2->setBounds(_monkey2->createRectangleBoundsToModel());

@@ -1,0 +1,62 @@
+#include "ScreenList.h"
+#include "IGameScreen.h"
+
+ScreenList::ScreenList(IMainGame* game) : _game(game)
+{
+}
+
+IGameScreen* ScreenList::moveNext()
+{
+	IGameScreen* currentScreen = getCurrent();
+
+	if (currentScreen->getNextScreenIndex() != NULL_SCREEN_INDEX) {
+		_currentScreenIndex = currentScreen->getNextScreenIndex();
+	}
+
+	return getCurrent();
+}
+
+IGameScreen* ScreenList::movePrevious()
+{
+	IGameScreen* currentScreen = getCurrent();
+
+	if (currentScreen->getPreviousScreenIndex() != NULL_SCREEN_INDEX){
+		_currentScreenIndex = currentScreen->getPreviousScreenIndex();
+	}
+
+	return getCurrent();
+}
+
+IGameScreen* ScreenList::getCurrent()
+{
+	if (_currentScreenIndex == NULL_SCREEN_INDEX) return nullptr;
+	return _screens[_currentScreenIndex];
+}
+
+void ScreenList::setScreen(int nextScreen)
+{
+	_currentScreenIndex = nextScreen;
+}
+
+void ScreenList::addScreen(IGameScreen* newScreen)
+{
+	newScreen->_screenIndex = _screens.size();
+	_screens.push_back(newScreen);
+	newScreen->build();
+	newScreen->setParentGame(_game);
+}
+
+void ScreenList::destroy()
+{
+	for (int i = 0; i < _screens.size(); i++) {
+		_screens[i]->destroy();
+	}
+
+	_screens.resize(0);
+	_currentScreenIndex = NULL_SCREEN_INDEX;
+}
+
+ScreenList::~ScreenList()
+{
+	destroy();
+}

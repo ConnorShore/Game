@@ -1,11 +1,10 @@
 #include <iostream>
-
-#include "MainGame.h"
+#include "App.h"
 
 int main(int argc, char** argv)
 {
-	MainGame game;
-	game.run();
+	App app;
+	app.run();
 
 	int temp;
 	std::cin >> temp;

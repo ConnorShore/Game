@@ -28,9 +28,36 @@ bool InputManager::isKeyDown(unsigned int keyID)
 	}
 }
 
+bool InputManager::isKeyPressed(unsigned int keyID)
+{
+	if (isKeyDown(keyID) == true && wasKeyDown(keyID) == false) {
+		return true;
+	}
+
+	return false;
+}
+
+bool InputManager::wasKeyDown(unsigned int keyID)
+{
+	auto it = _previousKeyMap.find(keyID);
+	if (it != _previousKeyMap.end()) {
+		return it->second;
+	}
+	else {
+		return false;
+	}
+}
+
 void InputManager::setMousePos(glm::vec2& coords)
 {
 	_mousePos = coords;
+}
+
+void InputManager::update()
+{
+	for (auto& it : _keyMap) {
+		_previousKeyMap[it.first] = it.second;
+	}
 }
 
 InputManager::~InputManager()
