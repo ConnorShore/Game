@@ -16,10 +16,9 @@ bool IMainGame::init()
 
 	if (!initSystems()) return false;
 
-	initSystems();
 	onInit();
-
 	addScreens();
+
 	_currentScreen = _screenList->getCurrent();
 	_currentScreen->onEntry();
 	_currentScreen->setRunning();
@@ -37,7 +36,7 @@ void IMainGame::onSDLEvent(SDL_Event& evnt)
 {
 	switch (evnt.type) {
 		case SDL_QUIT:
-			_isRunning = false;
+			exitGame();
 			break;
 
 		case SDL_KEYDOWN:
@@ -88,8 +87,7 @@ void IMainGame::update()
 			default:
 				break;
 		}
-	}
-	else {
+	} else {
 		exitGame();
 	}
 }
@@ -128,6 +126,8 @@ void IMainGame::run()
 
 void IMainGame::exitGame()
 {
+	_currentScreen->onExit();
+
 	if (_screenList) {
 		_screenList->destroy();
 		_screenList.reset();	//removes _screenList from memory

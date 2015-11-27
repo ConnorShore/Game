@@ -154,7 +154,6 @@
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StaticShader.cpp" />
   </ItemGroup>
@@ -167,7 +166,6 @@
     <ClInclude Include="Friendly.h" />
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="MainGame.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StaticShader.h" />
   </ItemGroup>

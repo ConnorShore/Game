@@ -6,8 +6,6 @@
 #include <random>
 #include <SDL\SDL.h>
 
-//TODO: ADD ROTATION TO SPRITEBATCH
-
 
 GameScreen::GameScreen(Window* window) : _window(window)
 {
@@ -63,7 +61,6 @@ void GameScreen::onEntry()
 		_boxes.push_back(newBox);
 	}
 
-
 	_boxTex = ResourceManager::getTexture("Textures/bullet.png");
 
 	_camera.init(_window->getWidth(), _window->getHeight());
@@ -115,7 +112,7 @@ void GameScreen::render()
 		color.b = 255;
 		color.a = 255;
 
-		_spriteBatch.addToBatch(destRect, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), 0.0f, _boxTex.id, color);
+		_spriteBatch.addToBatch(destRect, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), 0.0f, _boxTex.id, color, box.getBody()->GetAngle());
 	}
 
 	_spriteBatch.end();
