@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 #include <Box2D/Box2D.h>
+#include <ApocalypseEngine\GLTexture.h>
+#include <ApocalypseEngine\SpriteBatch.h>
 
 class Box
 {
@@ -9,7 +11,8 @@ public:
 	Box();
 	~Box();
 
-	void init(b2World* world, const glm::vec2& position, const glm::vec2& dimension);
+	void init(b2World* world, const glm::vec2& position, const glm::vec2& dimension, GLTexture texture, bool fixedRotation, glm::vec4 uvRect = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	void render(SpriteBatch& spriteBatch);
 
 	b2Body* getBody() const { return _body; }
 	b2Fixture* getFixture() const { return _fixture; }
@@ -19,5 +22,7 @@ private:
 	b2Body* _body = nullptr;
 	b2Fixture* _fixture = nullptr;
 	glm::vec2 _dimension;
+	glm::vec4 _uvRect;
+	GLTexture _texture;
 };
 

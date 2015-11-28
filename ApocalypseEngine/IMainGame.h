@@ -23,12 +23,13 @@ public:
 	virtual void onExit() = 0;
 
 	float getFPS() const { return _fps; }
+	
+	InputManager inputManager;
 
 protected:
 	std::unique_ptr<ScreenList> _screenList = nullptr;
 	IGameScreen* _currentScreen = nullptr;
 	Window _window;
-	InputManager _inputManager;
 	bool _isRunning = false;
 	float _fps = 0;
 

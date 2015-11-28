@@ -2,6 +2,7 @@
 
 #include "StaticShader.h"
 #include "Box.h"
+#include "Player.h"
 
 #include <ApocalypseEngine\IGameScreen.h>
 #include <ApocalypseEngine\SpriteBatch.h>
@@ -37,6 +38,8 @@ private:
 	SpriteBatch _spriteBatch;
 	Camera2D _camera;
 	GLTexture _boxTex;
+
+	Player _player;
 
 	std::vector<Box> _boxes;
 

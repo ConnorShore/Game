@@ -1,19 +1,22 @@
 #pragma once
 
-#include <ApocalypseEngine\InputManager.h>
-#include "Friendly.h"
+#include "Box.h"
 
-class Player : public Friendly
+#include <ApocalypseEngine\InputManager.h>
+
+class Player
 {
 public:
 	Player();
 	~Player();
 
-	void init(glm::vec2& position);
-	void input(InputManager& input);
-	void update(const std::vector<std::string>& levelData, std::vector<Friendly*>& friends, std::vector<Enemy*>& enemies) override;
+	void init(b2World * world, const glm::vec2 & position, const glm::vec2 & dimension);
+
+	void update(InputManager inputManager);
+	void render(SpriteBatch& spriteBatch);
+
+	const Box& getBox() const { return _collisionBox; }
 
 private:
-
+	Box _collisionBox;
 };
-

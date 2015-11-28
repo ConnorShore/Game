@@ -35,7 +35,8 @@ void GameScreen::destroy()
 
 void GameScreen::onEntry()
 {
-	b2Vec2 gravity(0.0f, -9.81f);
+	//Create the world
+	b2Vec2 gravity(0.0f, -25.0f);
 	_world = std::make_unique<b2World>(gravity);
 
 	//Make the ground
@@ -53,23 +54,30 @@ void GameScreen::onEntry()
 	std::uniform_real_distribution<float> xDist(-10.0f, 10.0f);
 	std::uniform_real_distribution<float> yDist(-10.0f, 15.0f);
 	std::uniform_real_distribution<float> size(1.0f, 2.0f);
-	const int NUM_BOXES = 40;
+
+	const int NUM_BOXES = 45;
+
+	_boxTex = ResourceManager::getTexture("Textures/bullet.png");	//< Init box texturex
 
 	for (int i = 0; i < NUM_BOXES; i++) {
 		Box newBox;
-		newBox.init(_world.get(), glm::vec2(xDist(randomGen), yDist(randomGen)), glm::vec2(size(randomGen), size(randomGen)));
+		newBox.init(_world.get(), glm::vec2(xDist(randomGen), yDist(randomGen)), glm::vec2(size(randomGen), size(randomGen)), _boxTex, false);
 		_boxes.push_back(newBox);
 	}
 
-	_boxTex = ResourceManager::getTexture("Textures/bullet.png");
-
+	//Init Camera
 	_camera.init(_window->getWidth(), _window->getHeight());
 	_camera.setScale(32.0f);	//< 1 meter = 32 pixels
 
+	//Init Sprite Batches
 	_spriteBatch.init();
 
+	//Init Shaders
 	_shader.init("Shaders/colorShader.vert", "Shaders/colorShader.frag");
 	_shader.bindAttributes();
+
+	//Init Player
+	_player.init(_world.get(), glm::vec2(0.0f, 30.0f), glm::vec2(1.0f, 2.0f));
 }
 
 void GameScreen::onExit()
@@ -79,6 +87,7 @@ void GameScreen::onExit()
 void GameScreen::update()
 {
 	_camera.update();
+	_player.update(_game->inputManager);
 	input();
 
 	//Update physics simulations
@@ -100,20 +109,10 @@ void GameScreen::render()
 
 	//Draw boxes
 	for (auto& box : _boxes) {
-		glm::vec4 destRect;
-		destRect.x = box.getBody()->GetPosition().x;
-		destRect.y = box.getBody()->GetPosition().y;
-		destRect.z = box.getDimension().x;
-		destRect.w = box.getDimension().y;
-
-		Color color;
-		color.r = 255;
-		color.g = 255;
-		color.b = 255;
-		color.a = 255;
-
-		_spriteBatch.addToBatch(destRect, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), 0.0f, _boxTex.id, color, box.getBody()->GetAngle());
+		box.render(_spriteBatch);
 	}
+
+	_player.render(_spriteBatch); //< Draw the player
 
 	_spriteBatch.end();
 	_spriteBatch.renderBatch();

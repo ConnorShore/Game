@@ -28,7 +28,7 @@ bool IMainGame::init()
 
 bool IMainGame::initSystems()
 {
-	_window.createWindow("New Game", 1280, 720, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0);
+	_window.createWindow("New Game", 1600, 900, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0);
 	return true;
 }
 
@@ -40,20 +40,20 @@ void IMainGame::onSDLEvent(SDL_Event& evnt)
 			break;
 
 		case SDL_KEYDOWN:
-			_inputManager.keyPressed(evnt.key.keysym.sym);
+			inputManager.keyPressed(evnt.key.keysym.sym);
 			break;
 		case SDL_KEYUP:
-			_inputManager.keyReleased(evnt.key.keysym.sym);
+			inputManager.keyReleased(evnt.key.keysym.sym);
 			break;
 
 		case SDL_MOUSEMOTION:
-			_inputManager.setMousePos(glm::vec2(evnt.motion.x, evnt.motion.y));
+			inputManager.setMousePos(glm::vec2(evnt.motion.x, evnt.motion.y));
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			_inputManager.keyPressed(evnt.button.button);
+			inputManager.keyPressed(evnt.button.button);
 			break;
 		case SDL_MOUSEBUTTONUP:
-			_inputManager.keyReleased(evnt.button.button);
+			inputManager.keyReleased(evnt.button.button);
 			break;
 	}
 }
@@ -114,7 +114,7 @@ void IMainGame::run()
 		_timer.FpsLimitInit();
 		_timer.calcDeltaTime();
 
-		_inputManager.update();
+		inputManager.update();
 		update();
 		render();
 
