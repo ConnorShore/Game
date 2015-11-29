@@ -1,42 +1,180 @@
 #include "Player.h"
-#include <SDL\SDL.h>
 
+#include <ApocalypseEngine\ResourceManager.h>
+#include <ApocalypseEngine\GLTexture.h>
+#include <SDL/SDL_keyboard.h>
+#include <iostream>
 
 Player::Player()
 {
 }
 
-void Player::init(glm::vec2& position)
-{
-	position_ = position;
-	speed_ = 2.5f;
-	texture_ = ResourceManager::getTexture("Textures/Player/idle_right.png");
-	depth_ = 0.0f;
-	setColor(255, 255, 255, 255);
-	size_ = glm::vec2(20.0f, 40.0f);
-}
-
-void Player::input(InputManager & input)
-{
-	if (input.isKeyDown(SDLK_w)) {
-		position_.y += speed_;
-	}
-	else if (input.isKeyDown(SDLK_s)) {
-		position_.y -= speed_;
-	}
-	if (input.isKeyDown(SDLK_d)) {
-		position_.x += speed_;
-	}
-	else if (input.isKeyDown(SDLK_a)) {
-		position_.x -= speed_;
-	}
-}
-
-void Player::update()
-{
-
-}
-
 Player::~Player()
 {
+}
+
+void Player::init(b2World * world, const glm::vec2 & position, const glm::vec2 & dimension, const glm::vec2& drawDim)
+{
+	_position = position;
+	_dimension = dimension;
+	_drawDim = drawDim;
+
+	GLTexture texture = ResourceManager::getTexture("Textures/blue_ninja.png");
+
+	_collisionBox.init(world, position, dimension, true /*fixedRotation*/);
+	_texture.init(texture, glm::ivec2(10, 2));
+}
+
+void Player::update(InputManager inputManager)
+{
+	b2Body* body = _collisionBox.getBody();
+
+	//Movement
+	if (inputManager.isKeyDown(SDLK_a)) {
+		body->ApplyForceToCenter(b2Vec2(-100.0f, 0.0f));
+		_direction = -1;
+	}
+	else if (inputManager.isKeyDown(SDLK_d)) {
+		body->ApplyForceToCenter(b2Vec2(100.0f, 0.0f));
+		_direction = 1;
+	}
+	else {
+		//Apply damping
+		body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x * 0.95f, body->GetLinearVelocity().y));
+	}
+
+	//Check for punching
+	if (inputManager.isKeyPressed(SDLK_SPACE)) {
+		_attacking = true;
+	}
+
+	//Cap the movement speed
+	const float MAX_SPEED = 6.25f;
+	_onGround = false;
+	if (body->GetLinearVelocity().x < -MAX_SPEED) {
+		body->SetLinearVelocity(b2Vec2(-MAX_SPEED, body->GetLinearVelocity().y));
+	}
+	else if (body->GetLinearVelocity().x > MAX_SPEED) {
+		body->SetLinearVelocity(b2Vec2(MAX_SPEED, body->GetLinearVelocity().y));
+	}
+
+	//Loop through all contact points
+	for (b2ContactEdge* ce = body->GetContactList(); ce != nullptr; ce = ce->next) {
+		b2Contact* c = ce->contact;
+		if (c->IsTouching()) {
+			b2WorldManifold manifold;
+			c->GetWorldManifold(&manifold);
+
+			//Check if points are below
+			bool canJump = false;
+			for (int i = 0; i < b2_maxManifoldPoints; i++) {
+				if (manifold.points[i].y < body->GetPosition().y - _collisionBox.getDimension().y / 2.0f + 0.01f) {
+					canJump = true;
+					break;
+				}
+			}
+
+			//Can jump
+			if (canJump) {
+				_onGround = true;
+				if (inputManager.isKeyPressed(SDLK_w)) {
+					body->ApplyLinearImpulse(b2Vec2(0.0f, 20.0f), b2Vec2(0.0f, 0.0f));
+					break;
+				}
+			}
+		}
+	}
+}
+
+void Player::render(SpriteBatch& spriteBatch)
+{
+	glm::vec4 destRect;
+	b2Body* body = _collisionBox.getBody();
+	destRect.x = body->GetPosition().x - _drawDim.x / 2.0f;
+	destRect.y = body->GetPosition().y - _drawDim.y / 2.0f;
+	destRect.z = _drawDim.x;
+	destRect.w = _drawDim.y;
+
+	glm::vec2 velocity(body->GetLinearVelocity().x, body->GetLinearVelocity().y);
+
+	//Calculate animation
+	int tileIndex, numTiles;
+	float animationSpeed = 0.2f;
+	
+	if (_onGround) {
+
+		//Attacking
+		if (_attacking) {
+			numTiles = 4;
+			tileIndex = 1;
+			if (_moveState != PlayerMoveState::ATTACKING) {
+				_moveState = PlayerMoveState::ATTACKING;
+				_animTime = 0.0f;
+			}
+		}
+
+		else if (abs(velocity.x) > 1.0f) {
+			//Running
+			tileIndex = 10;
+			numTiles = 6;
+			animationSpeed = abs(velocity.x) * 0.025f;
+
+			if (_moveState != PlayerMoveState::RUNNING) {
+				_moveState = PlayerMoveState::RUNNING;
+				_animTime = 0.0f;
+			}
+		}
+		else {
+			//Standing
+			numTiles = 1;
+			tileIndex = 0;
+			_moveState = PlayerMoveState::STANDING;
+		}
+	}
+	else {
+		//Attackig
+		if (_attacking) {
+			numTiles = 1;
+			tileIndex = 18;
+			animationSpeed *= 0.5f;
+			if (_moveState != PlayerMoveState::ATTACKING) {
+				_moveState = PlayerMoveState::ATTACKING;
+				_animTime = 0.0f;
+			}
+		}
+
+		//In the air
+		else if (velocity.y <= 0.0) {
+			//Falling
+			numTiles = 1;
+			tileIndex = 17;
+			_moveState = PlayerMoveState::IN_AIR;
+		}
+		else {
+			//Rising
+			numTiles = 1;
+			tileIndex = 16;
+			_moveState = PlayerMoveState::IN_AIR;
+		}
+	}
+
+	//Increment animation speed;
+	_animTime += animationSpeed;
+
+	//Stop animation loop
+	if (_animTime > numTiles) {
+		_attacking = false;
+	}
+
+	//Apply animation
+	tileIndex = tileIndex + (int)_animTime % numTiles;
+
+	glm::vec4 uvRect = _texture.getUVs(tileIndex);
+
+	if (_direction == -1) {
+		uvRect.x += 1.0f / _texture.dims.x;
+		uvRect.z *= -1;
+	}
+
+	spriteBatch.addToBatch(destRect, uvRect, 0.0f, _texture.texture.id,  Color(255,255,255,255), body->GetAngle());
 }

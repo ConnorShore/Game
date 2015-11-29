@@ -35,9 +35,7 @@ void Window::createWindow(std::string title, int width, int height, float x, flo
 		fatalError("Failed to initialize glew");
 	}
 
-	glViewport(0, 0, _width, _height);
-
-	setBackgroundColor(0.05f, 0.0f, 0.25f, 1.0f);
+	//setBackgroundColor(0.05f, 0.0f, 0.25f, 1.0f);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

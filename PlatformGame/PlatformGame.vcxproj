@@ -88,12 +88,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game;C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\Visual Studio 2015\Projects\Game;C:\Users\user\Documents\Visual Studio 2015\Projects\Game\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\Debug;C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\deps\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\user\Documents\Visual Studio 2015\Projects\Game\Debug;C:\Users\user\Documents\Visual Studio 2015\Projects\Game\deps\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;glew32.lib;glew32s.lib;OpenGL32.lib;ApocalypseEngine.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -145,23 +145,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Agent.cpp" />
-    <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Friendly.cpp" />
-    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StaticShader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Agent.h" />
-    <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Friendly.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="MainGame.h" />
+    <ClInclude Include="App.h" />
+    <ClInclude Include="Box.h" />
+    <ClInclude Include="GameScreen.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StaticShader.h" />
   </ItemGroup>

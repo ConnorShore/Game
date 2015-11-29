@@ -78,7 +78,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\Visual Studio 2015\Projects\Game\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -86,7 +86,7 @@
     </Link>
     <Lib>
       <AdditionalDependencies>assimp.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;glew32.lib;glew32s.lib;OpenGL32.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\deps\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\user\Documents\Visual Studio 2015\Projects\Game\deps\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -154,11 +154,13 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="BaseLight.cpp" />
     <ClCompile Include="Loader.cpp" />
+    <ClCompile Include="IMainGame.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PhysicsCore.cpp" />
     <ClCompile Include="picoPNG.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="ScreenList.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
@@ -180,15 +182,18 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="BaseLight.h" />
     <ClInclude Include="Loader.h" />
+    <ClInclude Include="IMainGame.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PhysicsCore.h" />
     <ClInclude Include="picoPNG.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="ScreenList.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="TextureCache.h" />
+    <ClInclude Include="TileSheet.h" />
     <ClInclude Include="Timing.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Vertex2D.h" />
