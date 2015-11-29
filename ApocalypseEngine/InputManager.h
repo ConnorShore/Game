@@ -25,7 +25,6 @@ public:
 	float getMouseY() const  { return _mousePos.y; }
 
 private:
-	GLuint _keyID;
 	std::unordered_map<unsigned int, bool> _keyMap;
 	std::unordered_map<unsigned int, bool> _previousKeyMap;
 

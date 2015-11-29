@@ -179,6 +179,9 @@
     <ClInclude Include="ScreenList.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="TileSheet.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

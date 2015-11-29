@@ -3,7 +3,17 @@
 
 InputManager::InputManager() : _mousePos(0.0f)
 {
+}
 
+InputManager::~InputManager()
+{
+}
+
+void InputManager::update()
+{
+	for (auto& it : _keyMap) {
+		_previousKeyMap[it.first] = it.second;
+	}
 }
 
 void InputManager::keyPressed(unsigned int keyID)
@@ -33,7 +43,6 @@ bool InputManager::isKeyPressed(unsigned int keyID)
 	if (isKeyDown(keyID) == true && wasKeyDown(keyID) == false) {
 		return true;
 	}
-
 	return false;
 }
 
@@ -50,16 +59,6 @@ bool InputManager::wasKeyDown(unsigned int keyID)
 
 void InputManager::setMousePos(glm::vec2& coords)
 {
-	_mousePos = coords;
-}
-
-void InputManager::update()
-{
-	for (auto& it : _keyMap) {
-		_previousKeyMap[it.first] = it.second;
-	}
-}
-
-InputManager::~InputManager()
-{
+	_mousePos.x = coords.x;
+	_mousePos.y = coords.y;
 }

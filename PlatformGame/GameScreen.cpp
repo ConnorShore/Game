@@ -55,7 +55,7 @@ void GameScreen::onEntry()
 	std::uniform_real_distribution<float> yDist(-10.0f, 15.0f);
 	std::uniform_real_distribution<float> size(1.0f, 2.0f);
 
-	const int NUM_BOXES = 45;
+	const int NUM_BOXES = 10;
 
 	_boxTex = ResourceManager::getTexture("Textures/bullet.png");	//< Init box texturex
 
@@ -77,7 +77,7 @@ void GameScreen::onEntry()
 	_shader.bindAttributes();
 
 	//Init Player
-	_player.init(_world.get(), glm::vec2(0.0f, 30.0f), glm::vec2(1.0f, 2.0f));
+	_player.init(_world.get(), glm::vec2(0.0f, 30.0f), glm::vec2(1.0f, 1.8f), glm::vec2(2.0f,2.0f));
 }
 
 void GameScreen::onExit()
@@ -87,8 +87,9 @@ void GameScreen::onExit()
 void GameScreen::update()
 {
 	_camera.update();
-	_player.update(_game->inputManager);
 	input();
+
+	_player.update(_game->inputManager);
 
 	//Update physics simulations
 	_world->Step(1 / 60.0f, 6, 2);

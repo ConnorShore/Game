@@ -116,11 +116,14 @@ void IMainGame::run()
 
 		inputManager.update();
 		update();
-		render();
 
-		_timer.CalculateFPS(false);
-		_timer.LimitFPS(60.0f);
-		_window.swapWindow();
+		if (_isRunning) {
+			render();
+
+			_timer.CalculateFPS(false);
+			_timer.LimitFPS(60.0f);
+			_window.swapWindow();
+		}
 	}
 }
 
