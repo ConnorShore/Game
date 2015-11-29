@@ -164,6 +164,9 @@
     <ClInclude Include="SpriteBatch.h">
       <Filter>Entity</Filter>
     </ClInclude>
+    <ClInclude Include="IGameScreen.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

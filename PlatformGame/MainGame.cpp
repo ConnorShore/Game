@@ -73,10 +73,10 @@ void MainGame::update()
 	_camera.update();
 
 	for (int i = 0; i < _friendlies.size(); i++)
-		_friendlies[i]->update(_levels[_currentLevel]->getLevelData(), _friendlies, _enemies);
+		_friendlies[i]->update();
 
 	for (int i = 0; i < _enemies.size(); i++)
-		_enemies[i]->update(_levels[_currentLevel]->getLevelData(), _friendlies, _enemies);
+		_enemies[i]->update();
 }
 
 void MainGame::render()

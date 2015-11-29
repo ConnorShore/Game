@@ -32,9 +32,9 @@ void Player::input(InputManager & input)
 	}
 }
 
-void Player::update(const std::vector<std::string>& levelData, std::vector<Friendly*>& friends, std::vector<Enemy*>& enemies)
+void Player::update()
 {
-	collideWithLevel(levelData);
+
 }
 
 Player::~Player()

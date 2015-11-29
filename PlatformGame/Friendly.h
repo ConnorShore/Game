@@ -8,6 +8,6 @@ public:
 	Friendly();
 	virtual ~Friendly();
 
-	virtual void update(const std::vector<std::string>& levelData, std::vector<Friendly*>& friends, std::vector<Enemy*>& enemies) override;
+	virtual void update() override;
 };
 

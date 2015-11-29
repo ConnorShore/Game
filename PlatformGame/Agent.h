@@ -17,9 +17,7 @@ public:
 
 	void render(SpriteBatch& spriteBatch);
 
-	virtual void update(const std::vector<std::string>& levelData, std::vector<Friendly*>& friends, std::vector<Enemy*>& enemies) = 0;
-
-	void collideWithLevel(const std::vector<std::string>& levelData);
+	virtual void update() = 0;
 
 	inline glm::vec2 getPosition() const { return position_; }
 	inline glm::vec2 getSize() const { return size_; }
@@ -35,8 +33,5 @@ protected:
 	GLTexture texture_;
 	float speed_, depth_;
 	Color color_;
-
-	void checkTilePos(const std::vector<std::string>& levelData, std::vector<glm::vec2>& collideTilePositions, float x, float y);
-	void collideWithTile(glm::vec2 tilePos);
 };
 

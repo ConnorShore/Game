@@ -85,8 +85,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;glew32.lib;glew32s.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\deps\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;glew32.lib;glew32s.lib;OpenGL32.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\cjshore12\Documents\Visual Studio 2015\Projects\Game\deps\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -176,6 +176,7 @@
     <ClInclude Include="DebugRenderer.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="GLTexture.h" />
+    <ClInclude Include="IGameScreen.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="BaseLight.h" />
     <ClInclude Include="Loader.h" />
