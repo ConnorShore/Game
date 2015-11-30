@@ -20,8 +20,5 @@ public:
 	void loadPMatrix(glm::mat4 matrix);
 
 private:
-	const std::string VERTEX_FILE = "Shaders/staticShader.vert";
-	const std::string FRAGMENT_FILE = "Shaders/staticShader.frag";
-
 	int _textureLoc, _pMatrixLoc;
 };

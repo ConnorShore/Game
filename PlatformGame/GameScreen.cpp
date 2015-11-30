@@ -2,6 +2,7 @@
 
 #include <ApocalypseEngine\ResourceManager.h>
 #include <ApocalypseEngine\IMainGame.h>
+#include <ApocalypseEngine\Light2D.h>
 
 #include <random>
 #include <SDL\SDL.h>
@@ -76,6 +77,9 @@ void GameScreen::onEntry()
 	_shader.init("Shaders/colorShader.vert", "Shaders/colorShader.frag");
 	_shader.bindAttributes();
 
+	_lightShader.init("Shaders/lightShader.vert", "Shaders/lightShader.frag");
+	_lightShader.bindAttributes();
+
 	//Init Player
 	_player.init(_world.get(), glm::vec2(0.0f, 30.0f), glm::vec2(1.0f, 1.8f), glm::vec2(2.0f,2.0f));
 }
@@ -97,15 +101,18 @@ void GameScreen::update()
 
 void GameScreen::render()
 {
+	//Basic OpenGL setup
 	glClearDepth(1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.05f, 0.0f, 0.25f, 1.0f);
 
+	//Load color shader
 	_shader.start();
 	_shader.getUniformLocations();
 	_shader.loadPMatrix(_camera.getCameraMatrix());
 	_shader.loadTexture();
 
+	//Begin spritebatch
 	_spriteBatch.begin();
 
 	//Draw boxes
@@ -115,10 +122,35 @@ void GameScreen::render()
 
 	_player.render(_spriteBatch); //< Draw the player
 
+	//Render spritebatch
 	_spriteBatch.end();
 	_spriteBatch.renderBatch();
 
+	//Unuse color shader
 	_shader.stop();
+
+	//render test lights
+	Light2D playerLight;
+	playerLight.color = Color(255, 255, 255, 170);
+	playerLight.position = _player.getPosition();
+	playerLight.size = 10.0f;
+
+	//Load light shader
+	_lightShader.start();
+	_lightShader.getUniformLocations();
+	_lightShader.loadPMatrix(_camera.getCameraMatrix());
+
+	//Begin spritebatch
+	_spriteBatch.begin();
+
+	playerLight.render(_spriteBatch);	//< Render light
+
+	//Render spritebatch
+	_spriteBatch.end();
+	_spriteBatch.renderBatch();
+
+	//Unuse light shader
+	_lightShader.stop();
 }
 
 void GameScreen::input()

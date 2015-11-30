@@ -26,4 +26,3 @@ private:
 	glm::vec4 _uvRect;
 	GLTexture _texture;
 };
-

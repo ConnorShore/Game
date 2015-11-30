@@ -1,6 +1,7 @@
 #pragma once
 
 #include "StaticShader.h"
+#include "LightShader.h"
 #include "Box.h"
 #include "Player.h"
 
@@ -35,6 +36,7 @@ private:
 
 	Window* _window;
 	StaticShader _shader;
+	LightShader _lightShader;
 	SpriteBatch _spriteBatch;
 	Camera2D _camera;
 	GLTexture _boxTex;

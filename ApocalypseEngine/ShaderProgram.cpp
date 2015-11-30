@@ -48,6 +48,9 @@ GLuint ShaderProgram::loadShader(const std::string& file, GLuint type)
 
 void ShaderProgram::init(const std::string& vertexFile, const std::string& fragmentFile)
 {
+	VERTEX_FILE = vertexFile;
+	FRAGMENT_FILE = fragmentFile;
+
 	_vertexShaderID = loadShader(vertexFile, GL_VERTEX_SHADER);
 	_fragmentShaderID = loadShader(fragmentFile, GL_FRAGMENT_SHADER);
 	_programID = glCreateProgram();

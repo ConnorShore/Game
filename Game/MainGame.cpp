@@ -13,7 +13,7 @@ void MainGame::initSystems()
 {
 	_currentState = GameState::PLAY;
 
-	_window.createWindow(VERSION, _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SDL_INIT_EVERYTHING);
+	_window.createWindow(VERSION, _screenWidth, _screenHeight, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SDL_INIT_EVERYTHING, false);
 
 	_camera.init(glm::vec3(_player->getPosition().x, _player->getPosition().y - 2.0f, _camera.getFollowDist()), _screenWidth, _screenHeight, 80.0f, 5.0f, 0.0005f);
 	_camera.setMouseLook(false);

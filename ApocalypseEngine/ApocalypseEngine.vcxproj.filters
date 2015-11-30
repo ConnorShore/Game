@@ -19,6 +19,9 @@
     <Filter Include="Core\Debug">
       <UniqueIdentifier>{a12c9a2b-4597-4c74-950b-3b0c0590edec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render\2D">
+      <UniqueIdentifier>{6d2a3d80-1b04-4963-85e7-d3ff9632745b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShaderProgram.cpp">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="TileSheet.h">
       <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Light2D.h">
+      <Filter>Render\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

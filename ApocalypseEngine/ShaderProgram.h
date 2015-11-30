@@ -15,6 +15,9 @@ public:
 	void stop();
 	void cleanUp();
 
+	std::string getVertexFile() const { return VERTEX_FILE; }
+	std::string getFragmentFile() const { return FRAGMENT_FILE; }
+
 protected:
 	GLuint getUniformLocation(std::string name);
 	void bindAttribute(int attrib, std::string name);
@@ -25,6 +28,8 @@ protected:
 
 	virtual void bindAttributes() = 0;
 	virtual void getUniformLocations() = 0;
+
+	std::string VERTEX_FILE, FRAGMENT_FILE;
 
 private:
 	GLuint _programID;

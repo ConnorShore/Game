@@ -181,6 +181,7 @@
     <ClInclude Include="IGameScreen.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="BaseLight.h" />
+    <ClInclude Include="Light2D.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="IMainGame.h" />
     <ClInclude Include="Model.h" />

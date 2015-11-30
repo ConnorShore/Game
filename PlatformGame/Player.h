@@ -19,6 +19,7 @@ public:
 	void render(SpriteBatch& spriteBatch);
 
 	const Box& getBox() const { return _collisionBox; }
+	glm::vec2 getPosition() const { return glm::vec2(_collisionBox.getBody()->GetPosition().x, _collisionBox.getBody()->GetPosition().y); }
 
 private:
 	Box _collisionBox;
