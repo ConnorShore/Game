@@ -15,6 +15,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlatformGame", "PlatformGam
 		{4441E547-97FD-41B7-B966-FBA4C317F114} = {4441E547-97FD-41B7-B966-FBA4C317F114}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Jago", "Jago\Jago.vcxproj", "{45C4AAA0-E115-4DC7-B0EC-C535F607577B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4441E547-97FD-41B7-B966-FBA4C317F114} = {4441E547-97FD-41B7-B966-FBA4C317F114}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -45,6 +50,14 @@ Global
 		{4F489534-A580-49FA-AE17-348508AE5AA3}.Release|Win32.Build.0 = Release|Win32
 		{4F489534-A580-49FA-AE17-348508AE5AA3}.Release|x64.ActiveCfg = Release|x64
 		{4F489534-A580-49FA-AE17-348508AE5AA3}.Release|x64.Build.0 = Release|x64
+		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Debug|Win32.Build.0 = Debug|Win32
+		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Debug|x64.ActiveCfg = Debug|x64
+		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Debug|x64.Build.0 = Debug|x64
+		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Release|Win32.ActiveCfg = Release|Win32
+		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Release|Win32.Build.0 = Release|Win32
+		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Release|x64.ActiveCfg = Release|x64
+		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

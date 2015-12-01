@@ -1,11 +1,10 @@
 #pragma once
 
-#include <iostream>
 #include "App.h"
 
 int main(int argc, char** argv)
 {
-	App app;
-	app.run();
+	App game;
+	game.run();
 	return 0;
 }
