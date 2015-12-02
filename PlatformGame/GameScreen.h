@@ -11,6 +11,7 @@
 #include <ApocalypseEngine\Window.h>
 #include <ApocalypseEngine\Camera2D.h>
 #include <ApocalypseEngine\GLTexture.h>
+#include <ApocalypseEngine\GUI.h>
 
 #include <Box2D\Box2D.h>
 #include <vector>
@@ -40,6 +41,7 @@ private:
 	SpriteBatch _spriteBatch;
 	Camera2D _camera;
 	GLTexture _boxTex;
+	GUI _gui;
 
 	Player _player;
 

@@ -151,6 +151,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="Error.cpp" />
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="BaseLight.cpp" />
     <ClCompile Include="Loader.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="DebugRenderer.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="GLTexture.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="IGameScreen.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="BaseLight.h" />

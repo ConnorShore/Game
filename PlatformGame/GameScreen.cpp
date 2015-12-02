@@ -82,6 +82,13 @@ void GameScreen::onEntry()
 
 	//Init Player
 	_player.init(_world.get(), glm::vec2(0.0f, 30.0f), glm::vec2(1.0f, 1.8f), glm::vec2(2.0f,2.0f));
+
+	//Init GUI
+	_gui.init("GUI");
+	_gui.loadScheme("TaharezLook.scheme");
+	_gui.setFont("DejaVuSans-10");
+	CEGUI::PushButton* testButton = static_cast<CEGUI::PushButton*>(_gui.createWidget("TaharezLook/Button", glm::vec4(0.5f, 0.5f, 0.1f, 0.05f), glm::vec4(0.0f), "Test Button"));
+	testButton->setText("Hello World!");
 }
 
 void GameScreen::onExit()
@@ -131,9 +138,9 @@ void GameScreen::render()
 
 	//render test lights
 	Light2D playerLight;
-	playerLight.color = Color(255, 255, 255, 170);
+	playerLight.color = Color(255, 255, 255, 100);
 	playerLight.position = _player.getPosition();
-	playerLight.size = 10.0f;
+	playerLight.size = 15.0f;
 
 	//Load light shader
 	_lightShader.start();
@@ -151,6 +158,9 @@ void GameScreen::render()
 
 	//Unuse light shader
 	_lightShader.stop();
+
+	//Draw GUI
+	_gui.render();
 }
 
 void GameScreen::input()

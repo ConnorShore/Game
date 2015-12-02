@@ -49,7 +49,8 @@ void GameScreen::onEntry()
 	b2PolygonShape groundBox;
 	groundBox.SetAsBox(50.0f, 10.0f);
 	groundBody->CreateFixture(&groundBox, 0.0f);	//< Density is 0 because it is static
-													//Create boxes
+
+	//Create boxes
 	std::mt19937 randomGen;
 	std::uniform_real_distribution<float> xDist(-10.0f, 10.0f);
 	std::uniform_real_distribution<float> yDist(-10.0f, 15.0f);

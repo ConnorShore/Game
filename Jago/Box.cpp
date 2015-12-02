@@ -16,9 +16,7 @@ void Box::init(b2World * world, const glm::vec2 & position, const glm::vec2 & di
 	_uvRect = uvRect;
 
 	b2BodyDef bodyDef;
-
-	/*if(dynamicBody) */bodyDef.type = b2_dynamicBody;
-
+	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(position.x, position.y);
 	bodyDef.fixedRotation = fixedRotation;
 	_body = world->CreateBody(&bodyDef);
@@ -29,10 +27,7 @@ void Box::init(b2World * world, const glm::vec2 & position, const glm::vec2 & di
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &boxShape;
 	fixtureDef.density = 1.0f;
-
-	/*if(dynamicBody)*/ fixtureDef.friction = 0.3f;
-	//else fixtureDef.friction = 0.0f;
-
+	fixtureDef.friction = 0.3f;
 	_fixture = _body->CreateFixture(&fixtureDef);
 }
 

@@ -96,6 +96,7 @@
     <ClCompile Include="ScreenList.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="GUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLTexture.h">
@@ -188,6 +189,7 @@
     <ClInclude Include="Light2D.h">
       <Filter>Render\2D</Filter>
     </ClInclude>
+    <ClInclude Include="GUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
