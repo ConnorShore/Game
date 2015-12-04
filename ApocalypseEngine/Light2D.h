@@ -8,7 +8,7 @@
 class Light2D
 {
 public:
-	void render(SpriteBatch& spriteBatch) {
+	virtual void render(SpriteBatch& spriteBatch) {
 		glm::vec4 destRect;
 		destRect.x = position.x - size / 2.0f;
 		destRect.y = position.y - size / 2.0f;

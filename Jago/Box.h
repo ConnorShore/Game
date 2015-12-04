@@ -13,6 +13,7 @@ public:
 	~Box();
 
 	void init(b2World* world, const glm::vec2& position, const glm::vec2& dimension, GLTexture texture, bool fixedRotation, const glm::vec4& uvRect = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	void init(b2World* world, const glm::vec2& position, const glm::vec2& dimension, bool fixedRotation = true);
 
 	void render(SpriteBatch& spriteBatch);
 

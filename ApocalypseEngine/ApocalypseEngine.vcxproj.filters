@@ -22,6 +22,9 @@
     <Filter Include="Render\2D">
       <UniqueIdentifier>{6d2a3d80-1b04-4963-85e7-d3ff9632745b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render\GUI">
+      <UniqueIdentifier>{71540ecb-827d-40e2-ba64-5ea0aa009164}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShaderProgram.cpp">
@@ -96,7 +99,9 @@
     <ClCompile Include="ScreenList.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="GUI.cpp">
+      <Filter>Render\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLTexture.h">
@@ -189,7 +194,9 @@
     <ClInclude Include="Light2D.h">
       <Filter>Render\2D</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h" />
+    <ClInclude Include="GUI.h">
+      <Filter>Render\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

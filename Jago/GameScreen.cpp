@@ -58,7 +58,7 @@ void GameScreen::onEntry()
 
 	const int NUM_BOXES = 10;
 
-	_dirt = ResourceManager::getTexture("Textures/Player/idle_right.png");	//< Init box texturex
+	_dirt = ResourceManager::getTexture("Textures/dirt.png");	//< Init box texturex
 
 	for (int i = 0; i < NUM_BOXES; i++) {
 		Box newBox;
@@ -67,12 +67,21 @@ void GameScreen::onEntry()
 	}
 
 	_camera.init(_window->getWidth(), _window->getHeight());
-	_camera.setScale(32.0f);
+	_camera.setScale(38.0f);
 
 	_spriteBatch.init();
 
 	_staticShader.init("Shaders/colorShader.vert", "Shaders/colorShader.frag");
 	_staticShader.bindAttributes();
+
+	_lightShader.init("Shaders/lightShader.vert", "Shaders/lightShader.frag");
+	_lightShader.bindAttributes();
+
+	_player.init(_world.get(), glm::vec2(0.0f, 15.0f), glm::vec2(1.0f, 1.8f), glm::vec2(1.0f, 1.8f));
+
+	Torch* torch = new Torch;
+	torch->init(glm::vec2(1.0f, -10.0f), 10.0f, Color(195, 150, 0, 120));
+	_torches.push_back(torch);
 }
 
 void GameScreen::onExit()
@@ -85,6 +94,12 @@ void GameScreen::update()
 	_camera.update();
 	input();
 
+	_player.update(_game->inputManager, _torches);
+
+	for (Torch* t : _torches) {
+		t->update();
+	}
+
 	_world->Step(1.0f / 60.0f, 6, 2);
 }
 
@@ -93,23 +108,45 @@ void GameScreen::render()
 	//Basic OpenGL setup
 	glClearDepth(1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.05f, 0.0f, 0.25f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	_staticShader.start();
 	_staticShader.getUniformLocations();
 	_staticShader.loadPMatrix(_camera.getCameraMatrix());
 	_staticShader.loadTexture();
 
-	_spriteBatch.begin();
+	_spriteBatch.begin(SortType::FRONT_TO_BACK);;
 
 	for (auto& box : _boxes) {
 		box.render(_spriteBatch);
 	}
 
+	_player.render(_spriteBatch);	//< Draw Player
+	//torch.render(_spriteBatch);
+
+	for (Torch* t : _torches) {
+		t->render(_spriteBatch);
+	}
+
 	_spriteBatch.end();
-	_spriteBatch.renderBatch();
+	_spriteBatch.renderBatch();;
 
 	_staticShader.stop();
+
+	//Render Lights
+	_lightShader.start();
+	_lightShader.getUniformLocations();
+	_lightShader.loadPMatrix(_camera.getCameraMatrix());
+	_spriteBatch.begin();
+
+	for (Torch* t : _torches) {
+		t->getLight().render(_spriteBatch);
+	}
+
+	_spriteBatch.end();
+	_spriteBatch.renderBatch();
+	_staticShader.stop();
+	_lightShader.stop();
 }
 
 void GameScreen::input()
