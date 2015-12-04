@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Box.h"
-#include "Torch.h"
+#include "Light.h"
 
 #include <ApocalypseEngine\InputManager.h>
 #include <ApocalypseEngine\TileSheet.h>
@@ -16,7 +16,7 @@ public:
 
 	void init(b2World * world, const glm::vec2 & position, const glm::vec2 & dimension, const glm::vec2& drawDim);
 
-	void update(InputManager inputManager, std::vector<Torch*>& lights);
+	void update(InputManager inputManager, std::vector<Light*>& lights);
 	void render(SpriteBatch& spriteBatch);
 
 	const Box& getBox() const { return _collisionBox; }

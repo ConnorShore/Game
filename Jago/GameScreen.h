@@ -4,6 +4,7 @@
 #include "LightShader.h"
 #include "Box.h"
 #include "Player.h"
+#include "Light.h"
 #include "Torch.h"
 
 #include <vector>
@@ -47,8 +48,8 @@ private:
 	GLTexture _dirt;
 	Player _player;
 
-	std::vector<Box> _boxes;
-	std::vector<Torch*> _torches;
+	std::vector<Box*> _boxes;
+	std::vector<Light*> _lights;
 
 	void input();
 };

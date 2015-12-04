@@ -61,8 +61,8 @@ void GameScreen::onEntry()
 	_dirt = ResourceManager::getTexture("Textures/dirt.png");	//< Init box texturex
 
 	for (int i = 0; i < NUM_BOXES; i++) {
-		Box newBox;
-		newBox.init(_world.get(), glm::vec2(xDist(randomGen), yDist(randomGen)), glm::vec2(size(randomGen), size(randomGen)), _dirt, false);
+		Box* newBox = new Box;
+		newBox->init(_world.get(), glm::vec2(xDist(randomGen), yDist(randomGen)), glm::vec2(size(randomGen), size(randomGen)), _dirt, false);
 		_boxes.push_back(newBox);
 	}
 
@@ -77,11 +77,11 @@ void GameScreen::onEntry()
 	_lightShader.init("Shaders/lightShader.vert", "Shaders/lightShader.frag");
 	_lightShader.bindAttributes();
 
-	_player.init(_world.get(), glm::vec2(0.0f, 15.0f), glm::vec2(1.0f, 1.8f), glm::vec2(1.0f, 1.8f));
+	_player.init(_world.get(), glm::vec2(0.0f, 2.0f), glm::vec2(1.0f, 1.8f), glm::vec2(1.0f, 1.8f));
 
 	Torch* torch = new Torch;
-	torch->init(glm::vec2(1.0f, -10.0f), 10.0f, Color(195, 150, 0, 120));
-	_torches.push_back(torch);
+	torch->init(glm::vec2(1.0f, -10.0f));
+	_lights.push_back(torch);
 }
 
 void GameScreen::onExit()
@@ -92,12 +92,17 @@ void GameScreen::onExit()
 void GameScreen::update()
 {
 	_camera.update();
+	_camera.setPosition(_player.getPosition());
 	input();
 
-	_player.update(_game->inputManager, _torches);
+	_player.update(_game->inputManager, _lights);
+	
+	for (Box* b : _boxes) {
+		b->update(_lights);
+	}
 
-	for (Torch* t : _torches) {
-		t->update();
+	for (Light* l : _lights) {
+		l->update();
 	}
 
 	_world->Step(1.0f / 60.0f, 6, 2);
@@ -118,14 +123,14 @@ void GameScreen::render()
 	_spriteBatch.begin(SortType::FRONT_TO_BACK);;
 
 	for (auto& box : _boxes) {
-		box.render(_spriteBatch);
+		box->render(_spriteBatch);
 	}
 
 	_player.render(_spriteBatch);	//< Draw Player
 	//torch.render(_spriteBatch);
 
-	for (Torch* t : _torches) {
-		t->render(_spriteBatch);
+	for (Light* l : _lights) {
+		l->render(_spriteBatch);
 	}
 
 	_spriteBatch.end();
@@ -139,8 +144,8 @@ void GameScreen::render()
 	_lightShader.loadPMatrix(_camera.getCameraMatrix());
 	_spriteBatch.begin();
 
-	for (Torch* t : _torches) {
-		t->getLight().render(_spriteBatch);
+	for (Light* l : _lights) {
+		l->getLight().render(_spriteBatch);
 	}
 
 	_spriteBatch.end();

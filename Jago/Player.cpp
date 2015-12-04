@@ -26,7 +26,7 @@ void Player::init(b2World* world, const glm::vec2& position, const glm::vec2& di
 	_texture.init(texture, glm::ivec2(10, 10));
 }
 
-void Player::update(InputManager inputManager, std::vector<Torch*>& lights)
+void Player::update(InputManager inputManager, std::vector<Light*>& lights)
 {
 	b2Body* body = _collisionBox.getBody();
 
@@ -99,8 +99,6 @@ void Player::update(InputManager inputManager, std::vector<Torch*>& lights)
 
 			if (_brightness < 75) _brightness = 75;
 			if (_brightness > 255) _brightness = 255;
-
-			printf("%f\t%f\n", light->getLight().size, brightDist);
 		}
 	}
 
