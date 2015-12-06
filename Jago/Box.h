@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Light.h"
+//#include "Light.h"
 
 #include <Box2D\Box2D.h>
 #include <glm\glm.hpp>
@@ -17,7 +17,7 @@ public:
 
 	void init(b2World* world, const glm::vec2& position, const glm::vec2& dimension, GLTexture texture, bool fixedRotation, const glm::vec4& uvRect = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	void init(b2World* world, const glm::vec2& position, const glm::vec2& dimension, bool fixedRotation = true);
-	void update(std::vector<Light*> lights);
+	void update();
 	void render(SpriteBatch& spriteBatch);
 
 	b2Body* getBody() const { return _body; }
@@ -34,6 +34,6 @@ private:
 	glm::vec2 _dimension;
 	glm::vec4 _uvRect;
 
-	GLubyte _brightness = 75;
+	GLubyte _brightness;
 };
 

@@ -16,7 +16,6 @@ Player::~Player()
 
 void Player::init(b2World* world, const glm::vec2& position, const glm::vec2& dimension, const glm::vec2& drawDim)
 {
-	_position = position;
 	_dimension = dimension;
 	_drawDim = drawDim;
 
@@ -26,7 +25,7 @@ void Player::init(b2World* world, const glm::vec2& position, const glm::vec2& di
 	_texture.init(texture, glm::ivec2(10, 10));
 }
 
-void Player::update(InputManager inputManager, std::vector<Light*>& lights)
+void Player::update(InputManager inputManager)
 {
 	b2Body* body = _collisionBox.getBody();
 
@@ -86,22 +85,22 @@ void Player::update(InputManager inputManager, std::vector<Light*>& lights)
 		}
 	}
 
-	for (Light* light : lights) {
-		if (glm::abs(getPosition().x - light->getPosition().x) < (light->getLight().size / 2.0f)/* && glm::abs(getPosition().y - torch.getPosition().y) < torch.getLight().size / 2.0f*/) {
-			_brightness = 255;
-		}
-		else if (glm::abs(getPosition().x - light->getPosition().x) > (light->getLight().size * 1.5f)/* && glm::abs(getPosition().y - torch.getPosition().y) > torch.getLight().size * 2.0f*/) {
-			_brightness = 75;
-		}
-		else {
-			float brightDist = 180 / (light->getLight().size / 2.0f - light->getLight().size * 1.5f);
-			_brightness = (75 + (glm::abs(getPosition().x - light->getPosition().x) * brightDist));
+	//TODO: Make loop through all blocks and calculate distance for light intensity
+	//for (Light* light : lights) {
+	//	if (glm::abs(getPosition().x - light->getPosition().x) < (light->getLight().size / 5.0f)) {
+	//		_brightness = 255;
+	//	}
+	//	else if (glm::abs(getPosition().x - light->getPosition().x) > ((light->getLight().size * 1.5f) * (light->getLight().color.a / 255.0f))) {
+	//		_brightness = 75;
+	//	}
+	//	else {
+	//		float brightDist = 180.0f / (light->getLight().size / 5.0f - ((light->getLight().size * 1.5f) * (light->getLight().color.a / 255.0f)));
+	//		_brightness = 70 + ((glm::abs(getPosition().x - light->getPosition().x) * brightDist));
 
-			if (_brightness < 75) _brightness = 75;
-			if (_brightness > 255) _brightness = 255;
-		}
-	}
-
+	//		if (_brightness < 75) _brightness = 75;
+	//		if (_brightness > 255) _brightness = 255;
+	//	}
+	//}
 }
 
 void Player::render(SpriteBatch & spriteBatch)
@@ -165,5 +164,5 @@ void Player::render(SpriteBatch & spriteBatch)
 		uvRect.z *= -1;
 	}
 
-	spriteBatch.addToBatch(destRect, uvRect, 0.0f, _texture.texture.id, Color(255, 255, 255, _brightness), body->GetAngle());
+	spriteBatch.addToBatch(destRect, uvRect, 0.0f, _texture.texture.id, Color(_brightness, _brightness, _brightness, 255), body->GetAngle());
 }

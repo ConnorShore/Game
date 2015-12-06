@@ -146,21 +146,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="LightShader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="StaticBox.cpp" />
     <ClCompile Include="StaticShader.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Torch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="Block.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="LightShader.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="StaticBox.h" />
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Torch.h" />

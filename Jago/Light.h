@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Block.h"
+#include "Player.h"
+
 #include <glm\glm.hpp>
 
 #include <ApocalypseEngine\Vertex2D.h>
@@ -15,7 +18,7 @@ public:
 
 	virtual void initObj(const glm::vec2& position, const glm::vec2& dimension, float size, Color color, GLTexture texture, bool flicker = false);
 	virtual void initRawLight(const glm::vec2& position, float size, Color color, bool flicker = false);
-	virtual void update();
+	virtual void update(Player& player, std::vector<Block>& blocks);
 	virtual void render(SpriteBatch& spriteBatch);
 	virtual void renderRawLight(SpriteBatch& spriteBatch);
 	

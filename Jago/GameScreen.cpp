@@ -40,6 +40,10 @@ void GameScreen::onEntry()
 	b2Vec2 gravity(0.0f, -25.0f);
 	_world = std::make_unique<b2World>(gravity);
 
+	StaticBox ground;
+	ground.init(_world.get(), glm::vec2(0.0f, -20.0f), glm::vec2(50.0f, 10.0f));
+	_staticBoxes.push_back(ground);
+
 	//Make the ground
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(0.0f, -20.0f);
@@ -56,14 +60,14 @@ void GameScreen::onEntry()
 	std::uniform_real_distribution<float> yDist(-10.0f, 15.0f);
 	std::uniform_real_distribution<float> size(1.0f, 2.0f);
 
-	const int NUM_BOXES = 10;
-
 	_dirt = ResourceManager::getTexture("Textures/dirt.png");	//< Init box texturex
 
-	for (int i = 0; i < NUM_BOXES; i++) {
-		Box* newBox = new Box;
-		newBox->init(_world.get(), glm::vec2(xDist(randomGen), yDist(randomGen)), glm::vec2(size(randomGen), size(randomGen)), _dirt, false);
-		_boxes.push_back(newBox);
+	for (int i = 0; i < 25; i++) {
+		for (int j = 0; j < 25; j++) {
+			Block block;
+			block.init(_world.get(), glm::vec2(i - 10, j - 10), _dirt, 3.0f, false);
+			_blocks.push_back(block);
+		}
 	}
 
 	_camera.init(_window->getWidth(), _window->getHeight());
@@ -79,8 +83,8 @@ void GameScreen::onEntry()
 
 	_player.init(_world.get(), glm::vec2(0.0f, 2.0f), glm::vec2(1.0f, 1.8f), glm::vec2(1.0f, 1.8f));
 
-	Torch* torch = new Torch;
-	torch->init(glm::vec2(1.0f, -10.0f));
+	Torch torch;
+	torch.init(glm::vec2(1.0f, -10.0f));
 	_lights.push_back(torch);
 }
 
@@ -95,14 +99,18 @@ void GameScreen::update()
 	_camera.setPosition(_player.getPosition());
 	input();
 
-	_player.update(_game->inputManager, _lights);
-	
-	for (Box* b : _boxes) {
-		b->update(_lights);
+	_player.update(_game->inputManager);
+
+	for (auto& sb : _staticBoxes) {
+		sb.update();
 	}
 
-	for (Light* l : _lights) {
-		l->update();
+	for (auto& b : _blocks) {
+		b.update();
+	}
+
+	for (auto& l : _lights) {
+		l.update(_player, _blocks);
 	}
 
 	_world->Step(1.0f / 60.0f, 6, 2);
@@ -120,17 +128,20 @@ void GameScreen::render()
 	_staticShader.loadPMatrix(_camera.getCameraMatrix());
 	_staticShader.loadTexture();
 
-	_spriteBatch.begin(SortType::FRONT_TO_BACK);;
+	_spriteBatch.begin(SortType::FRONT_TO_BACK);
 
-	for (auto& box : _boxes) {
-		box->render(_spriteBatch);
+	for (auto& sb : _staticBoxes) {
+		sb.render(_spriteBatch);
+	}
+
+	for (auto& b : _blocks) {
+		b.render(_spriteBatch);
 	}
 
 	_player.render(_spriteBatch);	//< Draw Player
-	//torch.render(_spriteBatch);
 
-	for (Light* l : _lights) {
-		l->render(_spriteBatch);
+	for (auto& l : _lights) {
+		l.render(_spriteBatch);
 	}
 
 	_spriteBatch.end();
@@ -138,20 +149,20 @@ void GameScreen::render()
 
 	_staticShader.stop();
 
-	//Render Lights
-	_lightShader.start();
-	_lightShader.getUniformLocations();
-	_lightShader.loadPMatrix(_camera.getCameraMatrix());
-	_spriteBatch.begin();
+	////Render Lights
+	//_lightShader.start();
+	//_lightShader.getUniformLocations();
+	//_lightShader.loadPMatrix(_camera.getCameraMatrix());
+	//_spriteBatch.begin();
 
-	for (Light* l : _lights) {
-		l->getLight().render(_spriteBatch);
-	}
+	//for (Light* l : _lights) {
+	//	l->getLight().render(_spriteBatch);
+	//}
 
-	_spriteBatch.end();
-	_spriteBatch.renderBatch();
-	_staticShader.stop();
-	_lightShader.stop();
+	//_spriteBatch.end();
+	//_spriteBatch.renderBatch();
+	//_staticShader.stop();
+	//_lightShader.stop();
 }
 
 void GameScreen::input()

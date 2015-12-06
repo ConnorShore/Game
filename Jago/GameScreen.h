@@ -2,10 +2,12 @@
 
 #include "StaticShader.h"
 #include "LightShader.h"
+#include "StaticBox.h"
 #include "Box.h"
 #include "Player.h"
 #include "Light.h"
 #include "Torch.h"
+#include "Block.h"
 
 #include <vector>
 
@@ -48,8 +50,9 @@ private:
 	GLTexture _dirt;
 	Player _player;
 
-	std::vector<Box*> _boxes;
-	std::vector<Light*> _lights;
+	std::vector<StaticBox> _staticBoxes;
+	std::vector<Block> _blocks;
+	std::vector<Light> _lights;
 
 	void input();
 };

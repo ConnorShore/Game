@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Box.h"
-#include "Light.h"
+//#include "Light.h"
 
 #include <ApocalypseEngine\InputManager.h>
 #include <ApocalypseEngine\TileSheet.h>
@@ -16,15 +16,17 @@ public:
 
 	void init(b2World * world, const glm::vec2 & position, const glm::vec2 & dimension, const glm::vec2& drawDim);
 
-	void update(InputManager inputManager, std::vector<Light*>& lights);
+	void update(InputManager inputManage);
 	void render(SpriteBatch& spriteBatch);
 
 	const Box& getBox() const { return _collisionBox; }
 	glm::vec2 getPosition() const { return glm::vec2(_collisionBox.getBody()->GetPosition().x, _collisionBox.getBody()->GetPosition().y); }
 
+	void setBrightness(GLubyte value) { _brightness = value; }
+
 private:
 	Box _collisionBox;
-	glm::vec2 _position, _dimension, _drawDim;
+	glm::vec2 _dimension, _drawDim;
 
 	TileSheet _texture;
 	PlayerMoveState _moveState = PlayerMoveState::STANDING;
@@ -33,5 +35,5 @@ private:
 	bool _attacking = false;
 	int _direction = 1;	//< Right:1, Left:-1
 	float _animTime = 0;
-	GLubyte _brightness = 75;
+	GLubyte _brightness;
 };
