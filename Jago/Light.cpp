@@ -36,6 +36,7 @@ void Light::initRawLight(const glm::vec2 & position, float size, Color color, bo
 
 void Light::update(Player& player, std::vector<Block>& blocks)
 {
+	//Use lightmap from bookmark bar
 	if (_flicker) {
 		static float initSize = _light.size;
 		static GLubyte initPow = _light.color.a;
