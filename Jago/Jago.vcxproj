@@ -155,6 +155,7 @@
     <ClCompile Include="StaticBox.cpp" />
     <ClCompile Include="StaticShader.cpp" />
     <ClCompile Include="Light.cpp" />
+    <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Torch.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +168,8 @@
     <ClInclude Include="StaticBox.h" />
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileMap.h" />
     <ClInclude Include="Torch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

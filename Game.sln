@@ -1,13 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{5F29AF80-ABA8-4810-84AF-374D1AB4FC26}"
-	ProjectSection(ProjectDependencies) = postProject
-		{4441E547-97FD-41B7-B966-FBA4C317F114} = {4441E547-97FD-41B7-B966-FBA4C317F114}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ApocalypseEngine", "ApocalypseEngine\ApocalypseEngine.vcxproj", "{4441E547-97FD-41B7-B966-FBA4C317F114}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlatformGame", "PlatformGame\PlatformGame.vcxproj", "{4F489534-A580-49FA-AE17-348508AE5AA3}"
@@ -20,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Jago", "Jago\Jago.vcxproj",
 		{4441E547-97FD-41B7-B966-FBA4C317F114} = {4441E547-97FD-41B7-B966-FBA4C317F114}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ComponentTest", "ComponentTest\ComponentTest.vcxproj", "{52893699-3E92-413A-891C-093AF101B0D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -28,12 +25,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5F29AF80-ABA8-4810-84AF-374D1AB4FC26}.Debug|Win32.ActiveCfg = Debug|Win32
-		{5F29AF80-ABA8-4810-84AF-374D1AB4FC26}.Debug|Win32.Build.0 = Debug|Win32
-		{5F29AF80-ABA8-4810-84AF-374D1AB4FC26}.Debug|x64.ActiveCfg = Debug|Win32
-		{5F29AF80-ABA8-4810-84AF-374D1AB4FC26}.Release|Win32.ActiveCfg = Release|Win32
-		{5F29AF80-ABA8-4810-84AF-374D1AB4FC26}.Release|Win32.Build.0 = Release|Win32
-		{5F29AF80-ABA8-4810-84AF-374D1AB4FC26}.Release|x64.ActiveCfg = Release|Win32
 		{4441E547-97FD-41B7-B966-FBA4C317F114}.Debug|Win32.ActiveCfg = Debug|Win32
 		{4441E547-97FD-41B7-B966-FBA4C317F114}.Debug|Win32.Build.0 = Debug|Win32
 		{4441E547-97FD-41B7-B966-FBA4C317F114}.Debug|x64.ActiveCfg = Debug|x64
@@ -58,6 +49,14 @@ Global
 		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Release|Win32.Build.0 = Release|Win32
 		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Release|x64.ActiveCfg = Release|x64
 		{45C4AAA0-E115-4DC7-B0EC-C535F607577B}.Release|x64.Build.0 = Release|x64
+		{52893699-3E92-413A-891C-093AF101B0D6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{52893699-3E92-413A-891C-093AF101B0D6}.Debug|Win32.Build.0 = Debug|Win32
+		{52893699-3E92-413A-891C-093AF101B0D6}.Debug|x64.ActiveCfg = Debug|x64
+		{52893699-3E92-413A-891C-093AF101B0D6}.Debug|x64.Build.0 = Debug|x64
+		{52893699-3E92-413A-891C-093AF101B0D6}.Release|Win32.ActiveCfg = Release|Win32
+		{52893699-3E92-413A-891C-093AF101B0D6}.Release|Win32.Build.0 = Release|Win32
+		{52893699-3E92-413A-891C-093AF101B0D6}.Release|x64.ActiveCfg = Release|x64
+		{52893699-3E92-413A-891C-093AF101B0D6}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

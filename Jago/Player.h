@@ -21,6 +21,8 @@ public:
 
 	const Box& getBox() const { return _collisionBox; }
 	glm::vec2 getPosition() const { return glm::vec2(_collisionBox.getBody()->GetPosition().x, _collisionBox.getBody()->GetPosition().y); }
+	glm::vec2 getDimension() const { return _dimension; }
+	glm::vec2 getDrawDim() const { return _drawDim; }
 
 	void setBrightness(GLubyte value) { _brightness = value; }
 

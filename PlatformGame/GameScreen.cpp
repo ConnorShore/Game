@@ -50,25 +50,15 @@ void GameScreen::onEntry()
 	groundBox.SetAsBox(50.0f, 10.0f);
 	groundBody->CreateFixture(&groundBox, 0.0f);	//< Density is 0 because it is static
 
-	//Create boxes
-	std::mt19937 randomGen;
-	std::uniform_real_distribution<float> xDist(-10.0f, 10.0f);
-	std::uniform_real_distribution<float> yDist(-10.0f, 15.0f);
-	std::uniform_real_distribution<float> size(1.0f, 2.0f);
-
-	const int NUM_BOXES = 10;
-
-	_boxTex = ResourceManager::getTexture("Textures/bullet.png");	//< Init box texturex
-
-	for (int i = 0; i < NUM_BOXES; i++) {
-		Box newBox;
-		newBox.init(_world.get(), glm::vec2(xDist(randomGen), yDist(randomGen)), glm::vec2(size(randomGen), size(randomGen)), _boxTex, false);
-		_boxes.push_back(newBox);
-	}
-
 	//Init Camera
 	_camera.init(_window->getWidth(), _window->getHeight());
 	_camera.setScale(32.0f);	//< 1 meter = 32 pixels
+
+	//Tile test
+	//GLTexture texture = ResourceManager::getTexture("Textures/test.png");
+	//Tile tile;
+	//tile.init(_world.get(), glm::vec2(0.0f, 0.0f), glm::vec2(10.0f, 10.0f), texture);
+	//_tiles.push_back(tile);
 
 	//Init Sprite Batches
 	_spriteBatch.init();
@@ -77,18 +67,8 @@ void GameScreen::onEntry()
 	_shader.init("Shaders/colorShader.vert", "Shaders/colorShader.frag");
 	_shader.bindAttributes();
 
-	_lightShader.init("Shaders/lightShader.vert", "Shaders/lightShader.frag");
-	_lightShader.bindAttributes();
-
 	//Init Player
-	_player.init(_world.get(), glm::vec2(0.0f, 30.0f), glm::vec2(1.0f, 1.8f), glm::vec2(2.0f,2.0f));
-
-	//Init GUI
-	_gui.init("GUI");
-	_gui.loadScheme("TaharezLook.scheme");
-	_gui.setFont("DejaVuSans-10");
-	CEGUI::PushButton* testButton = static_cast<CEGUI::PushButton*>(_gui.createWidget("TaharezLook/Button", glm::vec4(0.5f, 0.5f, 0.1f, 0.05f), glm::vec4(0.0f), "Test Button"));
-	testButton->setText("Hello World!");
+	_player.init(_world.get(), glm::vec2(0.0f, 15.0f), glm::vec2(1.0f, 1.8f), glm::vec2(2.0f,2.0f));
 }
 
 void GameScreen::onExit()
@@ -98,7 +78,7 @@ void GameScreen::onExit()
 void GameScreen::update()
 {
 	_camera.update();
-	input();
+	input(_game->inputManager);
 
 	_player.update(_game->inputManager);
 
@@ -123,8 +103,8 @@ void GameScreen::render()
 	_spriteBatch.begin();
 
 	//Draw boxes
-	for (auto& box : _boxes) {
-		box.render(_spriteBatch);
+	for (auto& bullet : _bullets) {
+		bullet.render(_spriteBatch);
 	}
 
 	_player.render(_spriteBatch); //< Draw the player
@@ -136,37 +116,23 @@ void GameScreen::render()
 	//Unuse color shader
 	_shader.stop();
 
-	//render test lights
-	Light2D playerLight;
-	playerLight.color = Color(255, 255, 255, 100);
-	playerLight.position = _player.getPosition();
-	playerLight.size = 15.0f;
-
-	//Load light shader
-	_lightShader.start();
-	_lightShader.getUniformLocations();
-	_lightShader.loadPMatrix(_camera.getCameraMatrix());
-
 	//Begin spritebatch
 	_spriteBatch.begin();
-
-	playerLight.render(_spriteBatch);	//< Render light
 
 	//Render spritebatch
 	_spriteBatch.end();
 	_spriteBatch.renderBatch();
-
-	//Unuse light shader
-	_lightShader.stop();
-
-	//Draw GUI
-	_gui.render();
 }
 
-void GameScreen::input()
+void GameScreen::input(InputManager inputManager)
 {
 	SDL_Event evnt;
 	while (SDL_PollEvent(&evnt)) {
 		_game->onSDLEvent(evnt);
+	}
+
+	//Bullet test
+	if (inputManager.isKeyDown(SDLK_LSHIFT)) {
+		_bullets.emplace_back(_world.get(), glm::vec2(_player.getPosition().x + 1.0f, _player.getPosition().y), glm::vec2(1.0f, 0.0f), 20.0f);
 	}
 }

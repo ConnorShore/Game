@@ -120,7 +120,7 @@ void IMainGame::run()
 		if (_isRunning) {
 			render();
 
-			_timer.CalculateFPS(false);
+			_timer.CalculateFPS(true);
 			_timer.LimitFPS(60.0f);
 			_window.swapWindow();
 		}

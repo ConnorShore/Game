@@ -1,8 +1,7 @@
 #pragma once
 
 #include "StaticShader.h"
-#include "LightShader.h"
-#include "Box.h"
+#include "Bullet.h"
 #include "Player.h"
 
 #include <ApocalypseEngine\IGameScreen.h>
@@ -11,7 +10,6 @@
 #include <ApocalypseEngine\Window.h>
 #include <ApocalypseEngine\Camera2D.h>
 #include <ApocalypseEngine\GLTexture.h>
-#include <ApocalypseEngine\GUI.h>
 
 #include <Box2D\Box2D.h>
 #include <vector>
@@ -37,15 +35,13 @@ private:
 
 	Window* _window;
 	StaticShader _shader;
-	LightShader _lightShader;
 	SpriteBatch _spriteBatch;
 	Camera2D _camera;
 	GLTexture _boxTex;
-	GUI _gui;
 
 	Player _player;
 
-	std::vector<Box> _boxes;
+	std::vector<Bullet> _bullets;
 
-	void input();
+	void input(InputManager inputManager);
 };

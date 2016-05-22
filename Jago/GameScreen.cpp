@@ -40,19 +40,19 @@ void GameScreen::onEntry()
 	b2Vec2 gravity(0.0f, -25.0f);
 	_world = std::make_unique<b2World>(gravity);
 
-	StaticBox ground;
-	ground.init(_world.get(), glm::vec2(0.0f, -20.0f), glm::vec2(50.0f, 10.0f));
-	_staticBoxes.push_back(ground);
+	//StaticBox ground;
+	//ground.init(_world.get(), glm::vec2(0.0f, -20.0f), glm::vec2(50.0f, 10.0f));
+	//_staticBoxes.push_back(ground);
 
-	//Make the ground
-	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(0.0f, -20.0f);
-	b2Body* groundBody = _world->CreateBody(&groundBodyDef);
+	////Make the ground
+	//b2BodyDef groundBodyDef;
+	//groundBodyDef.position.Set(0.0f, -20.0f);
+	//b2Body* groundBody = _world->CreateBody(&groundBodyDef);
 
-	//Make ground fixture (hit box);
-	b2PolygonShape groundBox;
-	groundBox.SetAsBox(50.0f, 10.0f);
-	groundBody->CreateFixture(&groundBox, 0.0f);	//< Density is 0 because it is static
+	////Make ground fixture (hit box);
+	//b2PolygonShape groundBox;
+	//groundBox.SetAsBox(50.0f, 10.0f);
+	//groundBody->CreateFixture(&groundBox, 0.0f);	//< Density is 0 because it is static
 
 	//Create boxes
 	std::mt19937 randomGen;
@@ -62,10 +62,20 @@ void GameScreen::onEntry()
 
 	_dirt = ResourceManager::getTexture("Textures/dirt.png");	//< Init box texturex
 
+	//TODO: REWRITE THE BLOCK CLASS SO IT USES MINIMAL AMOUNT OF MEMORY (TEXTURE, POSITION, BRIGHTNESS)
+
 	for (int i = 0; i < 25; i++) {
 		for (int j = 0; j < 25; j++) {
 			Block block;
 			block.init(_world.get(), glm::vec2(i - 10, j - 10), _dirt, 3.0f, false);
+			_blocks.push_back(block);
+		}
+	}
+
+	for (int i = 0; i < 25; i++) {
+		for (int j = 0; j < 25; j++) {
+			Block block;
+			block.init(_world.get(), glm::vec2(i - 10, j - 35), _dirt, 3.0f, true);
 			_blocks.push_back(block);
 		}
 	}
@@ -86,6 +96,10 @@ void GameScreen::onEntry()
 	Torch torch;
 	torch.init(glm::vec2(1.0f, -10.0f));
 	_lights.push_back(torch);
+
+	Torch torch1;
+	torch1.init(glm::vec2(-5.0f, -10.0f));
+	_lights.push_back(torch1);
 }
 
 void GameScreen::onExit()
@@ -109,6 +123,7 @@ void GameScreen::update()
 		b.update();
 	}
 
+	//Optimise lights
 	for (auto& l : _lights) {
 		l.update(_player, _blocks);
 	}
