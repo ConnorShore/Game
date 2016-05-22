@@ -8,15 +8,9 @@ EntityFactory::EntityFactory()
 
 Entity* EntityFactory::createEntity(const std::string& name)
 {
-	Entity* entity = new Entity(name);	//Move to writing this to file (serialization)
-	
-	addEntity(entity);
-	return entity;
-}
-
-void EntityFactory::addEntity(Entity* entity)
-{
-	_entities.push_back(entity);
+	//Entity* entity; <-- Serialize this to create and write to file
+	//When components are added, append them to parent Entity file
+	//Right before end of this function, deserialize to create Entity
 }
 
 Entity* EntityFactory::removeEntity(const std::string& id)

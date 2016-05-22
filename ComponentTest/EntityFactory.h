@@ -9,7 +9,6 @@ public:
 	~EntityFactory();
 
 	Entity* createEntity(const std::string& name);
-	void addEntity(Entity* entity);
 	Entity* removeEntity(const std::string& id);
 
 	Entity* getEntity(const std::string& id);

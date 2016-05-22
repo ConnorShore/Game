@@ -2,19 +2,16 @@
 
 #include "Entity.h"
 
-class Entity;
+#include <string>
 
-enum ComponentType
-{
-	CMP_POSITION, CMP_VELOCITY, CMP_DRAW, CMP_INPUT
-};
+class Entity;
 
 struct Component
 {
 	virtual void update() = 0;
-
-	//Add serialization
+	virtual void serialize(/*Reader*/) = 0;
+	virtual void deserialize(/*Reader*/) = 0;
 
 	Entity* parent;
-	ComponentType type;
+	std::string name;
 };

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Component.h"
-#include "World.h"
+#include "ComponentFactory.h"
 
 #include <vector>
 
@@ -12,11 +12,14 @@ public:
 	~Entity();
 
 	void addComponent(Component* comp);
-	Component* removeComponent(ComponentType comp);
+	Component* removeComponent(const std::string& name);
 
 	//void sendMessage(Message* msg); <-- Implement
 
 	std::string const getID() { return _id; }
+
+	void serialize(FILE file);
+	void deserialize(FILE file);
 
 private:
 	std::string _id;

@@ -10,12 +10,12 @@ public:
 	World();
 	~World();
 
-	void addSystem(ComponentSystem* system);
+	void addSystem(ComponentFactory* system);
 
 	void update();
 
 private:
 	EntityFactory* entityFactory;
-	std::vector<ComponentSystem*> _systems;
+	std::vector<ComponentFactory*> _systems;
 };
 

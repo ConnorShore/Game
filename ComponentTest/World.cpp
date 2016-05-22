@@ -10,7 +10,7 @@ World::~World()
 {
 }
 
-void World::addSystem(ComponentSystem * system)
+void World::addSystem(ComponentFactory * system)
 {
 
 }
