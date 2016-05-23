@@ -5,10 +5,13 @@
 
 #include <vector>
 
+class Component;
+
 class Entity
 {
 public:
 	Entity(std::string id);
+	Entity();
 	~Entity();
 
 	void addComponent(Component* comp);
@@ -18,10 +21,11 @@ public:
 
 	std::string const getID() { return _id; }
 
-	void serialize(FILE file);
-	void deserialize(FILE file);
+	void serialize(const std::string& fileName);
+	void deserialize(const std::string& fileNamee);
 
 private:
+	ComponentFactory* _componentFactory;
 	std::string _id;
 	std::vector<Component*> _components;
 };

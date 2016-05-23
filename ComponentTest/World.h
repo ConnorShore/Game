@@ -2,7 +2,7 @@
 
 #include "Entity.h"
 #include "EntityFactory.h"
-#include "ComponentSystem.h"
+#include "ComponentFactory.h"
 
 class World
 {

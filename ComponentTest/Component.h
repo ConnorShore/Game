@@ -9,9 +9,9 @@ class Entity;
 struct Component
 {
 	virtual void update() = 0;
-	virtual void serialize(/*Reader*/) = 0;
-	virtual void deserialize(/*Reader*/) = 0;
+	virtual void serialize() = 0;
+	virtual void deserialize() = 0;
 
-	Entity* parent;
-	std::string name;
+	Entity* parent = nullptr;
+	std::string name = "Default";
 };

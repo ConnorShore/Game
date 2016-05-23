@@ -8,9 +8,11 @@ EntityFactory::EntityFactory()
 
 Entity* EntityFactory::createEntity(const std::string& name)
 {
-	//Entity* entity; <-- Serialize this to create and write to file
+	//Entity* entity;
+	//entity->serialize(name)<-- Serialize this to create and write to file
 	//When components are added, append them to parent Entity file
 	//Right before end of this function, deserialize to create Entity
+	return nullptr;
 }
 
 Entity* EntityFactory::removeEntity(const std::string& id)
@@ -21,14 +23,14 @@ Entity* EntityFactory::removeEntity(const std::string& id)
 		if (id == _entities[i]->getID()) {
 			temp = _entities[i];
 			_entities.erase(_entities.begin() + i);
-			return;
+			break;
 		}
 	}
 
 	return temp;
 }
 
-Entity * EntityFactory::getEntity(const std::string & id)
+Entity* EntityFactory::getEntity(const std::string & id)
 {
 	int size = _entities.size();
 	for (int i = 0; i < size; i++) {
